@@ -22,7 +22,7 @@ const Header = () => {
           <div className=" m-0 p-0">
             <div className="prompt">
               {" "}
-              <strong>Nowy, lepszy facebook!</strong>
+              <strong>Generator testów</strong>
             </div>
             <div className="d-flex justify-content-start m-0 p-0">
               {account && account.roles && account.roles.includes("USER") && (

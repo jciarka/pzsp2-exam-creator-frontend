@@ -4,6 +4,7 @@ import CreateAccountForm from "./components/account/CreateAccountForm";
 import "./App.css";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+import Home from "./components/Home.js";
 
 function App() {
   return (
@@ -18,6 +19,15 @@ function App() {
         render={(props) => (
           <>
             <CreateAccountForm />
+          </>
+        )}
+      />
+
+      <Route
+        exact path="/"
+        render={(props) => (
+          <>
+            <Home />
           </>
         )}
       />
