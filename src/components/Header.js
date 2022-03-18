@@ -4,6 +4,8 @@ import { bindActionCreators } from "redux";
 import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "../icons/exit.svg";
 import { actionCreators } from "../store/index";
+import HomeIcon from '@material-ui/icons/Home';
+
 
 const Header = () => {
   const account = useSelector((state) => state.account); // get redux store values
@@ -17,10 +19,28 @@ const Header = () => {
         className="navbar navbar-expand-lg navbar-light shadow shadow-sm border-bottom border-dark"
         style={{ border: "#8f8f8fb6" }}
       >
+        <Link to="/">
+          <button
+            className="btn btn-light rounded-circle btn-primary p-0"
+            style={{
+              display: "block",
+              width: "40px",
+              height: "40px",
+            }}
+          >
+            <HomeIcon></HomeIcon>
+          </button>
+        </Link>
         {/*<!-- Links -->*/}
         <div className="navbar-brand text-center m-0 p-0">
           <div className=" m-0 p-0">
-            <div className="prompt">
+            <div className="prompt" style = {
+              {
+                'marginLeft': '50px',
+                'marginTop': '10px',
+                'fontSize':'25px'
+              }
+            }>
               {" "}
               <strong>Generator testów</strong>
             </div>

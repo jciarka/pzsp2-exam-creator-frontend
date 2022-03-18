@@ -5,6 +5,7 @@ import "./App.css";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/Home.js";
+import Class from "./components/Class";
 
 function App() {
   return (
@@ -28,6 +29,14 @@ function App() {
         render={(props) => (
           <>
             <Home />
+          </>
+        )}
+      />
+      <Route
+        path="/classes"
+        render={(props) => (
+          <>
+            <Class />
           </>
         )}
       />

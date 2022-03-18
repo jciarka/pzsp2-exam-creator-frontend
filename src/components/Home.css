@@ -1,7 +1,7 @@
 .classes-tiles {
     display: grid;
     margin-top: 50px;
-    font-size: 25px;
+    
     place-items: center;
     width:100%;
 }
@@ -15,5 +15,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: 35px;
     /* background-color: #3CBAAB; */
 }

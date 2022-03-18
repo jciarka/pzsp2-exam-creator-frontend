@@ -1,6 +1,7 @@
 import React from "react";
 import "./Home.css";
 import { Button } from "@mui/material";
+import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Home = () => {
 
@@ -48,12 +49,14 @@ const Home = () => {
         classes.map((classObject) => 
         // <Button variant="contained">Outlined</Button>
         <Button 
+          component={Link} to={'/classes/' + classObject.name}
           variant="contained" 
           className="class-tile" 
           key={classObject.id} 
           onClick={() => {
             handleOnClick(classObject.name)
           }} 
+          link = '\abc'
           style={
             {
               'backgroundColor': "#" + '91BBE7',
@@ -63,10 +66,14 @@ const Home = () => {
               'borderRadius': '24px',
               'display': 'flex',
               'justifyContent': 'center',
-              'alignItems': 'center'
+              'alignItems': 'center',
+              'fontSize': '25px'
             }}>
+              
               <strong>{classObject.name}</strong>
+              
         </Button>
+
         )
       }
     </div>
