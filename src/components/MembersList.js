@@ -10,6 +10,7 @@ import FolderIcon from '@mui/icons-material/Folder';
 import { Component } from 'react';
 import { ListItemButton } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import Member from './Member';
 
 class MembersList extends Component{
   render(){
@@ -18,15 +19,9 @@ class MembersList extends Component{
     
     return (
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {members.map((member) => 
-        <ListItemButton>
-          <ListItemAvatar>
-            <Avatar>
-              <AccountCircleIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={member.name} secondary={member.role}/>
-        </ListItemButton>)
+        {
+        members.map((member) => 
+        <Member member={member}></Member>)
         }
         
       </List>

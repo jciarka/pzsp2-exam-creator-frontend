@@ -9,8 +9,14 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Component } from 'react';
 import { ListItemButton } from '@mui/material';
+import TaskPool from './TaskPool';
 
 class TaskPoolList extends Component{
+
+  onMouseEnterHandler(){
+    console.log("ENTER")
+  }
+
   render(){
 
     var task_pools = this.props.pools;
@@ -18,15 +24,9 @@ class TaskPoolList extends Component{
     
     return (
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
-        {task_pools.map((task_pool) => 
-        <ListItemButton>
-          <ListItemAvatar>
-            <Avatar>
-              <FolderIcon />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
-        </ListItemButton>)
+        {
+          task_pools.map((task_pool) => 
+          <TaskPool taskPool={task_pool}/>)
         }
         
       </List>
