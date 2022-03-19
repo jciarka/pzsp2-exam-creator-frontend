@@ -50,7 +50,7 @@ class TaskPoolOnList extends Component {
                 <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton component={Link} to={url+'/pool'}>
+                    <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
                         <EditIcon/>
                     </IconButton>
                     <IconButton>

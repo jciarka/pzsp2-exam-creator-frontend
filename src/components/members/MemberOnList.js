@@ -51,7 +51,7 @@ export default class MemberOnList extends Component {
                 <ListItemText primary={member.name} secondary={member.role}/>
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton component={Link} to={url+'/member'}>
+                    <IconButton component={Link} to={url+'/member/'+member.id}>
                         <InfoIcon />
                     </IconButton>
                     <IconButton>

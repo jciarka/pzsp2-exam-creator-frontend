@@ -75,7 +75,9 @@ export default function TaskPool() {
         </AccordionSummary>
         <AccordionDetails>
           <Stack divider={<Divider orientation="horizontal" flexItem />}>
-            <Typography>
+            <Typography style ={{
+              'marginBottom':'10px'
+            }}>
               {task.text}
             </Typography>
             <Stack direction="row">

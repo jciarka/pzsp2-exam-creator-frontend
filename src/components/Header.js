@@ -5,9 +5,12 @@ import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "../icons/exit.svg";
 import { actionCreators } from "../store/index";
 import HomeIcon from '@material-ui/icons/Home';
+import { render } from "@testing-library/react";
 
 
-const Header = () => {
+
+var Header = () => {
+
   const account = useSelector((state) => state.account); // get redux store values
   const dispach = useDispatch();
   const { logout } = bindActionCreators(actionCreators, dispach);
@@ -276,6 +279,7 @@ const Header = () => {
       </nav>
     </>
   );
+                      
 };
 
 export default Header;

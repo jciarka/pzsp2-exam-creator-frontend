@@ -5,9 +5,6 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Home = () => {
 
-  function handleOnClick (className) {
-    console.log(className)
-  }
 
   var classes = [
   {
@@ -53,9 +50,6 @@ const Home = () => {
           variant="contained" 
           className="class-tile" 
           key={classObject.id} 
-          onClick={() => {
-            handleOnClick(classObject.name)
-          }} 
           style={
             {
               'backgroundColor': "#" + '91BBE7',
