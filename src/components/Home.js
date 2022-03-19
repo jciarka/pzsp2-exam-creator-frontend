@@ -42,7 +42,7 @@ const Home = () => {
   return (
     <div className="classes-tiles" style={
       {
-        'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 4) +', 1fr)'
+        'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 5) +', 1fr)'
       }
     }>
       {
