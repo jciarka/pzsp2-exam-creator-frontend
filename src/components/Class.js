@@ -2,6 +2,13 @@ import React from 'react'
 import "./Class.css"
 import TaskPoolList from './TaskPoolList'
 import MembersList from './MembersList'
+import { Typography } from '@mui/material'
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import { Stack } from '@mui/material';
+import Divider from '@mui/material/Divider';
+
 
 export default function Class() {
     var task_pools = [
@@ -42,8 +49,25 @@ export default function Class() {
 
     return (
         <div className="class-div">
-            <TaskPoolList pools={task_pools}></TaskPoolList>
-            <MembersList members={members}></MembersList>
+          <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />}>
+            <Stack spacing={2}>
+              <Typography variant="h5" component="h5">
+                Task pools
+              </Typography>
+              <TaskPoolList pools={task_pools}></TaskPoolList>
+            </Stack>
+        
+              {/* members */}
+            <Stack spacing={2}>
+              <Typography variant="h5" component="h5">
+                Members
+              </Typography>
+              <MembersList members={members}></MembersList>
+            </Stack>
+            
+          </Stack>
+            {/* task pools */}
+                
         </div>
     )
 }
