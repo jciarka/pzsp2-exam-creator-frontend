@@ -67,7 +67,7 @@ export default function Class() {
               </Typography>
               <MembersList members={members}></MembersList>
               {/* <AddIcon></AddIcon> */}
-              <Button icon={<AddIcon />}>
+              <Button>
                 <AddIcon /> Add new participant
               </Button>
             </Stack>

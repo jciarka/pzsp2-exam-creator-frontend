@@ -4,6 +4,12 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { Button, IconButton } from '@mui/material';
+import AddIcon from '@mui/icons-material/Add';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { Stack } from '@mui/material';
+import EditIcon from '@mui/icons-material/Edit';
+import { Divider } from '@mui/material';
 
 function createShortText(text){
   const letters = 30
@@ -49,12 +55,9 @@ export default function TaskPool() {
     setExpanded(isExpanded ? panel : false);
   };
 
-
-
   return (
     
-
-    <div>
+    <Stack spacing={2}>
       {
       tasks.map((task) => 
       <Accordion expanded={expanded === task.id} onChange={handleChange(task.id)} style={{
@@ -71,14 +74,27 @@ export default function TaskPool() {
           <Typography sx={{ color: 'text.secondary' }}>{createShortText(task.text)}</Typography>
         </AccordionSummary>
         <AccordionDetails>
-          <Typography>
-            {task.text}
-          </Typography>
+          <Stack divider={<Divider orientation="horizontal" flexItem />}>
+            <Typography>
+              {task.text}
+            </Typography>
+            <Stack direction="row">
+              <IconButton>
+                  <EditIcon />
+              </IconButton>
+              <IconButton>
+                  <DeleteIcon />
+              </IconButton>
+            </Stack>
+          </Stack>
         </AccordionDetails>
       </Accordion>
 
       )}
+      <Button>
+        <AddIcon /> Add new task
+      </Button>
       
-    </div>
+    </Stack>
   );
 }
