@@ -42,7 +42,7 @@ const Header = () => {
               }
             }>
               {" "}
-              <strong>Generator testów</strong>
+              <strong>Tests Generator</strong>
             </div>
             <div className="d-flex justify-content-start m-0 p-0">
               {account && account.roles && account.roles.includes("USER") && (

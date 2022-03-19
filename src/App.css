@@ -5,6 +5,7 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  
 }
 
 code {
@@ -234,4 +235,11 @@ a:hover {
 
 .fullscreen .image-gallery-slide img {
   max-height: 100vh;
+}
+
+.app-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
 }

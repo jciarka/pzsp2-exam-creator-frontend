@@ -9,19 +9,24 @@ import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Component } from 'react';
 import { ListItemButton } from '@mui/material';
-import AccountCircleIcon from '@mui/icons-material/AccountCircle';
-import Member from './Member';
+import TaskPool from './TaskPoolOnList';
 
-class MembersList extends Component{
+class TaskPoolList extends Component{
+
+  onMouseEnterHandler(){
+    console.log("ENTER")
+  }
+
   render(){
 
-    var members = this.props.members;
+    var task_pools = this.props.pools;
+    console.log(task_pools)
     
     return (
       <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
         {
-        members.map((member) => 
-        <Member member={member}></Member>)
+          task_pools.map((task_pool) => 
+          <TaskPool taskPool={task_pool}/>)
         }
         
       </List>
@@ -30,4 +35,4 @@ class MembersList extends Component{
   }
 }
 
-export default MembersList
+export default TaskPoolList

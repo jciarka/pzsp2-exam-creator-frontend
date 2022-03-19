@@ -13,8 +13,10 @@ import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
+import InfoIcon from '@mui/icons-material/Info';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-export default class Member extends Component {
+export default class MemberOnList extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -33,6 +35,7 @@ export default class Member extends Component {
     }
 
     render() {
+        const url = window.location.pathname
         var member = this.props.member
         return (
             <ListItemButton style = {{
@@ -48,8 +51,8 @@ export default class Member extends Component {
                 <ListItemText primary={member.name} secondary={member.role}/>
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton>
-                        <EditIcon />
+                    <IconButton component={Link} to={url+'/member'}>
+                        <InfoIcon />
                     </IconButton>
                     <IconButton>
                         <DeleteIcon />

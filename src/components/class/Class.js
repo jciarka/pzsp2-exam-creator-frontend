@@ -1,13 +1,16 @@
 import React from 'react'
 import "./Class.css"
-import TaskPoolList from './TaskPoolList'
-import MembersList from './MembersList'
+import TaskPoolList from '../tasks/TaskPoolList'
+import MembersList from '../members/MembersList'
 import { Typography } from '@mui/material'
 import CssBaseline from '@mui/material/CssBaseline';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import { Stack } from '@mui/material';
 import Divider from '@mui/material/Divider';
+import AddIcon from '@mui/icons-material/Add';
+import { Chip } from '@mui/material'
+import { Button } from '@mui/material'
 
 
 export default function Class() {
@@ -44,7 +47,7 @@ export default function Class() {
         id: 3,
         name: "Nate Williams",
         role: "Assistant"
-      },
+      }
     ]
 
     return (
@@ -60,9 +63,13 @@ export default function Class() {
               {/* members */}
             <Stack spacing={2}>
               <Typography variant="h5" component="h5">
-                Members
+                Participants
               </Typography>
               <MembersList members={members}></MembersList>
+              {/* <AddIcon></AddIcon> */}
+              <Button icon={<AddIcon />}>
+                <AddIcon /> Add new participant
+              </Button>
             </Stack>
             
           </Stack>

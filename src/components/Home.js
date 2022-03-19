@@ -56,7 +56,6 @@ const Home = () => {
           onClick={() => {
             handleOnClick(classObject.name)
           }} 
-          link = '\abc'
           style={
             {
               'backgroundColor': "#" + '91BBE7',

@@ -12,18 +12,19 @@ import { IconButton, ListItemButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-class TaskPool extends Component {
+class TaskPoolOnList extends Component {
     constructor(props){
         super(props)
         this.state = {
             hover: false,
         };
-        this.onMouseEnterHandler = this.onMouseEnterHandler.bind(this)
+        this.onMouseOverHandler = this.onMouseOverHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
     }
     
-    onMouseEnterHandler(){
+    onMouseOverHandler(){
        this.setState({hover: true})
     }
 
@@ -32,12 +33,14 @@ class TaskPool extends Component {
     }
     
     render(){
+        const url = window.location.pathname
+        console.log(url)
         var task_pool = this.props.taskPool
         return (
             <ListItemButton style = {{
                 'width':'350px'
             }}
-            onMouseEnter={this.onMouseEnterHandler}
+            onMouseOver={this.onMouseOverHandler}
             onMouseLeave={this.onMouseLeaveHandler}>
                 <ListItemAvatar>
                     <Avatar>
@@ -47,8 +50,8 @@ class TaskPool extends Component {
                 <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton>
-                        <EditIcon />
+                    <IconButton component={Link} to={url+'/pool'}>
+                        <EditIcon/>
                     </IconButton>
                     <IconButton>
                         <DeleteIcon />
@@ -62,4 +65,4 @@ class TaskPool extends Component {
 }
 
 
-export default TaskPool
+export default TaskPoolOnList

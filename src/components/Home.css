@@ -1,7 +1,5 @@
 .classes-tiles {
     display: grid;
-    margin-top: 50px;
-    
     place-items: center;
     width:100%;
 }
