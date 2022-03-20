@@ -11,6 +11,7 @@ import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
 import { Chip } from '@mui/material'
 import { Button } from '@mui/material'
+import TestsList from '../tests/TestsList'
 
 
 export default function Class() {
@@ -50,18 +51,54 @@ export default function Class() {
       }
     ]
 
+    var tests = [
+      {
+        id: 1,
+        text: "Kolokwium nr 1, sem 22L"
+      },
+      {
+        id: 2,
+        text: "Kolokwium nr 2, sem 22L"
+      },
+      {
+        id: 3,
+        text: "Egzamin, sem 22L"
+      },
+    ]
+
     return (
         <div className="class-div">
-          <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />}>
-            <Stack spacing={2}>
+          <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
+            <Stack spacing={2} style={{
+              'align-items': 'center',
+            }}>
               <Typography variant="h5" component="h5">
                 Task pools
               </Typography>
               <TaskPoolList pools={task_pools}></TaskPoolList>
+              <Button>
+                <AddIcon /> Add new task pool
+              </Button>
             </Stack>
-        
-              {/* members */}
-            <Stack spacing={2}>
+
+              {/* tests */}
+            <Stack spacing={2} style={{
+              'align-items': 'center',
+            }}>
+              <Typography variant="h5" component="h5">
+                Tests
+              </Typography>
+              <TestsList tests={tests}></TestsList>
+              {/* <AddIcon></AddIcon> */}
+              <Button>
+                <AddIcon /> Add new participant
+              </Button>
+            </Stack>
+
+             {/* members */}
+             <Stack spacing={2} style={{
+              'align-items': 'center',
+            }}>
               <Typography variant="h5" component="h5">
                 Participants
               </Typography>

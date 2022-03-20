@@ -13,9 +13,6 @@ import TaskPool from './TaskPoolOnList';
 
 class TaskPoolList extends Component{
 
-  onMouseEnterHandler(){
-    console.log("ENTER")
-  }
 
   render(){
 

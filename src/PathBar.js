@@ -31,7 +31,7 @@ const PathBar = () => {
     var path_components = parsePath(url)
     console.log("PC", path_components)
     return (
-      <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />}>
+      <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />} >
         {
           path_components.map((c) => 
           (c[1] == url) || (path_components.length == 1)? 
@@ -39,7 +39,7 @@ const PathBar = () => {
               {c[0]}
             </div>
           : <Link underline="hover" color="inherit" to={c[1]} onClick={() => {console.log(c[1])}}>
-              {c[0]}
+              <strong>{c[0]}</strong>
             </Link>
 
           )
