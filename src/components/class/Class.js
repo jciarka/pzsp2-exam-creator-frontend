@@ -12,6 +12,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Chip } from '@mui/material'
 import { Button } from '@mui/material'
 import TestsList from '../tests/TestsList'
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
 export default function Class() {
@@ -66,6 +67,8 @@ export default function Class() {
       },
     ]
 
+    const url = window.location.pathname
+
     return (
         <div className="class-div">
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
@@ -76,7 +79,7 @@ export default function Class() {
                 Task pools
               </Typography>
               <TaskPoolList pools={task_pools}></TaskPoolList>
-              <Button>
+              <Button component={Link} to={url+'/newTaskPool'}>
                 <AddIcon /> Add new task pool
               </Button>
             </Stack>
@@ -90,8 +93,8 @@ export default function Class() {
               </Typography>
               <TestsList tests={tests}></TestsList>
               {/* <AddIcon></AddIcon> */}
-              <Button>
-                <AddIcon /> Add new participant
+              <Button component={Link} to={url+'/newTest'}>
+                <AddIcon /> Add new test
               </Button>
             </Stack>
 
@@ -104,7 +107,7 @@ export default function Class() {
               </Typography>
               <MembersList members={members}></MembersList>
               {/* <AddIcon></AddIcon> */}
-              <Button>
+              <Button component={Link} to={url+'/newMember'}>
                 <AddIcon /> Add new participant
               </Button>
             </Stack>

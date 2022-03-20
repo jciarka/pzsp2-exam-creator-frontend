@@ -12,6 +12,10 @@ import Member from "./components/members/Member";
 import PathBar from "./PathBar";
 import { Stack } from "@mui/material";
 import { useState } from "react";
+import Test from "./components/tests/Test";
+import AddNewTaskPool from "./components/tasks/AddNewTaskPool";
+import AddNewTest from "./components/tests/AddNewTest";
+import AddNewMember from "./components/members/AddNewMember";
 
 function App() {
   var [url, setUrl] = useState(window.location.pathname)
@@ -55,6 +59,7 @@ function App() {
                 </>
               )}
             />
+
             <Route
               exact path="/classes/:class_name/pool/:pool_id"
               render={(props) => (
@@ -63,6 +68,7 @@ function App() {
                 </>
               )}
             />
+
             <Route
               exact path="/classes/:class_name/member/:member_id"
               render={(props) => (
@@ -71,6 +77,43 @@ function App() {
                 </>
               )}
             />
+
+            <Route
+              exact path="/classes/:class_name/test/:test_id"
+              render={(props) => (
+                <>
+                  <Test />
+                </>
+              )}
+            />
+
+            <Route
+              exact path="/classes/:class_name/newTest"
+              render={(props) => (
+                <>
+                  <AddNewTest />
+                </>
+              )}
+            />
+
+            <Route
+              exact path="/classes/:class_name/newTaskPool"
+              render={(props) => (
+                <>
+                  <AddNewTaskPool />
+                </>
+              )}
+            />
+
+            <Route
+              exact path="/classes/:class_name/newMember"
+              render={(props) => (
+                <>
+                  <AddNewMember />
+                </>
+              )}
+            />
+
           </div>
 
 

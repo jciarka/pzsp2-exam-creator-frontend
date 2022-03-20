@@ -15,6 +15,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import FeedIcon from '@mui/icons-material/Feed';
 
 export default class TestOnList extends Component {
     constructor(props){
@@ -45,13 +46,13 @@ export default class TestOnList extends Component {
             onMouseLeave={this.onMouseLeaveHandler}>
                 <ListItemAvatar>
                 <Avatar>
-                    <AccountCircleIcon />
+                    <FeedIcon />
                 </Avatar>
                 </ListItemAvatar>
                 <ListItemText primary={test.text} secondary="Created May 19, 2021"/>
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton component={Link} to={url+'/member/'+test.id}>
+                    <IconButton component={Link} to={url+'/test/'+test.id}>
                         <InfoIcon />
                     </IconButton>
                     <IconButton>

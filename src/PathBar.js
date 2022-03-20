@@ -16,7 +16,7 @@ function parsePath(url){
     if (c != ''){
       currentPath += ("/" + c)
     }
-    if (c != "classes" && c != "pool" && c != "member" && c != "") {
+    if (c != "classes" && c != "pool" && c != "member" && c != "" && c != "test") {
       result.push([c, currentPath])
     }
   }
