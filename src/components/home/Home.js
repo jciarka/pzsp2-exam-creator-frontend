@@ -5,7 +5,6 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 
 const Home = () => {
 
-
   var classes = [
   {
     id: 1,
@@ -33,17 +32,22 @@ const Home = () => {
   },
   {
     id: 7,
-    name: "+"
+    name: "+",
+    isAddButton: true
   } ]
 
   return (
     <div className="classes-tiles" style={
       {
-        'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 5) +', 1fr)'
+        'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 5) +', 1fr)',
+        // 'display': 'flex',
+        'justify-content': 'center',
+        'align-items':'center'
       }
     }>
       {
         classes.map((classObject) => 
+        !classObject.isAddButton ?
         // <Button variant="contained">Outlined</Button>
         <Button 
           component={Link} to={'/classes/' + classObject.name}
@@ -66,7 +70,28 @@ const Home = () => {
               <strong>{classObject.name}</strong>
               
         </Button>
-
+        :
+        <Button 
+          component={Link} to={'addNewClass'}
+          variant="contained" 
+          className="class-tile" 
+          key={classObject.id} 
+          style={
+            {
+              'backgroundColor': "#" + '91BBE7',
+              'margin': '50px',
+              'minHeight': '150px',
+              'minWidth': '150px',
+              'borderRadius': '150px',
+              'display': 'flex',
+              'justifyContent': 'center',
+              'alignItems': 'center',
+              'fontSize': '25px'
+            }}>
+              
+              <strong>{classObject.name}</strong>
+              
+        </Button>
         )
       }
     </div>

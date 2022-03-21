@@ -4,7 +4,7 @@ import CreateAccountForm from "./components/account/CreateAccountForm";
 import "./App.css";
 import Header from "./components/Header";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import Home from "./components/Home.js";
+import Home from "./components/home/Home.js";
 import Class from "./components/class/Class";
 import TaskPool from "./components/tasks/TaskPool";
 import NotFound from "./components/NotFound";
@@ -16,6 +16,7 @@ import Test from "./components/tests/Test";
 import AddNewTaskPool from "./components/tasks/AddNewTaskPool";
 import AddNewTest from "./components/tests/AddNewTest";
 import AddNewMember from "./components/members/AddNewMember";
+import AddNewClass from "./components/home/AddNewClass";
 
 function App() {
   var [url, setUrl] = useState(window.location.pathname)
@@ -114,10 +115,16 @@ function App() {
               )}
             />
 
+            <Route
+              exact path="/addNewClass"
+              render={(props) => (
+                <>
+                  <AddNewClass />
+                </>
+              )}
+            />
+
           </div>
-
-
-
         </Stack>
       </div>
     </Router>
