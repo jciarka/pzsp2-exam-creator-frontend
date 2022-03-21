@@ -61,9 +61,6 @@ const Home = () => {
               'minHeight': '200px',
               'minWidth': '200px',
               'borderRadius': '24px',
-              'display': 'flex',
-              'justifyContent': 'center',
-              'alignItems': 'center',
               'fontSize': '25px'
             }}>
               
@@ -83,9 +80,6 @@ const Home = () => {
               'minHeight': '150px',
               'minWidth': '150px',
               'borderRadius': '150px',
-              'display': 'flex',
-              'justifyContent': 'center',
-              'alignItems': 'center',
               'fontSize': '25px'
             }}>
               

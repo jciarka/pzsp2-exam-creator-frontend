@@ -4,12 +4,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, IconButton } from '@mui/material';
+import { Avatar, Button, IconButton } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
+import AssignmentIcon from '@mui/icons-material/Assignment';
 
 function createShortText(text){
   const letters = 30
@@ -67,7 +68,12 @@ export default function TaskPool() {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
           id="panel1bh-header"
+          
         >
+          <AssignmentIcon style={{
+            'marginRight':'10px'
+          }}/>
+          
           <Typography sx={{ width: '33%', flexShrink: 0 }}>
             Task nr {task.id}
           </Typography>
@@ -75,6 +81,7 @@ export default function TaskPool() {
         </AccordionSummary>
         <AccordionDetails>
           <Stack divider={<Divider orientation="horizontal" flexItem />}>
+            
             <Typography style ={{
               'marginBottom':'10px'
             }}>
