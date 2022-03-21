@@ -8,7 +8,7 @@ import ImageIcon from '@mui/icons-material/Image';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Component } from 'react';
-import { IconButton, ListItemButton } from '@mui/material';
+import { IconButton, ListItemButton, Tooltip } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
@@ -50,12 +50,16 @@ class TaskPoolOnList extends Component {
                 <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
-                        <EditIcon/>
-                    </IconButton>
-                    <IconButton>
-                        <DeleteIcon />
-                    </IconButton>
+                    <Tooltip title="Edit" placement="top">
+                        <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
+                            <EditIcon/>
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" placement="top">
+                        <IconButton>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Stack>
                 : null}
 

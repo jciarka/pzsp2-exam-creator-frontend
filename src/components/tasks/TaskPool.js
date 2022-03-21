@@ -4,7 +4,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Avatar, Button, IconButton } from '@mui/material';
+import { Avatar, Button, IconButton, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
@@ -88,12 +88,16 @@ export default function TaskPool() {
               {task.text}
             </Typography>
             <Stack direction="row">
-              <IconButton>
-                  <EditIcon />
-              </IconButton>
-              <IconButton>
-                  <DeleteIcon />
-              </IconButton>
+              <Tooltip title="Edit" placement="bottom">
+                <IconButton>
+                    <EditIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete" placement="bottom">
+                <IconButton>
+                    <DeleteIcon />
+                </IconButton>
+              </Tooltip>
             </Stack>
           </Stack>
         </AccordionDetails>

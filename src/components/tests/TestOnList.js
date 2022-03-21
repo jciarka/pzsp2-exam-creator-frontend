@@ -7,7 +7,7 @@ import Avatar from '@mui/material/Avatar';
 import ImageIcon from '@mui/icons-material/Image';
 import BeachAccessIcon from '@mui/icons-material/BeachAccess';
 import FolderIcon from '@mui/icons-material/Folder';
-import { ListItemButton } from '@mui/material';
+import { ListItemButton, Tooltip } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { IconButton } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
@@ -52,12 +52,16 @@ export default class TestOnList extends Component {
                 <ListItemText primary={test.text} secondary="Created May 19, 2021"/>
                 {this.state.hover ?
                 <Stack direction="row">
-                    <IconButton component={Link} to={url+'/test/'+test.id}>
-                        <InfoIcon />
-                    </IconButton>
-                    <IconButton>
-                        <DeleteIcon />
-                    </IconButton>
+                    <Tooltip title="Info" placement="top">
+                        <IconButton component={Link} to={url+'/test/'+test.id}>
+                            <InfoIcon />
+                        </IconButton>
+                    </Tooltip>
+                    <Tooltip title="Delete" placement="top">
+                        <IconButton>
+                            <DeleteIcon />
+                        </IconButton>
+                    </Tooltip>
                 </Stack>
                 : null}
             </ListItemButton>
