@@ -70,6 +70,7 @@ export default function Class() {
     const url = window.location.pathname
 
     return (
+      
         <div className="class-div">
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
             <Stack spacing={2} style={{
