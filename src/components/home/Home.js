@@ -85,7 +85,6 @@ const Home = () => {
         variant="contained"  
         component={Link} to={'/addNewClass'}
         sx={{
-        
         backgroundColor: 'primary.dark',
         '&:hover': {
           backgroundColor: 'primary.main',
@@ -100,12 +99,12 @@ const Home = () => {
         borderRadius: '24px',
         
       }}>
-          <AddBox style={{
+        <AddBox style={{
           width: '70px',
           height: '70px'
         }}>
 
-          </AddBox>
+        </AddBox>
       </Button>
     </Stack>
   );
