@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import { Avatar, Box, Button } from "@mui/material";
+import { Avatar, Box, Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
 import { AddBox } from "@material-ui/icons";
@@ -37,12 +37,9 @@ const Home = () => {
   return (
     <Stack
       direction="row"
-      
-      // style={{
-      //   'display': 'grid',
-      //   'place-items': 'center',
-      //   'width':'100%'
-      // }}
+      divider={<Divider orientation="vertical" flexItem style={{
+        marginRight:'50px'
+      }}/>}
     >
       
       <div className="classes-tiles" style={
@@ -51,7 +48,7 @@ const Home = () => {
           // 'display': 'flex',
           'justify-content': 'center',
           'align-items':'center',
-          'marginRight':'50px'
+          'marginRight':'30px'
         }
       }>
         {
