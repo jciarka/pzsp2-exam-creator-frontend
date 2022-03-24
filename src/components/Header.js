@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import LogoutIcon from "../icons/exit.svg";
 import { actionCreators } from "../store/index";
 import HomeIcon from '@material-ui/icons/Home';
-import { render } from "@testing-library/react";
 
 
 

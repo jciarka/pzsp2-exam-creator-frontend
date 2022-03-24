@@ -7,11 +7,9 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./components/home/Home.js";
 import Class from "./components/class/Class";
 import TaskPool from "./components/tasks/TaskPool";
-import NotFound from "./components/NotFound";
 import Member from "./components/members/Member";
 import PathBar from "./PathBar";
 import { Stack } from "@mui/material";
-import { useState } from "react";
 import Test from "./components/tests/Test";
 import AddNewTaskPool from "./components/tasks/AddNewTaskPool";
 import AddNewTest from "./components/tests/AddNewTest";
@@ -19,7 +17,6 @@ import AddNewMember from "./components/members/AddNewMember";
 import AddNewClass from "./components/home/AddNewClass";
 
 function App() {
-  var [url, setUrl] = useState(window.location.pathname)
   return (
     <Router>
       <Header />

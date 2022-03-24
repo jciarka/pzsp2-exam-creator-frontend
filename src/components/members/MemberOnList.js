@@ -1,21 +1,14 @@
 import React, { Component } from 'react'
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
 import ListItemText from '@mui/material/ListItemText';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import Avatar from '@mui/material/Avatar';
-import ImageIcon from '@mui/icons-material/Image';
-import BeachAccessIcon from '@mui/icons-material/BeachAccess';
-import FolderIcon from '@mui/icons-material/Folder';
-import { Badge, ListItemButton, Tooltip } from '@mui/material';
+import { ListItemButton, Tooltip } from '@mui/material';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import { Info } from '@material-ui/icons';
 
 export default class MemberOnList extends Component {
     constructor(props){

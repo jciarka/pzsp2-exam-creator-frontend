@@ -3,13 +3,9 @@ import "./Class.css"
 import TaskPoolList from '../tasks/TaskPoolList'
 import MembersList from '../members/MembersList'
 import { Typography } from '@mui/material'
-import CssBaseline from '@mui/material/CssBaseline';
-import Box from '@mui/material/Box';
-import Container from '@mui/material/Container';
 import { Stack } from '@mui/material';
 import Divider from '@mui/material/Divider';
 import AddIcon from '@mui/icons-material/Add';
-import { Chip } from '@mui/material'
 import { Button } from '@mui/material'
 import TestsList from '../tests/TestsList'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'

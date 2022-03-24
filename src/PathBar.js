@@ -1,7 +1,6 @@
-import { Breadcrumbs, Typography } from '@mui/material'
-import React, { Component } from 'react'
+import { Breadcrumbs } from '@mui/material'
+import React from 'react'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
-import { useState } from 'react'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useLocation } from 'react-router-dom'
 
@@ -13,10 +12,10 @@ function parsePath(url){
   ]
   var currentPath = ""
   for (var c of pathComponents) {
-    if (c != ''){
+    if (c !== ''){
       currentPath += ("/" + c)
     }
-    if (c != "classes" && c != "pool" && c != "member" && c != "" && c != "test") {
+    if (c !== "classes" && c !== "pool" && c !== "member" && c !== "" && c !== "test") {
       result.push([c, currentPath])
     }
   }
@@ -34,7 +33,7 @@ const PathBar = () => {
       <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />} >
         {
           path_components.map((c) => 
-          (c[1] == url) || (path_components.length == 1)? 
+          (c[1] === url) || (path_components.length === 1)? 
             <div>
               {c[0]}
             </div>

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.css";
-import { Avatar, Box, Button, Divider } from "@mui/material";
+import { Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
 import { AddBox } from "@material-ui/icons";
@@ -61,7 +61,7 @@ const Home = () => {
             key={classObject.id} 
             style={
               {
-                'backgroundColor': "#" + '91BBE7',
+                'backgroundColor': "#91BBE7",
                 'margin': '20px',
                 'minHeight': '200px',
                 'minWidth': '200px',
