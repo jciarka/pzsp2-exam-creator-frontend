@@ -13,22 +13,23 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 export default function Class() {
     var task_pools = [
-    {
-      id: 1,
-      name: "kolokwium 1"
-    },
-    {
-      id: 2,
-      name: "kolokwium 2"
-    },
-    {
-      id: 3,
-      name: "egzamin"
-    },
-    {
-      id: 4,
-      name: "egzamin poprawkowy"
-    } ]
+      {
+        id: 1,
+        name: "kolokwium 1"
+      },
+      {
+        id: 2,
+        name: "kolokwium 2"
+      },
+      {
+        id: 3,
+        name: "egzamin"
+      },
+      {
+        id: 4,
+        name: "egzamin poprawkowy"
+      } 
+    ]
 
     var members = [
       {

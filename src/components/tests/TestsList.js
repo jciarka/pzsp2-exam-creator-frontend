@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import List from '@mui/material/List';
 import TaskPool from './TestOnList';
+import { Box } from '@mui/system';
 
 export default class TestsList extends Component {
     
@@ -8,13 +9,26 @@ export default class TestsList extends Component {
         var tests_list = this.props.tests;
     
         return (
-            <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+            <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {
-                tests_list.map((test) => 
-                <TaskPool test={test}/>)
+                    tests_list.length > 0 
+                    ? 
+                    <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
+                        {
+                        tests_list.map((test) => 
+                        <TaskPool test={test}/>)
+                        }
+                    </List>
+                    : 
+                    <Box style={{
+                        textAlign:"center"
+                    }}>
+                        No tests found. Create your first one using tasks from existing task pools!
+                    </Box>
                 }
-            
-            </List>
+
+            </Box>
+
         )
     }
 }
