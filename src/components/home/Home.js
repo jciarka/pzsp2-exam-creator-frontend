@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
-import { Button, Divider } from "@mui/material";
+import { Button, Divider, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
@@ -93,27 +93,26 @@ export default class Home extends Component  {
             {
               this.state.classes.map((classObject) => 
               
-              <Button 
-                component={Link} to={'/classes/' + classObject.name}
-                variant="contained" 
-                className="class-tile" 
-                key={classObject.id} 
-                style={
-                  {
-                    'backgroundColor': "#91BBE7",
-                    'margin': '20px',
-                    'minHeight': '200px',
-                    'minWidth': '200px',
-                    'borderRadius': '24px',
-                    'fontSize': '25px'
+              <Tooltip title={classObject.description} placement="top">
+                <Button 
+                  component={Link} to={'/classes/' + classObject.name}
+                  variant="contained" 
+                  className="class-tile" 
+                  key={classObject.id} 
+                  style={
+                    {
+                      'backgroundColor': "#91BBE7",
+                      'margin': '28px',
+                      'minHeight': '200px',
+                      'minWidth': '200px',
+                      'borderRadius': '24px',
+                      'fontSize': '25px'
+                    }
                   }
-                }
-                >
-                    
-                  <strong>{classObject.name}</strong>
-                    
-              </Button>
-              
+                  >
+                    <strong>{classObject.name}</strong>
+                </Button>
+              </Tooltip>
               )
             }
           </div>
