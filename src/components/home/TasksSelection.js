@@ -91,8 +91,6 @@ export default function TasksSelection(props) {
                     })}
                     </List>
                 
-                
-                
                 </Box>
             
                 {/* icon > */}

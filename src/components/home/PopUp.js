@@ -14,10 +14,6 @@ export default function PopUp(props) {
         onClose(false);
     };
 
-    const handleListItemClick = (value) => {
-        onClose(value);
-    };
-
 
     return (
         <Dialog onClose={handleClose} open={open} style={{
