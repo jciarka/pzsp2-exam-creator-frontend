@@ -3,35 +3,37 @@ import "./Home.css";
 import { Button, Divider } from "@mui/material";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { AddBox } from "@material-ui/icons";
 
 const Home = () => {
 
   var classes = [
-  {
-    id: 1,
-    name: "PZSP1"
-  },
-  {
-    id: 2,
-    name: "PZSP2"
-  },
-  {
-    id: 3,
-    name: "BSS"
-  },
-  {
-    id: 4,
-    name: "POP"
-  },
-  {
-    id: 5,
-    name: "WSI"
-  },
-  {
-    id: 6,
-    name: "MNUM"
-  }]
+    {
+      id: 1,
+      name: "PZSP1"
+    },
+    {
+      id: 2,
+      name: "PZSP2"
+    },
+    {
+      id: 3,
+      name: "BSS"
+    },
+    {
+      id: 4,
+      name: "POP"
+    },
+    {
+      id: 5,
+      name: "WSI"
+    },
+    {
+      id: 6,
+      name: "MNUM"
+    }
+  ]
 
 
   return (
@@ -41,43 +43,65 @@ const Home = () => {
         marginRight:'50px'
       }}/>}
     >
-      
-      <div className="classes-tiles" style={
-        {
-          'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 4) +', 1fr)',
-          // 'display': 'flex',
-          'justify-content': 'center',
-          'align-items':'center',
-          'marginRight':'30px'
-        }
-      }>
-        {
-          classes.map((classObject) => 
-          
-          <Button 
-            component={Link} to={'/classes/' + classObject.name}
-            variant="contained" 
-            className="class-tile" 
-            key={classObject.id} 
-            style={
-              {
-                'backgroundColor': "#91BBE7",
-                'margin': '20px',
-                'minHeight': '200px',
-                'minWidth': '200px',
-                'borderRadius': '24px',
-                'fontSize': '25px'
+      {
+        classes.length > 0 
+        ?
+        <div className="classes-tiles" style={
+          {
+            'gridTemplateColumns': 'repeat(' + Math.min(classes.length, 4) +', 1fr)',
+            // 'display': 'flex',
+            'justify-content': 'center',
+            'align-items':'center',
+            'marginRight':'30px'
+          }
+        }>
+          {
+            classes.map((classObject) => 
+            
+            <Button 
+              component={Link} to={'/classes/' + classObject.name}
+              variant="contained" 
+              className="class-tile" 
+              key={classObject.id} 
+              style={
+                {
+                  'backgroundColor': "#91BBE7",
+                  'margin': '20px',
+                  'minHeight': '200px',
+                  'minWidth': '200px',
+                  'borderRadius': '24px',
+                  'fontSize': '25px'
+                }
               }
-            }
-            >
-                
-              <strong>{classObject.name}</strong>
-                
-          </Button>
-          
-          )
-        }
-      </div>
+              >
+                  
+                <strong>{classObject.name}</strong>
+                  
+            </Button>
+            
+            )
+          }
+        </div>
+        :
+        <Box style={
+          {
+            'display':'flex',
+            'justify-content': 'center',
+            'align-items':'center',
+            'margin': '20px',
+            'height': '200px',
+            'width': '200px',
+            'borderRadius': '24px',
+            'fontSize': '25px',
+            'textAlign':'center'
+          }
+        }>
+          Start with creating your first subject!
+        </Box>
+      }
+
+
+
       <Button  
         variant="contained"  
         component={Link} to={'/addNewClass'}
@@ -92,7 +116,8 @@ const Home = () => {
         alignItems:'center',
         marginTop: '20px',
         marginBottom: '20px',
-        minWidth: '180px',
+        minWidth: '200px',
+        minHeight: '200px',
         borderRadius: '24px',
         
       }}>
