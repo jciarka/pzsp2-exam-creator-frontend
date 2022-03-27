@@ -75,7 +75,7 @@ export default class Home extends Component  {
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem style={{
-          marginRight:'50px'
+          marginRight:'58px'
         }}/>}
       >
         {
@@ -127,7 +127,8 @@ export default class Home extends Component  {
               'width': '200px',
               'borderRadius': '24px',
               'fontSize': '25px',
-              'textAlign':'center'
+              'textAlign':'center',
+              'marginRight':'58px'
             }
           }>
             Start with creating your first subject!
