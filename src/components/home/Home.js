@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./Home.css";
-import { Button, Divider, Tooltip } from "@mui/material";
+import { Button, CircularProgress, Divider, Tooltip } from "@mui/material";
 import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
@@ -13,7 +13,8 @@ export default class Home extends Component  {
   constructor(props) {
     super(props)
     this.state = {
-      classes: []
+      classes: [],
+      fetched: false
     };
 
     // url statyczny, do zmiany
@@ -23,7 +24,8 @@ export default class Home extends Component  {
         console.log(data)
         this.state.classes = data
         this.setState({
-          classes: data
+          classes: data,
+          fetched: true
         })
       });
   }
@@ -78,62 +80,79 @@ export default class Home extends Component  {
           marginRight:'58px'
         }}/>}
       >
-        {
-          this.state.classes.length > 0 
-          ?
-          <div className="classes-tiles" style={
-            {
-              'gridTemplateColumns': 'repeat(' + Math.min(this.state.classes.length, 4) +', 1fr)',
-              // 'display': 'flex',
-              'justify-content': 'center',
-              'align-items':'center',
-              'marginRight':'30px'
-            }
-          }>
-            {
-              this.state.classes.map((classObject) => 
-              
-              <Tooltip title={classObject.description} placement="top">
-                <Button 
-                  component={Link} to={'/classes/' + classObject.name}
-                  variant="contained" 
-                  className="class-tile" 
-                  key={classObject.id} 
-                  style={
-                    {
-                      'backgroundColor': "#91BBE7",
-                      'margin': '28px',
-                      'minHeight': '200px',
-                      'minWidth': '200px',
-                      'borderRadius': '24px',
-                      'fontSize': '25px'
+        { this.state.fetched 
+        ?
+        <Box>
+          {
+            this.state.classes.length > 0 
+            ?
+            <div className="classes-tiles" style={
+              {
+                'gridTemplateColumns': 'repeat(' + Math.min(this.state.classes.length, 4) +', 1fr)',
+                // 'display': 'flex',
+                'justify-content': 'center',
+                'align-items':'center',
+                'marginRight':'30px'
+              }
+            }>
+              {
+                this.state.classes.map((classObject) => 
+                
+                <Tooltip title={classObject.description} placement="top">
+                  <Button 
+                    component={Link} to={'/classes/' + classObject.name}
+                    variant="contained" 
+                    className="class-tile" 
+                    key={classObject.id} 
+                    style={
+                      {
+                        'backgroundColor': "#91BBE7",
+                        'margin': '28px',
+                        'minHeight': '200px',
+                        'minWidth': '200px',
+                        'borderRadius': '24px',
+                        'fontSize': '25px'
+                      }
                     }
-                  }
-                  >
-                    <strong>{classObject.name}</strong>
-                </Button>
-              </Tooltip>
-              )
-            }
-          </div>
-          :
-          <Box style={
-            {
-              'display':'flex',
-              'justify-content': 'center',
-              'align-items':'center',
-              'margin': '20px',
-              'height': '200px',
-              'width': '200px',
-              'borderRadius': '24px',
-              'fontSize': '25px',
-              'textAlign':'center',
-              'marginRight':'58px'
-            }
-          }>
-            Start with creating your first subject!
-          </Box>
+                    >
+                      <strong>{classObject.name}</strong>
+                  </Button>
+                </Tooltip>
+                )
+              }
+            </div>
+            :
+            <Box style={
+              {
+                'display':'flex',
+                'justify-content': 'center',
+                'align-items':'center',
+                'margin': '20px',
+                'height': '200px',
+                'width': '200px',
+                'borderRadius': '24px',
+                'fontSize': '25px',
+                'textAlign':'center',
+                'marginRight':'58px'
+              }
+            }>
+              Start with creating your first subject!
+            </Box>
+          }
+        </Box>
+        :
+        <Box style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems:'center',
+          minWidth: '200px',
+          minHeight: '200px',
+        }}>
+          <CircularProgress />
+
+        </Box>
         }
+
   
   
   
@@ -149,8 +168,8 @@ export default class Home extends Component  {
           display:'flex',
           justifyContent:'center',
           alignItems:'center',
-          marginTop: '20px',
-          marginBottom: '20px',
+          marginTop: '28px',
+          marginBottom: '28px',
           minWidth: '200px',
           minHeight: '200px',
           borderRadius: '24px',
