@@ -6,11 +6,11 @@ import { ListItemButton, Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
-import InfoIcon from '@mui/icons-material/Info';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import FeedIcon from '@mui/icons-material/Feed';
 import PopUpDelete from '../PopUpDelete';
 import { Box } from '@mui/system';
+import EditIcon from '@mui/icons-material/Edit';
 
 export default class TestOnList extends Component {
     constructor(props){
@@ -54,9 +54,9 @@ export default class TestOnList extends Component {
                     <ListItemText primary={test.text} secondary="Created May 19, 2021"/>
                     {this.state.hover ?
                     <Stack direction="row">
-                        <Tooltip title="Info" placement="top">
+                        <Tooltip title="Edit" placement="top">
                             <IconButton component={Link} to={url+'/test/'+test.id}>
-                                <InfoIcon />
+                                <EditIcon />
                             </IconButton>
                         </Tooltip>
                         <Tooltip title="Delete" placement="top">
