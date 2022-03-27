@@ -12,7 +12,6 @@ export default function TaskPoolCheckboxList(props) {
     console.log("TaskPoolCheckboxList")
 
     function getActiveClassIndex() {
-        console.log("GACI2", classesSelected.indexOf(true))
         return classesSelected.indexOf(true)
     }
     
@@ -86,7 +85,7 @@ export default function TaskPoolCheckboxList(props) {
                             <ListItemIcon>
                                 <Checkbox
                                 edge="start"
-                                checked={checked.indexOf(taskPool) !== -1 || taskPoolsSelected[class_id][task_pool_id] }
+                                checked={taskPoolsSelected[class_id][task_pool_id]}
                                 tabIndex={-1}
                                 disableRipple
                                 inputProps={{ 'aria-labelledby': labelId }}

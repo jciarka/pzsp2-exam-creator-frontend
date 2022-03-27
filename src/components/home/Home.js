@@ -56,18 +56,6 @@ export default class Home extends Component  {
   //   name: "MNUM"
   // }]
 
-  // componentDidMount(){
-  //   // url statyczny, do zmiany
-  //   fetch('/api/subjects/4')
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       console.log(data)
-  //       this.state.classes = data
-  //       this.setState({
-  //         classes: data
-  //       })
-  //     });
-  // }
   
 
 
