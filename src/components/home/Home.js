@@ -65,7 +65,8 @@ export default class Home extends Component  {
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" flexItem style={{
-          marginRight:'58px'
+          marginRight:'50px',
+          marginLeft:'20px'
         }}/>}
       >
         { this.state.fetched 
@@ -98,7 +99,7 @@ export default class Home extends Component  {
                         'margin': '28px',
                         'minHeight': '200px',
                         'minWidth': '200px',
-                        'borderRadius': '24px',
+                        // 'borderRadius': '24px',
                         'fontSize': '25px'
                       }
                     }
