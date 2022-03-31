@@ -4,7 +4,7 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Button, IconButton, Tooltip } from '@mui/material';
+import { Box, Button, Chip, FormControl, IconButton, InputLabel, MenuItem, Select, TextareaAutosize, TextField, Tooltip } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
@@ -63,8 +63,14 @@ export default function Test() {
     }
   ]
 
-
+  var [addingNewTask, setAddingNewTask] = React.useState(false);
   const [expanded, setExpanded] = React.useState(false);
+
+  const [type, setType] = React.useState('');
+
+  const handleChangeSelect = (event) => {
+    setType(event.target.value);
+  };
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
@@ -126,9 +132,89 @@ export default function Test() {
         </AccordionDetails>
       </Accordion>
 
-      )}
+      )
+      }
+
+      {/* new task */}
+      {
+        addingNewTask 
+        ?
+        <Box style={{
+          width: '800px',
+        }}>
+          <Divider style={{
+            marginBottom:'15px'
+          }}>
+          </Divider>
+          <Stack>
+            <Box>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">Task type</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={type}
+                  label="Task type"
+                  onChange={handleChangeSelect}
+                >
+                  <MenuItem value={"PLAINTEXT"}>Plain text</MenuItem>
+                  <MenuItem value={"HTML"}>Html</MenuItem>
+                  <MenuItem value={"MARKDOWN"}>Markdown</MenuItem>
+                  <MenuItem value={"CHOOSE_PLAINTEXT"}>Plain text with multiple answers</MenuItem>
+                  <MenuItem value={"CHOOSE_MARKDOWN"}>Markdown with multiple asnwers</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <TextareaAutosize
+              aria-label="minimum height"
+              minRows={5}
+              placeholder="Write content of your task here"
+              fullWidth
+              style={{
+                marginTop:'15px',
+                marginBottom:'15px'
+              }}
+            />
+            {/* buttons submit and cancel */}
+            <Stack direction="row" spacing={5} style={{
+              'width': '800px',
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}>
+              <Button style={{
+                width: '800px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }} 
+              onClick={() => {
+
+              }}>
+                SUBMIT
+              </Button>
+              <Button style={{
+                width: '800px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+              onClick={() => {
+                setAddingNewTask(false)
+              }}>
+                CANCEL
+              </Button>
+            </Stack>
+          </Stack>
+        </Box>
+        :
+        null
+      }
+
       <Button style={{
         marginTop: '30px'
+      }} onClick={() => {
+        setAddingNewTask(true);
       }}>
         <AddIcon /> Add new task
       </Button>
