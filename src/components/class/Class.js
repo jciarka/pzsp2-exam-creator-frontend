@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import "./Class.css"
 import TaskPoolList from '../tasks/TaskPoolList'
 import MembersList from '../members/MembersList'
@@ -11,63 +11,133 @@ import TestsList from '../tests/TestsList'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 
 
-export default function Class() {
-    var task_pools = [
-      {
-        id: 1,
-        name: "kolokwium 1"
-      },
-      {
-        id: 2,
-        name: "kolokwium 2"
-      },
-      {
-        id: 3,
-        name: "egzamin"
-      },
-      {
-        id: 4,
-        name: "egzamin poprawkowy"
-      } 
-    ]
+export default class Class extends Component {
 
-    var members = [
-      {
-        id: 1,
-        name: "John Smith",
-        role: "Owner"
-      },
-      {
-        id: 2,
-        name: "Aaron Gordon",
-        role: "Assistant"
-      },
-      {
-        id: 3,
-        name: "Nate Williams",
-        role: "Assistant"
-      }
-    ]
+  constructor(props) {
+    super(props)
+    this.state = {
+      tests: [],
+      testsFetched: false
+    };
 
-    var tests = [
-      {
-        id: 1,
-        text: "Kolokwium nr 1, sem 22L"
-      },
-      {
-        id: 2,
-        text: "Kolokwium nr 2, sem 22L"
-      },
-      {
-        id: 3,
-        text: "Egzamin, sem 22L"
-      },
-    ]
+    // url statyczny, do zmiany - endpoint3
+    fetch('/api/tests/1')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data)
+        this.state.classes = data
+        this.setState({
+          tests: data,
+          testsFetched: true
+        })
+      });
+  }
 
+  
+  
+  
+  
+  render (){
     const url = window.location.pathname
+      var task_pools = [
+        {
+          id: 1,
+          name: "kolokwium 1"
+        },
+        {
+          id: 2,
+          name: "kolokwium 2"
+        },
+        {
+          id: 3,
+          name: "egzamin"
+        },
+        {
+          id: 4,
+          name: "egzamin poprawkowy"
+        } 
+      ]
+    
+      var members = [
+        {
+          id: 1,
+          name: "John Smith",
+          role: "Owner"
+        },
+        {
+          id: 2,
+          name: "Aaron Gordon",
+          role: "Assistant"
+        },
+        {
+          id: 3,
+          name: "Nate Williams",
+          role: "Assistant"
+        }
+      ]
+    
+      var tests = [
+        {
+          id: 1,
+          text: "Kolokwium nr 1, sem 22L"
+        },
+        {
+          id: 2,
+          text: "Kolokwium nr 2, sem 22L"
+        },
+        {
+          id: 3,
+          text: "Egzamin, sem 22L"
+        },
+      ]
 
-    return (
+      // example tests
+      // [
+      //   {
+      //     "id": 52,
+      //     "title": "Test 1",
+      //     "description": "Kol. 1",
+      //     "subject": {
+      //       "id": 1,
+      //       "name": "PZSP",
+      //       "description": "12345",
+      //       "subjectUsers": [],
+      //       "tests": [
+      //         {
+      //           "id": 52,
+      //           "title": "Test 1",
+      //           "description": "Kol. 1",
+      //           "exercises": [
+      //             {
+      //               "title": "Zadanie z geometrii",
+      //               "type": "PLAIN_TEXT",
+      //               "versions": [
+      //                 {
+      //                   "text": "Oto jest pytanie",
+      //                   "answers": null
+      //                 }
+      //               ]
+      //             }
+      //           ]
+      //         }
+      //       ]
+      //     },
+      //     "exercises": [
+      //       {
+      //         "title": "Zadanie z geometrii",
+      //         "type": "PLAIN_TEXT",
+      //         "versions": [
+      //           {
+      //             "text": "Oto jest pytanie",
+      //             "answers": null
+      //           }
+      //         ]
+      //       }
+      //     ]
+      //   }
+      // ]
       
+      return (
         <div className="class-div">
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
             <Stack spacing={2} style={{
@@ -114,5 +184,6 @@ export default function Class() {
             {/* task pools */}
                 
         </div>
-    )
+      )
+  }
 }

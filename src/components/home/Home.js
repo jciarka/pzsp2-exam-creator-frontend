@@ -17,7 +17,7 @@ export default class Home extends Component  {
       fetched: false
     };
 
-    // url statyczny, do zmiany
+    // url statyczny, do zmiany - endpoint 1
     fetch('/api/subjects/4')
       .then(response => response.json())
       .then(data => {
