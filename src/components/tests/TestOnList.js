@@ -11,6 +11,7 @@ import FeedIcon from '@mui/icons-material/Feed';
 import PopUpDelete from '../PopUpDelete';
 import { Box } from '@mui/system';
 import EditIcon from '@mui/icons-material/Edit';
+import TestsList from './TestsList';
 
 export default class TestOnList extends Component {
     constructor(props){
@@ -51,7 +52,7 @@ export default class TestOnList extends Component {
                         <FeedIcon />
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={test.text} secondary="Created May 19, 2021"/>
+                    <ListItemText primary={test.description} secondary={"Number of exercises:" + test.exercises.length}/>
                     {this.state.hover ?
                     <Stack direction="row">
                         <Tooltip title="Edit" placement="top">

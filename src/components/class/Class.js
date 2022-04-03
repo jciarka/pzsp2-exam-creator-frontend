@@ -17,20 +17,32 @@ export default class Class extends Component {
     super(props)
     this.state = {
       tests: [],
-      testsFetched: false
+      testsFetched: false,
+      participants: [],
+      participantsFetched: false
     };
 
     // url statyczny, do zmiany - endpoint3
     fetch('/api/tests/1')
       .then(response => response.json())
       .then(data => {
-        console.log(data)
-        this.state.classes = data
+        console.log("TESTS", data)
         this.setState({
           tests: data,
           testsFetched: true
         })
       });
+
+    // url statyczny, do zmiany - endpoint2
+    fetch('/api/participants/2')
+    .then(response => response.json())
+    .then(data => {
+      console.log("PARTICIPANTS", data)
+      this.setState({
+        participants: data,
+        participantsFetched: true
+      })
+    });
   }
 
   
@@ -140,7 +152,9 @@ export default class Class extends Component {
       return (
         <div className="class-div">
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
-            <Stack spacing={2} style={{
+
+            {/* task pools */}
+            {/* <Stack spacing={2} style={{
               'align-items': 'center',
             }}>
               <Typography variant="h5" component="h5">
@@ -150,16 +164,16 @@ export default class Class extends Component {
               <Button component={Link} to={url+'/newTaskPool'}>
                 <AddIcon /> Add new task pool
               </Button>
-            </Stack>
+            </Stack> */}
 
-              {/* tests */}
+            {/* tests */}
             <Stack spacing={2} style={{
               'align-items': 'center',
             }}>
               <Typography variant="h5" component="h5">
                 Tests
               </Typography>
-              <TestsList tests={tests}></TestsList>
+              <TestsList tests={this.state.tests}></TestsList>
               {/* <AddIcon></AddIcon> */}
               <Button component={Link} to={url+'/newTest'}>
                 <AddIcon /> Add new test
@@ -173,7 +187,7 @@ export default class Class extends Component {
               <Typography variant="h5" component="h5">
                 Participants
               </Typography>
-              <MembersList members={members}></MembersList>
+              <MembersList members={this.state.participants}></MembersList>
               {/* <AddIcon></AddIcon> */}
               <Button component={Link} to={url+'/newMember'}>
                 <AddIcon /> Add new participant
@@ -181,7 +195,7 @@ export default class Class extends Component {
             </Stack>
             
           </Stack>
-            {/* task pools */}
+            
                 
         </div>
       )

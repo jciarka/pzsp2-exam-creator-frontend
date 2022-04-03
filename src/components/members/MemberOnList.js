@@ -50,7 +50,7 @@ export default class MemberOnList extends Component {
                         <AccountCircleIcon />
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={member.name} secondary={member.role}/>
+                    <ListItemText primary={member.firstname + " " + member.lastname} secondary={member.email}/>
                     {this.state.hover ?
                     <Stack direction="row">
                         <Tooltip title="Info" placement="top">
