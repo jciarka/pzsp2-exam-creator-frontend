@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import List from '@mui/material/List';
 import TaskPool from './TestOnList';
 import { Box } from '@mui/system';
+import TestOnList from './TestOnList';
 
 export default class TestsList extends Component {
     
@@ -16,7 +17,7 @@ export default class TestsList extends Component {
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                         {
                         tests_list.map((test) => 
-                        <TaskPool test={test}/>)
+                        <TestOnList test={test}/>)
                         }
                     </List>
                     : 
