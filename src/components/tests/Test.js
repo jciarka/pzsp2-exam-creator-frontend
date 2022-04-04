@@ -231,6 +231,12 @@ export default class Test extends React.Component {
         }}>
           <AddIcon /> Add new task
         </Button>
+
+        <Button style={{
+          marginTop: '30px'
+        }}>
+          <AddIcon /> Submit test
+        </Button>
         
       </Stack>
     );
