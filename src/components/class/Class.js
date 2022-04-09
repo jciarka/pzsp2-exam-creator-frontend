@@ -154,7 +154,7 @@ export default class Class extends Component {
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
 
             {/* task pools */}
-            {/* <Stack spacing={2} style={{
+            <Stack spacing={2} style={{
               'align-items': 'center',
             }}>
               <Typography variant="h5" component="h5">
@@ -164,7 +164,7 @@ export default class Class extends Component {
               <Button component={Link} to={url+'/newTaskPool'}>
                 <AddIcon /> Add new task pool
               </Button>
-            </Stack> */}
+            </Stack>
 
             {/* tests */}
             <Stack spacing={2} style={{
