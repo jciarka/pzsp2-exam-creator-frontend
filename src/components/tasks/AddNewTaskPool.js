@@ -16,7 +16,14 @@ import SendIcon from '@mui/icons-material/Send';
         label="Task Pool Name"
         placeholder="Choose Task Pool Name"
       />
-      
+      <TextField
+          id="outlined-multiline-static"
+          label="Description"
+          multiline
+          rows={4}
+          defaultValue=""
+          placeholder="Enter Description"
+        />
     </Stack>
     <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
       <Button variant="outlined" startIcon={<DeleteIcon />} justifyItems="center">
