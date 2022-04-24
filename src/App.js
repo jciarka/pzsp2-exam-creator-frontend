@@ -71,7 +71,7 @@ function App() {
               exact path="/classes/:class_name/member/:member_id"
               render={(props) => (
                 <>
-                  <Member />
+                  <Member props={props}/>
                 </>
               )}
             />

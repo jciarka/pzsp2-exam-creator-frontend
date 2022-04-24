@@ -12,28 +12,32 @@ import Button from '@mui/material/Button';
 import { Container } from '@mui/material';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import EditIcon from '@mui/icons-material/Edit';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 
-const Member = () => {
+const Member = ({props}) => {
       const useStyles = makeStyles({
         table: {
           minWidth: 650,
         },
       });
-
-  const m_dt = { m_id: 1, m_name: 'Jan', surname:'Kowalski', email:'jankowalski@gmail.com', role: 'Admin' };
       
+
 
   function createData(name, info) {
     return { name, info};
   }
-  const rows = [
-        createData('id', m_dt.m_id),
-        createData('name', m_dt.m_name),
-        createData('surname', m_dt.surname),
-        createData('email', m_dt.email),
-        createData('role', m_dt.role),
-    ];
 
+
+  var mem = props.location.state.member
+  const rows = [
+        createData('Id', mem.id),
+        createData('Name', mem.firstname),
+        createData('Surname', mem.lastname),
+        createData('Email', mem.email),
+        createData('Institute', (mem.institute == null ? 'unspecified' : mem.institute)),
+        createData('Role', (mem.position == null ? 'read-only' : mem.position)),
+    ];
+    
     const classes = useStyles();
     
 

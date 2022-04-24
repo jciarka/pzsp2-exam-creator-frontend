@@ -54,9 +54,17 @@ export default class MemberOnList extends Component {
                     {this.state.hover ?
                     <Stack direction="row">
                         <Tooltip title="Info" placement="top">
-                            <IconButton component={Link} to={url+'/member/'+member.id}>
-                                <InfoIcon />
-                            </IconButton>
+                            <Link to={{
+                                pathname: url+'/member/'+member.id,
+                                state: {
+                                    member
+                                }
+                            }}
+                            >
+                                <IconButton>
+                                    <InfoIcon />
+                                </IconButton>
+                            </Link>
                         </Tooltip>
 
                         <Tooltip title="Delete" placement="top">
