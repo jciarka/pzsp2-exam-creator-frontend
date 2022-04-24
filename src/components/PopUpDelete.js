@@ -2,10 +2,16 @@ import { Button, Dialog, DialogTitle, Stack } from '@mui/material';
 import React, { Component } from 'react'
 
 export default function PopUpDelete(props) {
-    var { open, handleClose } = props
+    var { open, handleClose, id } = props
 
-    console.log("POPUPDELETE")
-
+    
+    function handleYes(){
+        console.log("handle yes", open, handleClose, id)
+        fetch("/api/pool/delete/" + id, { method: 'DELETE' })
+            .then(() => {
+                console.log("task pool deleted")
+            });
+    }
 
     return (
         <Dialog 
@@ -21,7 +27,10 @@ export default function PopUpDelete(props) {
               m: 'auto',
               width: 'fit-content',
             }}>
-                <Button variant="contained" onClick={() => {handleClose(false)}}  style={{
+                <Button variant="contained" onClick={() => {
+                    handleYes()
+                    handleClose(false)
+                }}  style={{
                     margin: '20px',
                     minWidth: '80px'
                 }}>Yes</Button>

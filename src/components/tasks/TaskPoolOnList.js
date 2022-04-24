@@ -22,7 +22,14 @@ class TaskPoolOnList extends Component {
         this.onMouseOverHandler = this.onMouseOverHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
         this.handleClose = this.handleClose.bind(this)
+        this.id = props.taskPool.id
+        this.description = props.taskPool.description
+        this.name = props.taskPool.name
+        this.subjectId = props.taskPool.subjectId
+        console.log("TaskPoolOnList PROPS", props)
+        console.log("TaskPoolOnList ID", this.id)
     }
+
     
     onMouseOverHandler(){
        this.setState({hover: true})
@@ -72,7 +79,7 @@ class TaskPoolOnList extends Component {
 
                 </ListItemButton>
 
-                <PopUpDelete open={this.state.open} handleClose={this.handleClose}  sx= {{
+                <PopUpDelete open={this.state.open} handleClose={this.handleClose} id={this.id} sx= {{
                     minWidth:'1500px'
                 }}>
                 </PopUpDelete>
