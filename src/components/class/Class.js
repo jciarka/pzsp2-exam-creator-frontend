@@ -19,7 +19,9 @@ export default class Class extends Component {
       tests: [],
       testsFetched: false,
       participants: [],
-      participantsFetched: false
+      participantsFetched: false,
+      taskPools: [],
+      taskPoolsFetched: false
     };
 
     // url statyczny, do zmiany - endpoint3
@@ -41,6 +43,17 @@ export default class Class extends Component {
       this.setState({
         participants: data,
         participantsFetched: true
+      })
+    });
+
+    // task pools - url statyczny, do zmiany
+    fetch('/api/pool/pools/1')
+    .then(response => response.json())
+    .then(data => {
+      console.log("POOLS", data)
+      this.setState({
+        taskPools: data,
+        taskPoolsFetched: true
       })
     });
   }
@@ -160,7 +173,7 @@ export default class Class extends Component {
               <Typography variant="h5" component="h5">
                 Task pools
               </Typography>
-              <TaskPoolList pools={task_pools}></TaskPoolList>
+              <TaskPoolList pools={this.state.taskPools}></TaskPoolList>
               <Button component={Link} to={url+'/newTaskPool'}>
                 <AddIcon /> Add new task pool
               </Button>
