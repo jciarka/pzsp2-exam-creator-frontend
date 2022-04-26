@@ -9,6 +9,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { Button } from '@mui/material'
 import TestsList from '../tests/TestsList'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import commons from '../../commons'
 
 
 export default class Class extends Component {
@@ -25,7 +26,7 @@ export default class Class extends Component {
     };
 
     // url statyczny, do zmiany - endpoint3
-    fetch('/api/tests/1')
+    fetch(commons.baseURL + '/api/tests/1')
       .then(response => response.json())
       .then(data => {
         console.log("TESTS", data)
@@ -36,7 +37,7 @@ export default class Class extends Component {
       });
 
     // url statyczny, do zmiany - endpoint2
-    fetch('/api/participants/2')
+    fetch(commons.baseURL + '/api/participants/2')
     .then(response => response.json())
     .then(data => {
       console.log("PARTICIPANTS", data)
@@ -47,7 +48,7 @@ export default class Class extends Component {
     });
 
     // task pools - url statyczny, do zmiany
-    fetch('/api/pool/pools/1')
+    fetch(commons.baseURL + '/api/pool/pools/1')
     .then(response => response.json())
     .then(data => {
       console.log("POOLS", data)

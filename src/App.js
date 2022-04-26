@@ -15,8 +15,13 @@ import AddNewTaskPool from "./components/tasks/AddNewTaskPool";
 import AddNewTest from "./components/tests/AddNewTest";
 import AddNewMember from "./components/members/AddNewMember";
 import AddNewClass from "./components/home/AddNewClass";
+import axios from "axios";
+import commons from './commons'
 
 function App() {
+
+  axios.defaults.baseURL = commons.baseURL
+
   return (
     <Router>
       <Header />

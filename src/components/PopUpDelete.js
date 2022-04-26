@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogTitle, Stack } from '@mui/material';
 import React, { Component } from 'react'
+import commons from '../commons'
 
 export default function PopUpDelete(props) {
     var { open, handleClose, id } = props
@@ -7,7 +8,7 @@ export default function PopUpDelete(props) {
     
     function handleYes(){
         console.log("handle yes", open, handleClose, id)
-        fetch("/api/pool/delete/" + id, { method: 'DELETE' })
+        fetch(commons.baseURL + "/api/pool/delete/" + id, { method: 'DELETE' })
             .then(() => {
                 console.log("task pool deleted")
             });
