@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
+import commons from '../../commons'
 
 const CreateAccountForm = () => {
   const history = useHistory();
@@ -52,7 +53,7 @@ const CreateAccountForm = () => {
   };
 
   const putNewUser = async () => {
-    await fetch("/api/auth/register", {
+    await fetch(commons.baseURL + "/api/auth/register", {
       method: "POST",
       headers: {
         "Content-type": "application/json",
