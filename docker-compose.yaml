@@ -1,0 +1,13 @@
+version: "3"
+services:
+  pzsp03-front:
+    image: jciarka/pzsp03-front:latest
+    ports:
+      - "3001:80"
+    environment:
+      - REACT_APP_BACKEND_URL=localhost 
+      - REACT_APP_BACKEND_PORT=8090
+  pzsp03-back:
+    image: jciarka/pzsp03:latest
+    ports:
+      - "8090:8090"
