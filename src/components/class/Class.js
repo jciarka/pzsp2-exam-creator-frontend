@@ -65,6 +65,7 @@ export default class Class extends Component {
   
   render (){
     const url = window.location.pathname
+    var participants = this.state.participants
       var task_pools = [
         {
           id: 1,
@@ -203,9 +204,18 @@ export default class Class extends Component {
               </Typography>
               <MembersList members={this.state.participants}></MembersList>
               {/* <AddIcon></AddIcon> */}
-              <Button component={Link} to={url+'/newMember'}>
-                <AddIcon /> Add new participant
-              </Button>
+              <Link to={{
+                  pathname: url+'/newMember',
+                  state: {
+                    participants
+                  }
+              }}
+              >
+                <Button>
+                  <AddIcon /> Add new participant
+                </Button>
+              </Link>
+              
             </Stack>
             
           </Stack>
