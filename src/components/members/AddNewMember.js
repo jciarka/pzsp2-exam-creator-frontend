@@ -7,20 +7,12 @@ import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 
-export default function AddNewMember() {
-  const samplePeople = [
-    { name: 'Jan', surname:'Kowalski', email:'jankowalski@gmail.com' },
-    { name: 'Maciej', surname:'Nowak', email:'mnowak@gmail.com' },
-    { name: 'Wiktor', surname:'Kowalski', email:'kkowalski@gmail.com' },
-    { name: 'Zygfryd', surname:'Piotrowski', email:'zzpp@gmail.com' },
-    { name: 'Andrzej', surname:'Nowacki', email:'anowacki@gmail.com' }, 
-
-  ];
-
+const AddNewMember = ({props}) => {
+  const samplePeople = props.location.state.participants
   const positions = [
-    { pos: 'Koordynator' },
-    { pos: 'Prowadzący RW'},
-    { pos: 'Prowadzący R'},
+    { pos: 'Coordinator' },
+    { pos: 'Assistant RW'},
+    { pos: 'Assistantw R'},
 
   ];
 
@@ -31,7 +23,7 @@ export default function AddNewMember() {
         single
         id="tags-standard"
         options={samplePeople}
-        getOptionLabel={(option) => option.name}
+        getOptionLabel={(option) => option.firstname}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -45,7 +37,7 @@ export default function AddNewMember() {
         single
         id="tags-standard"
         options={samplePeople}
-        getOptionLabel={(option) => option.surname}
+        getOptionLabel={(option) => option.lastname}
         renderInput={(params) => (
           <TextField
             {...params}
@@ -96,6 +88,7 @@ export default function AddNewMember() {
   );
 }
   
+export default AddNewMember;
 
 
   
