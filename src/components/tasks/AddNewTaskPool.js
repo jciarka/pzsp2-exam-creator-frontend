@@ -6,6 +6,7 @@ import { Container } from '@mui/material';
 import Button from '@mui/material/Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
+import commons from '../../commons'
 import { render } from '@testing-library/react';
 
   export default class addNewTaskPool extends Component {
@@ -35,7 +36,7 @@ import { render } from '@testing-library/react';
           })
         };
 
-        fetch("/api/pool/add", requestOptions)
+        fetch(commons.baseURL + "/api/pool/add", requestOptions)
           .then(response => response)
           .then(data => {
             var status = data.status

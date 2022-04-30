@@ -18,6 +18,7 @@ class TaskPoolOnList extends Component {
         this.state = {
             hover: false,
             open: false,
+            deleted: false
         };
         this.onMouseOverHandler = this.onMouseOverHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
@@ -30,6 +31,9 @@ class TaskPoolOnList extends Component {
         console.log("TaskPoolOnList ID", this.id)
     }
 
+    deleteTaskPool() {
+        this.setState({deleted: true})
+    }
     
     onMouseOverHandler(){
        this.setState({hover: true})
@@ -39,51 +43,68 @@ class TaskPoolOnList extends Component {
         this.setState({hover: false})
     }
 
-    handleClose() {
+    handleClose(isDeleted) {
         this.setState({open: false})
+        if (isDeleted){
+            this.setState({deleted: true})
+        }
     }
     
     render(){
         const url = window.location.pathname
         console.log(url)
         var task_pool = this.props.taskPool
+
         return (
             <Box>
-                <ListItemButton style = {{
-                    'width':'350px'
-                }}
-                onMouseOver={this.onMouseOverHandler}
-                onMouseLeave={this.onMouseLeaveHandler}>
-                    <ListItemAvatar>
-                        <Avatar>
-                            <FolderIcon />
-                        </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
-                    {this.state.hover ?
-                    <Stack direction="row">
-                        <Tooltip title="Edit" placement="top">
-                            <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
-                                <EditIcon/>
-                            </IconButton>
-                        </Tooltip>
-                        <Tooltip title="Delete" placement="top">
-                            <IconButton onClick={() => {
-                                this.setState({open: true})
-                            }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
-                    </Stack>
-                    : null}
+                {this.state.deleted
+                ?
+                null
+                :
+                <Box>
+                    <ListItemButton style = {{
+                        'width':'350px'
+                    }}
+                    onMouseOver={this.onMouseOverHandler}
+                    onMouseLeave={this.onMouseLeaveHandler}>
+                        <ListItemAvatar>
+                            <Avatar>
+                                <FolderIcon />
+                            </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
+                        {this.state.hover ?
+                        <Stack direction="row">
+                            <Tooltip title="Edit" placement="top">
+                                <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
+                                    <EditIcon/>
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Delete" placement="top">
+                                <IconButton onClick={() => {
+                                    this.setState({open: true})
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        </Stack>
+                        : null}
 
-                </ListItemButton>
+                    </ListItemButton>
 
-                <PopUpDelete open={this.state.open} handleClose={this.handleClose} id={this.id} sx= {{
-                    minWidth:'1500px'
-                }}>
-                </PopUpDelete>
+                    <PopUpDelete open={this.state.open} 
+                    handleClose={this.handleClose} 
+                    id={this.id} 
+                    deleteTaskPool = {this.deleteTaskPool}
+                    sx= {{
+                        minWidth:'1500px'
+                    }}>
+                    </PopUpDelete>
+                </Box>
+
+                }
             </Box>
+            
         )
     }
 }

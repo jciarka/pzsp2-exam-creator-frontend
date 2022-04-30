@@ -30,7 +30,7 @@ export default function PopUpDelete(props) {
             }}>
                 <Button variant="contained" onClick={() => {
                     handleYes()
-                    handleClose(false)
+                    handleClose(true)
                 }}  style={{
                     margin: '20px',
                     minWidth: '80px'
