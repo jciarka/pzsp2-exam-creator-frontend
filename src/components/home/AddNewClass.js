@@ -1,9 +1,12 @@
 import { Alert, Button, Snackbar, Stack, TextField, Typography } from '@mui/material'
 import React from 'react'
 import PopUp from './PopUp'
+import commons from '../../commons'
+import axios from 'axios'
+import { useDispatch, useSelector } from "react-redux";
 
 
-export default function AddNewClass()  {
+var AddNewClass = () =>  {
   
   var classes = [
     {
@@ -70,9 +73,42 @@ export default function AddNewClass()  {
       ]
     }
   ]
+  const account = useSelector((state) => state.account);
+  console.log("ACCOUNT", account)
   
   function submit() {
     console.log("SUBMIT", classes)
+    console.log("TOKEN: ", `Bearer ${account.token}`)
+
+    const requestOptions = {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${account.token}`},
+      body: JSON.stringify({ 
+        id: 3,
+        name: 'test_subject',
+        description: 'test',
+        subjectUsers: [],
+        pools: [],
+        tests: []
+      })
+    };
+    fetch(commons.baseURL + '/api/subjects', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log("RESPONSE", data));
+
+    // const body = JSON.stringify({ 
+    //   id: '3',
+    //   name: 'test_subject',
+    //   description: 'test',
+    //   subjectUsers: [],
+    //   pools: [],
+    //   tests: []
+    // });
+    // const headers =  { 'Content-Type': 'application/json' };
+    // axios.post(commons.baseURL + '/api/subjects', body, {headers})
+    //   .then(response => console.log("Response", response));
   }
 
   console.log("CLASSES", classes)
@@ -176,7 +212,9 @@ export default function AddNewClass()  {
         classesSelected={classesSelected}
       />
       
-      <Button variant="contained" disableElevation onClick={submit()}>
+      <Button variant="contained" disableElevation onClick={() => {
+          submit()
+        }}>
         Submit
       </Button>
 
@@ -197,3 +235,5 @@ export default function AddNewClass()  {
   )
   
 }
+
+export default AddNewClass
