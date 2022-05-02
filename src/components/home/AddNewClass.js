@@ -4,6 +4,7 @@ import PopUp from './PopUp'
 import commons from '../../commons'
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from 'react'
 
 
 var AddNewClass = () =>  {
@@ -74,11 +75,17 @@ var AddNewClass = () =>  {
     }
   ]
   const account = useSelector((state) => state.account);
+
+
+
   console.log("ACCOUNT", account)
   
   function submit() {
     console.log("SUBMIT", classes)
     console.log("TOKEN: ", `Bearer ${account.token}`)
+
+    console.log("abb: ", subjectAbbreviation)
+    console.log("name: ", subjectFullName)
 
     const requestOptions = {
       method: 'POST',
@@ -87,9 +94,8 @@ var AddNewClass = () =>  {
         'Authorization': `Bearer ${account.token}`},
       body: JSON.stringify({ 
         id: 3,
-        name: 'test_subject',
-        description: 'test',
-        subjectUsers: [],
+        name: subjectAbbreviation,
+        description: subjectFullName,
         pools: [],
         tests: []
       })
@@ -97,18 +103,6 @@ var AddNewClass = () =>  {
     fetch(commons.baseURL + '/api/subjects', requestOptions)
       .then(response => response.json())
       .then(data => console.log("RESPONSE", data));
-
-    // const body = JSON.stringify({ 
-    //   id: '3',
-    //   name: 'test_subject',
-    //   description: 'test',
-    //   subjectUsers: [],
-    //   pools: [],
-    //   tests: []
-    // });
-    // const headers =  { 'Content-Type': 'application/json' };
-    // axios.post(commons.baseURL + '/api/subjects', body, {headers})
-    //   .then(response => console.log("Response", response));
   }
 
   console.log("CLASSES", classes)
@@ -165,6 +159,20 @@ var AddNewClass = () =>  {
 
   const [alertOpen, setAlertOpen] = React.useState(false);
 
+  var [subjectFullName, setSubjectFullName] = useState("")
+  var [subjectAbbreviation, setSubjectAbbreviation] = useState("")
+
+
+  function handleNameChange(e) {
+    setSubjectFullName(e.target.value)
+    console.log(subjectFullName)
+  }
+
+  function handleAbbChange(e) {
+    setSubjectAbbreviation(e.target.value)
+    console.log(subjectAbbreviation)
+  }
+
   const handleAlertClose = (event, reason) => {
     if (reason === 'clickaway') {
       return;
@@ -191,8 +199,8 @@ var AddNewClass = () =>  {
     style={{
       width:'350px'
     }}>
-      <TextField id="outlined-basic" label="Class name" variant="outlined" />
-      <TextField id="outlined-basic" label="Abbreviation" variant="outlined" />
+      <TextField id="outlined-basic" label="Class name" variant="outlined" onChange={(event) => handleNameChange(event)}/>
+      <TextField id="outlined-basic" label="Abbreviation" variant="outlined" onChange={(event) => handleAbbChange(event)}/>
       {/* <Typography>Import existing task pools //to do</Typography> */}
       
       <Button 
