@@ -6,6 +6,8 @@ import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { AddBox } from "@material-ui/icons";
 import commons from '../../commons'
+import axios from "axios";
+
 
 export default class Home extends Component  {
   
@@ -17,16 +19,16 @@ export default class Home extends Component  {
     };
 
     // url statyczny, do zmiany - endpoint 1
-    fetch(commons.baseURL + '/api/subjects/4')
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        this.state.classes = data
+    axios.get('/api/subjects/4')
+      .then(response => {
+        console.log(response.data)
+        this.state.classes = response.data
         this.setState({
-          classes: data,
+          classes: response.data,
           fetched: true
         })
-      });
+      })
+      .catch(e => { return });
   }
 
   // example data

@@ -68,10 +68,10 @@ import { render } from '@testing-library/react';
             />
           </Stack>
           <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
-            <Button variant="outlined" startIcon={<DeleteIcon />} justifyItems="center">
+            <Button variant="outlined" startIcon={<DeleteIcon />}>
               Cancel
             </Button>
-            <Button variant="contained" endIcon={<SendIcon />} justifyItems="center" onClick={() => handleSubmit(this.state)}>
+            <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleSubmit(this.state)}>
               Submit
             </Button>
           </Stack>

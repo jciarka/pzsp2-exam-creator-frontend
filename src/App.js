@@ -17,10 +17,14 @@ import AddNewMember from "./components/members/AddNewMember";
 import AddNewClass from "./components/home/AddNewClass";
 import axios from "axios";
 import commons from './commons'
+import { useSelector } from "react-redux";
+import { Redirect } from "react-router-dom";
 
 function App() {
 
   axios.defaults.baseURL = commons.baseURL
+
+  const account = useSelector((state) => state.account);
 
   return (
     <Router>
@@ -30,7 +34,21 @@ function App() {
           'alignItems':'center'
           
         }}>
+
+            
+            {/* {
+              // TO DO: Odkomentować na wersję produkcyjną
+
+              (
+                !account ||
+                !account.isLoggedIn ||
+                !account.roles
+              ) 
+              && <Redirect to="/login" />
+            } */}
+
         
+
           <PathBar className="path-bar" ></PathBar>
           <div className="window-content">
 

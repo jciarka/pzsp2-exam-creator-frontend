@@ -55,7 +55,7 @@ export default class MemberOnList extends Component {
                     <Stack direction="row">
                         <Tooltip title="Info" placement="top">
                             <Link to={{
-                                pathname: url+'/member/'+member.id,
+                                pathname: url + '/member/' + member.userId,
                                 state: {
                                     member
                                 }

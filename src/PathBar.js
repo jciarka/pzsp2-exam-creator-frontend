@@ -34,10 +34,10 @@ const PathBar = () => {
         {
           path_components.map((c) => 
           (c[1] === url) || (path_components.length === 1)? 
-            <div>
+            <div key={c}>
               {c[0]}
             </div>
-          : <Link underline="hover" color="inherit" to={c[1]} onClick={() => {console.log(c[1])}}>
+          : <Link key={c} underline="hover" color="inherit" to={c[1]} onClick={() => {console.log(c[1])}}>
               <strong>{c[0]}</strong>
             </Link>
 

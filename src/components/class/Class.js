@@ -10,6 +10,7 @@ import { Button } from '@mui/material'
 import TestsList from '../tests/TestsList'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import commons from '../../commons'
+import axios from "axios";
 
 
 export default class Class extends Component {
@@ -26,37 +27,40 @@ export default class Class extends Component {
     };
 
     // url statyczny, do zmiany - endpoint3
-    fetch(commons.baseURL + '/api/tests/1')
-      .then(response => response.json())
-      .then(data => {
+    axios.get('/api/tests/1')
+      .then(response => {
+        const data = response.data
         console.log("TESTS", data)
         this.setState({
           tests: data,
           testsFetched: true
         })
-      });
+      })
+      .catch(e => { return });
 
     // url statyczny, do zmiany - endpoint2
-    fetch(commons.baseURL + '/api/participants/2')
-    .then(response => response.json())
-    .then(data => {
-      console.log("PARTICIPANTS", data)
-      this.setState({
-        participants: data,
-        participantsFetched: true
+    axios.get('/api/participants/2')
+      .then(response => {
+        const data = response.data
+        console.log("PARTICIPANTS", data)
+        this.setState({
+          participants: data,
+          participantsFetched: true
+        })  
       })
-    });
+      .catch(e => { return });
 
     // task pools - url statyczny, do zmiany
-    fetch(commons.baseURL + '/api/pool/pools/1')
-    .then(response => response.json())
-    .then(data => {
-      console.log("POOLS", data)
-      this.setState({
-        taskPools: data,
-        taskPoolsFetched: true
+    axios.get('/api/pool/pools/1')
+      .then(response => {
+        const data = response.data
+        console.log("POOLS", data)
+        this.setState({
+          taskPools: data,
+          taskPoolsFetched: true
+        })
       })
-    });
+      .catch(e => { return });
   }
 
   
