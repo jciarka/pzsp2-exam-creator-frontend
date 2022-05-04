@@ -1,4 +1,5 @@
 import { Button, Dialog, DialogTitle, Stack } from '@mui/material';
+import axios from 'axios';
 import React, { Component } from 'react'
 import commons from '../commons'
 
@@ -8,7 +9,8 @@ export default function PopUpDelete(props) {
     
     function handleYes(){
         console.log("handle yes", open, handleClose, id)
-        fetch(commons.baseURL + "/api/pool/delete/" + id, { method: 'DELETE' })
+
+        axios.delete(commons.baseURL + "/api/pool/delete/" + id)
             .then(() => {
                 console.log("task pool deleted")
             });

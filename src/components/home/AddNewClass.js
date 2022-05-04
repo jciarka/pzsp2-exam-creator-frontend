@@ -87,22 +87,17 @@ var AddNewClass = () =>  {
     console.log("abb: ", subjectAbbreviation)
     console.log("name: ", subjectFullName)
 
-    const requestOptions = {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${account.token}`},
-      body: JSON.stringify({ 
-        id: 3,
-        name: subjectAbbreviation,
-        description: subjectFullName,
-        pools: [],
-        tests: []
+    var body = { 
+      name: subjectAbbreviation,
+      description: subjectFullName,
+      pools: []
+    }
+    axios.post(commons.baseURL + '/api/subjects', body)
+      .then(response => {
+        const data = response.data
+        console.log("ADD NEW CLASS", data)
       })
-    };
-    fetch(commons.baseURL + '/api/subjects', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log("RESPONSE", data));
+      .catch(e => { return });
   }
 
   console.log("CLASSES", classes)

@@ -8,6 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import commons from '../../commons'
 import { render } from '@testing-library/react';
+import axios from 'axios';
 
   export default class addNewTaskPool extends Component {
 
@@ -26,22 +27,18 @@ import { render } from '@testing-library/react';
         console.log(state.taskPoolName)
         console.log(state.description)
 
-        const requestOptions = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ 
-            name: state.taskPoolName ,
-            description: state.description ,
-            subjectId: 1 // subjectId statyczny, do zmiany
+       
+        var body = { 
+          name: state.taskPoolName ,
+          description: state.description ,
+          subjectId: 1 // subjectId statyczny, do zmiany
+        }
+        axios.post(commons.baseURL + "/api/pool/add", body)
+          .then(response => {
+            const data = response.data
+            console.log("ADD NEW TASK POOL", data)
           })
-        };
-
-        fetch(commons.baseURL + "/api/pool/add", requestOptions)
-          .then(response => response)
-          .then(data => {
-            var status = data.status
-            console.log(status)
-          });
+          .catch(e => { return });
       }
 
       return (
