@@ -12,11 +12,24 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import commons from '../../commons'
 import axios from "axios";
 
+function getSubjectId(url){
+  const url_parts = url.split("/")
+  console.log("URL PARTS", url_parts)
+  for (let i = 0; i < url_parts.length; i++) {
+    if (url_parts[i] == "classes" && (i + 1) != url_parts.length) {
+      return parseInt(url_parts[i + 1])
+    }
+  }
+  return -1
+}
 
 export default class Class extends Component {
 
+
   constructor(props) {
     super(props)
+    const id = getSubjectId(window.location.pathname)
+    console.log("ID", id)
     this.state = {
       tests: [],
       testsFetched: false,
@@ -26,8 +39,8 @@ export default class Class extends Component {
       taskPoolsFetched: false
     };
 
-    // url statyczny, do zmiany - endpoint3
-    axios.get('/api/tests/1')
+    
+    axios.get('/api/tests/' + id)
       .then(response => {
         const data = response.data
         console.log("TESTS", data)
@@ -38,8 +51,8 @@ export default class Class extends Component {
       })
       .catch(e => { return });
 
-    // url statyczny, do zmiany - endpoint2
-    axios.get('/api/participants/2')
+    
+    axios.get('/api/participants/' + id)
       .then(response => {
         const data = response.data
         console.log("PARTICIPANTS", data)
@@ -51,7 +64,7 @@ export default class Class extends Component {
       .catch(e => { return });
 
     // task pools - url statyczny, do zmiany
-    axios.get('/api/pool/pools/1')
+    axios.get('/api/pool/pools/' + id)
       .then(response => {
         const data = response.data
         console.log("POOLS", data)

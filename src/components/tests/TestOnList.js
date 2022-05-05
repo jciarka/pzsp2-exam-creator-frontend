@@ -13,6 +13,13 @@ import { Box } from '@mui/system';
 import EditIcon from '@mui/icons-material/Edit';
 import TestsList from './TestsList';
 
+function getNoExercises(exercises){
+    if (!exercises){
+        return 0
+    }
+    return exercises.length
+}
+
 export default class TestOnList extends Component {
     constructor(props){
         super(props)
@@ -41,6 +48,7 @@ export default class TestOnList extends Component {
         const url = window.location.pathname
         var test = this.props.test
         return (
+            
             <Box>
                 <ListItemButton style = {{
                     'width':'350px'
@@ -52,7 +60,11 @@ export default class TestOnList extends Component {
                         <FeedIcon />
                     </Avatar>
                     </ListItemAvatar>
-                    <ListItemText primary={test.description} secondary={"Number of exercises:" + test.exercises.length}/>
+                    <ListItemText primary={test.description} 
+                    secondary={"Number of exercises:" 
+                    + getNoExercises(test.exercises)
+                    
+                    }/>
                     {this.state.hover ?
                     <Stack direction="row">
                         <Tooltip title="Edit" placement="top">

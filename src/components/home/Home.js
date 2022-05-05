@@ -90,7 +90,7 @@ export default class Home extends Component  {
                 
                 <Tooltip title={classObject.description} placement="top">
                   <Button 
-                    component={Link} to={'/classes/' + classObject.name}
+                    component={Link} to={'/classes/' + classObject.id}
                     variant="contained" 
                     className="class-tile" 
                     key={classObject.id} 

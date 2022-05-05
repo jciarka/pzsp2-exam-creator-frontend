@@ -67,7 +67,7 @@ function App() {
             />
                 
             <Route
-              exact path="/classes/:class_name"
+              exact path="/classes/:class_id"
               render={(props) => (
                 <>
                   <Class />
@@ -76,7 +76,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/pool/:pool_id"
+              exact path="/classes/:class_id/pool/:pool_id"
               render={(props) => (
                 <>
                   <TaskPool />
@@ -85,7 +85,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/member/:member_id"
+              exact path="/classes/:class_id/member/:member_id"
               render={(props) => (
                 <>
                   <Member props={props}/>
@@ -94,7 +94,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/test/:test_id"
+              exact path="/classes/:class_id/test/:test_id"
               render={(props) => (
                 <>
                   <Test />
@@ -103,7 +103,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/newTest"
+              exact path="/classes/:class_id/newTest"
               render={(props) => (
                 <>
                   <AddNewTest />
@@ -112,7 +112,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/newTaskPool"
+              exact path="/classes/:class_id/newTaskPool"
               render={(props) => (
                 <>
                   <AddNewTaskPool />
@@ -121,7 +121,7 @@ function App() {
             />
 
             <Route
-              exact path="/classes/:class_name/newMember"
+              exact path="/classes/:class_id/newMember"
               render={(props) => (
                 <>
                   <AddNewMember props={props} />
