@@ -10,10 +10,22 @@ import commons from '../../commons'
 import { render } from '@testing-library/react';
 import axios from 'axios';
 
+function getSubjectId(url){
+  const url_parts = url.split("/")
+  console.log("URL PARTS", url_parts)
+  for (let i = 0; i < url_parts.length; i++) {
+    if (url_parts[i] == "classes" && (i + 1) != url_parts.length) {
+      return parseInt(url_parts[i + 1])
+    }
+  }
+  return -1
+}
+
   export default class addNewTaskPool extends Component {
 
     constructor(props) {
       super(props)
+      
       this.state = {
         taskPoolName: "",
         description: ""
@@ -26,12 +38,13 @@ import axios from 'axios';
         console.log("SUBMIT")
         console.log(state.taskPoolName)
         console.log(state.description)
-
+        
+        const id = getSubjectId(window.location.pathname)
        
         var body = { 
           name: state.taskPoolName ,
           description: state.description ,
-          subjectId: 1 // subjectId statyczny, do zmiany
+          subjectId: id // subjectId statyczny, do zmiany
         }
         axios.post(commons.baseURL + "/api/pool/add", body)
           .then(response => {
