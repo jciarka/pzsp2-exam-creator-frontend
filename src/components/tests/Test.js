@@ -56,15 +56,11 @@ export default class Test extends React.Component {
     this.state = {
         addingNewTask:false,
         expanded:false,
-        type:''
-    };
-    
-  }
-
-  render(){
-    
-      var tasks = [
-        {
+        type:'',
+        title:'',
+        text:'',
+        answers:null,
+        tasks: [{
           title:"Zadanie z geometrii",
           type:"PLAIN_TEXT",
           versions:[
@@ -73,8 +69,12 @@ export default class Test extends React.Component {
               answers:null
             }
           ]
-        }
-      ]
+        }]
+    };
+    
+  }
+
+  render(){
     
       // var [addingNewTask, setAddingNewTask] = React.useState(false);
       // const [expanded, setExpanded] = React.useState(false);
@@ -89,6 +89,20 @@ export default class Test extends React.Component {
         this.setState({expanded: isExpanded ? panel : false});
       };
 
+      const addTask = () => {
+        var task = {
+          title:this.state.title,
+          type:this.state.type,
+          versions:[
+            {
+              text:this.state.text,
+              answers:this.answers
+            }
+          ]
+        }
+        this.setState({tasks: [...this.state.tasks, task]})
+      };
+
     return (
       
       <Stack spacing={2}>
@@ -98,7 +112,7 @@ export default class Test extends React.Component {
           <AddIcon />Import existing test
         </Button>
         {
-        tasks.map((task) => 
+        this.state.tasks.map((task) => 
         <Accordion expanded={this.state.expanded === task.id} onChange={handleChange(task.id)} style={{
           'width': '800px'
         }}>
@@ -178,6 +192,14 @@ export default class Test extends React.Component {
                   </Select>
                 </FormControl>
               </Box>
+              <TextField
+                variant="standard"
+                label="Exercise Title"
+                placeholder="Exercise Title"
+                onChange={(event) => {
+                  this.setState({title: event.target.value});
+                }}
+              />
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
@@ -186,6 +208,9 @@ export default class Test extends React.Component {
                 style={{
                   marginTop:'15px',
                   marginBottom:'15px'
+                }}
+                onChange={(event) => {
+                  this.setState({text: event.target.value});
                 }}
               />
               {/* buttons submit and cancel */}
@@ -200,23 +225,22 @@ export default class Test extends React.Component {
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center'
-                }} 
-                onClick={() => {
-  
-                }}>
-                  SUBMIT
-                </Button>
-                <Button style={{
-                  width: '800px',
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center'
                 }}
                 onClick={() => {
                   this.setState({addingNewTask: false});
                 }}>
                   CANCEL
                 </Button>
+                <Button style={{
+                  width: '800px',
+                  display: 'flex',
+                  justifyContent: 'center',
+                  alignItems: 'center'
+                }} 
+                onClick={addTask}>
+                  SUBMIT
+                </Button>
+                
               </Stack>
             </Stack>
           </Box>
