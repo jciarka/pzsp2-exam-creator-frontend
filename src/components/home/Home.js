@@ -8,27 +8,38 @@ import { AddBox } from "@material-ui/icons";
 import commons from '../../commons'
 import axios from "axios";
 
+function getUserId(){
+  const account = localStorage.getItem("persist:root")
+  console.log(account)
+  return JSON.parse(JSON.parse(account)["account"])["id"]
+}
 
 export default class Home extends Component  {
   
   constructor(props) {
+    
     super(props)
     this.state = {
       classes: [],
       fetched: false
     };
 
-    // url statyczny, do zmiany - endpoint 1
-    axios.get('/api/subjects/4')
-      .then(response => {
-        console.log(response.data)
-        this.state.classes = response.data
-        this.setState({
-          classes: response.data,
-          fetched: true
+    
+    setTimeout(() => {
+      
+      const account = getUserId()
+      console.log("USER ID", account)
+      axios.get('/api/subjects/' + account)
+        .then(response => {
+          console.log(response.data)
+          this.state.classes = response.data
+          this.setState({
+            classes: response.data,
+            fetched: true
+          })
         })
-      })
-      .catch(e => { return });
+        .catch(e => { return });
+    }, 1)
   }
 
   // example data
