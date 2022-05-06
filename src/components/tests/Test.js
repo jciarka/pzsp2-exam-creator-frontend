@@ -60,7 +60,10 @@ export default class Test extends React.Component {
         title:'',
         text:'',
         answers:null,
+        exercises_id: null,
+        exercises_count: 50,
         tasks: [{
+          exercises_id: 1,
           title:"Zadanie z geometrii",
           type:"PLAIN_TEXT",
           versions:[
@@ -76,11 +79,6 @@ export default class Test extends React.Component {
 
   render(){
     
-      // var [addingNewTask, setAddingNewTask] = React.useState(false);
-      // const [expanded, setExpanded] = React.useState(false);
-    
-      // const [type, setType] = React.useState('');
-    
       const handleChangeSelect = (event) => {
         this.setState({type: event.target.value});
       };
@@ -89,8 +87,27 @@ export default class Test extends React.Component {
         this.setState({expanded: isExpanded ? panel : false});
       };
 
-      const addTask = () => {
+      const addTask = (e) => {
+        e.preventDefault()
+        if(!this.state.type) {
+          alert('Please add a type')
+          return
+        }
+        else if(!this.state.title) {
+            alert('Please add a title')
+            return
+        }
+        else if(!this.state.text) {
+          alert('Please add a text')
+          return
+        }
+        // if(!this.state.exercises_count) {
+        //   this.setState({exercises_count: this.state.exercises_count + 1})
+          // this.setState({exercises_count: this.state.tasks.lengt})
+          //component did update 
+        // }
         var task = {
+          exercises_id: this.state.exercises_count + 1,
           title:this.state.title,
           type:this.state.type,
           versions:[
@@ -101,7 +118,14 @@ export default class Test extends React.Component {
           ]
         }
         this.setState({tasks: [...this.state.tasks, task]})
+        this.setState({exercises_count: this.state.exercises_count + 1})
+        console.log(this.state.tasks)
       };
+
+      const deleteTask = (id) => {
+        const newTasks = this.state.tasks.filter((item) => item.exercises_id !== id)
+        this.setState({tasks: [...newTasks]})      
+      } 
 
     return (
       
@@ -148,7 +172,7 @@ export default class Test extends React.Component {
                       <EditIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Delete" placement="bottom">
+                <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.exercises_id)}>
                   <IconButton>
                       <DeleteIcon />
                   </IconButton>
