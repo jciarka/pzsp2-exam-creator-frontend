@@ -4,7 +4,17 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import { useLocation } from 'react-router-dom'
 
-function parsePath(url){
+function getSubjectName(id, subjects){
+  console.log(id, subjects)
+  for (let s of subjects) {
+    if (s.id == parseInt(id)) {
+      return s.name
+    }
+  }
+  return ""
+}
+
+function parsePath(url, subjects){
   var pathComponents = url.split("/")
   console.log("URL+PC", url, pathComponents)
   var result = [
@@ -16,7 +26,7 @@ function parsePath(url){
       currentPath += ("/" + c)
     }
     if (c !== "classes" && c !== "pool" && c !== "member" && c !== "" && c !== "test") {
-      result.push([c, currentPath])
+      result.push([getSubjectName(c, subjects), currentPath])
     }
   }
   return result
@@ -26,8 +36,9 @@ const PathBar = () => {
   
     const location = useLocation();
     var url = window.location.pathname
+    const subjects = JSON.parse(localStorage.getItem("subjects"))
     console.log(url)
-    var path_components = parsePath(url)
+    var path_components = parsePath(url, subjects)
     console.log("PC", path_components)
     return (
       <Breadcrumbs aria-label="breadcrumb" separator={<NavigateNextIcon fontSize="small" />} >
