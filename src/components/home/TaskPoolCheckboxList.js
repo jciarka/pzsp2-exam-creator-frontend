@@ -36,7 +36,7 @@ export default function TaskPoolCheckboxList(props) {
         if (class_id == -1){
             return false
         }
-        return classes[class_id].task_pools[id].isSelected
+        return classes[class_id].pools[id].isSelected
     }
 
     return (
@@ -53,10 +53,10 @@ export default function TaskPoolCheckboxList(props) {
             : 
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 
-                {classes[classesSelected.indexOf(true)].task_pools.map((taskPool) => {
+                {classes[classesSelected.indexOf(true)].pools.map((taskPool) => {
                     const labelId = `checkbox-list-label-${taskPool}`;
                     const class_id = classesSelected.indexOf(true)
-                    const task_pool_id = classes[class_id].task_pools.indexOf(taskPool)
+                    const task_pool_id = classes[class_id].pools.indexOf(taskPool)
                     
 
                     const handleToggle = (value, class_id, task_pool_id) => () => {

@@ -1,82 +1,98 @@
 import { Alert, Button, Snackbar, Stack, TextField, Typography } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import PopUp from './PopUp'
 import commons from '../../commons'
 import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from 'react'
+import { Box } from '@mui/system'
 
 
 var AddNewClass = () =>  {
   
-  var classes = [
-    {
-      id: 1,
-      name: "PZSP1",
-      task_pools:[
-        {
-          id: 1,
-          name: "kolokwium 1",
-          isSelected: false
-        },
-        {
-          id: 2,
-          name: "kolokwium 2",
-          isSelected: false
-        },
-        {
-          id: 3,
-          name: "egzamin",
-          isSelected: false
-        }
-      ]
-    },
-    {
-      id: 2,
-      name: "PZSP2",
-      task_pools:[
-        {
-          id: 1,
-          name: "kolokwium 3",
-          isSelected: false
-        },
-        {
-          id: 2,
-          name: "kolokwium 4",
-          isSelected: false
-        },
-        {
-          id: 3,
-          name: "egzamin poprawkowy",
-          isSelected: false
-        }
-      ]
-    },
-    {
-      id: 3,
-      name: "BSS",
-      task_pools:[
-        {
-          id: 1,
-          name: "kolokwium 1",
-          isSelected: false
-        },
-        {
-          id: 2,
-          name: "egzamin 1",
-          isSelected: false
-        },
-        {
-          id: 3,
-          name: "egzamin 2",
-          isSelected: false
-        }
-      ]
-    }
-  ]
+  // var classes = [
+  //   {
+  //     id: 1,
+  //     name: "PZSP1",
+  //     pools:[
+  //       {
+  //         id: 1,
+  //         name: "kolokwium 1",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "kolokwium 2",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 3,
+  //         name: "egzamin",
+  //         isSelected: false
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 2,
+  //     name: "PZSP2",
+  //     pools:[
+  //       {
+  //         id: 1,
+  //         name: "kolokwium 3",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "kolokwium 4",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 3,
+  //         name: "egzamin poprawkowy",
+  //         isSelected: false
+  //       }
+  //     ]
+  //   },
+  //   {
+  //     id: 3,
+  //     name: "BSS",
+  //     pools:[
+  //       {
+  //         id: 1,
+  //         name: "kolokwium 1",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 2,
+  //         name: "egzamin 1",
+  //         isSelected: false
+  //       },
+  //       {
+  //         id: 3,
+  //         name: "egzamin 2",
+  //         isSelected: false
+  //       }
+  //     ]
+  //   }
+  // ]
+
   const account = useSelector((state) => state.account);
 
+  // useEffect(() => {
+  //   axios.get('/api/subjects/' + account.id)
+  //   .then(response => {
+  //     console.log(response.data)
+  //     // console.log("REPOSNES", response.data)
+  //     // setSubjects(response.data)
+  //     console.log("FETCHED", response.data)
+  //     classes = response.data
+  //     setFetched(true)
+  //   })
+  //   .catch(e => { return })
+  // }, [])
 
+  var classes = JSON.parse(localStorage.getItem("subjects"))
+  
 
   console.log("ACCOUNT", account)
   
@@ -90,7 +106,7 @@ var AddNewClass = () =>  {
     var body = { 
       name: subjectAbbreviation,
       description: subjectFullName,
-      pools: []
+      pools: getSelectedPools()
     }
     axios.post(commons.baseURL + '/api/subjects', body)
       .then(response => {
@@ -103,11 +119,28 @@ var AddNewClass = () =>  {
   console.log("CLASSES", classes)
   
   // var classesSelected = new Array(classes.length)
+
+  function getSelectedPools() {
+    var sel_pools = []
+    let i = 0;
+    for (var c of classes){
+      let j = 0;
+      for (var p of c.pools){
+        if (taskPoolsSelected[i][j]){
+          sel_pools.push(p)
+        }
+        j++;
+      }
+      i++;
+    }
+    console.log("SELECTED", sel_pools)
+    return sel_pools
+  }
   
   function initTaskPoolsSelected() {
     var result = []
     for (var c of classes){
-      result.push(Array(c.task_pools.length).fill(false))
+      result.push(Array(c.pools.length).fill(false))
     }
     return result
   }
@@ -189,52 +222,54 @@ var AddNewClass = () =>  {
   }
 
   return (
-    <Stack 
-    spacing={2}
-    style={{
-      width:'350px'
-    }}>
-      <TextField id="outlined-basic" label="Class name" variant="outlined" onChange={(event) => handleNameChange(event)}/>
-      <TextField id="outlined-basic" label="Abbreviation" variant="outlined" onChange={(event) => handleAbbChange(event)}/>
-      {/* <Typography>Import existing task pools //to do</Typography> */}
-      
-      <Button 
-      variant="contained" 
-      disableElevation
-      onClick={handleClickOpen}>
-        Import existing tasks
-      </Button>
-      <PopUp
-        selectClass={selectClass}
-        selectTaskPool={selectTaskPool}
-        taskPoolsSelected={taskPoolsSelected}
-        setTaskPoolsSelected={setTaskPoolsSelected}
-        open={open}
-        onClose={handleClose}
-        classes={classes}
-        classesSelected={classesSelected}
-      />
-      
-      <Button variant="contained" disableElevation onClick={() => {
-          submit()
+    
+        <Stack 
+        spacing={2}
+        style={{
+          width:'350px'
         }}>
-        Submit
-      </Button>
-
-
-      <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
-      {countImportedPools() == 0 ? 
-        <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
-          No task pools imported 
-        </Alert>
-      :
-        <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
-          Successfully imported {countImportedPools()} task pools
-        </Alert>
-      
-      }
-      </Snackbar>
-    </Stack>
+          <TextField id="outlined-basic" label="Class name" variant="outlined" onChange={(event) => handleNameChange(event)}/>
+          <TextField id="outlined-basic" label="Abbreviation" variant="outlined" onChange={(event) => handleAbbChange(event)}/>
+          {/* <Typography>Import existing task pools //to do</Typography> */}
+          
+          <Button 
+          variant="contained" 
+          disableElevation
+          onClick={handleClickOpen}>
+            Import existing tasks
+          </Button>
+          <PopUp
+            selectClass={selectClass}
+            selectTaskPool={selectTaskPool}
+            taskPoolsSelected={taskPoolsSelected}
+            setTaskPoolsSelected={setTaskPoolsSelected}
+            open={open}
+            onClose={handleClose}
+            classes={classes}
+            classesSelected={classesSelected}
+          />
+          
+          <Button variant="contained" disableElevation onClick={() => {
+              submit()
+            }}>
+            Submit
+          </Button>
+    
+    
+          <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+          {countImportedPools() == 0 ? 
+            <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+              No task pools imported 
+            </Alert>
+          :
+            <Alert onClose={handleAlertClose} severity="success" sx={{ width: '100%' }}>
+              Successfully imported {countImportedPools()} task pools
+            </Alert>
+          
+          }
+          </Snackbar>
+        </Stack>
+       
   )
   
 }

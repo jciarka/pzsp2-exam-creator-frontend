@@ -37,6 +37,7 @@ export default class Home extends Component  {
             classes: response.data,
             fetched: true
           })
+          localStorage.setItem("subjects", JSON.stringify(response.data))
         })
         .catch(e => { return });
     }, 1)

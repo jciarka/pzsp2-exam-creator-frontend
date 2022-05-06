@@ -39,6 +39,16 @@ export default class Class extends Component {
       taskPoolsFetched: false
     };
 
+    axios.get('/api/pool/pools/' + id)
+      .then(response => {
+        const data = response.data
+        console.log("POOLS", data)
+        this.setState({
+          taskPools: data,
+          taskPoolsFetched: true
+        })
+      })
+      .catch(e => { return });
     
     axios.get('/api/tests/' + id)
       .then(response => {
@@ -51,7 +61,6 @@ export default class Class extends Component {
       })
       .catch(e => { return });
 
-    
     axios.get('/api/participants/' + id)
       .then(response => {
         const data = response.data
@@ -62,18 +71,7 @@ export default class Class extends Component {
         })  
       })
       .catch(e => { return });
-
-    // task pools - url statyczny, do zmiany
-    axios.get('/api/pool/pools/' + id)
-      .then(response => {
-        const data = response.data
-        console.log("POOLS", data)
-        this.setState({
-          taskPools: data,
-          taskPoolsFetched: true
-        })
-      })
-      .catch(e => { return });
+    
   }
 
   

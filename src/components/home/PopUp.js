@@ -9,7 +9,7 @@ import { Button } from '@mui/material';
 export default function PopUp(props) {
     var {  selectClass, selectTaskPool, taskPoolsSelected, setTaskPoolsSelected, open,  onClose, classes, classesSelected } = props;
 
-    console.log("POPUP")
+    console.log("POPUP", classes)
     const handleClose = () => {
         onClose(false);
     };
