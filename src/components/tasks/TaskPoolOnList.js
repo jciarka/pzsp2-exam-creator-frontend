@@ -9,7 +9,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
-import PopUpDelete from '../PopUpDelete';
+import PopUpDeletePool from '../PopUpDeletePool';
 import { Box } from '@mui/system';
 
 class TaskPoolOnList extends Component {
@@ -92,14 +92,14 @@ class TaskPoolOnList extends Component {
 
                     </ListItemButton>
 
-                    <PopUpDelete open={this.state.open} 
+                    <PopUpDeletePool open={this.state.open} 
                     handleClose={this.handleClose} 
                     id={this.id} 
                     deleteTaskPool = {this.deleteTaskPool}
                     sx= {{
                         minWidth:'1500px'
                     }}>
-                    </PopUpDelete>
+                    </PopUpDeletePool>
                 </Box>
 
                 }

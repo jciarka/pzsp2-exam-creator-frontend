@@ -3,13 +3,17 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import commons from '../commons'
 
-export default function PopUpDelete(props) {
+export default function PopUpDeletePool(props) {
     var { open, handleClose, id } = props
 
     
     function handleYes(){
         console.log("handle yes", open, handleClose, id)
 
+        axios.delete(commons.baseURL + "/api/pool/delete/" + id)
+            .then(() => {
+                console.log("task pool deleted")
+            });
     }
 
     return (
