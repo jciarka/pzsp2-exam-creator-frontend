@@ -21,12 +21,18 @@ function parsePath(url, subjects){
     ["Home", ""]
   ]
   var currentPath = ""
-  for (var c of pathComponents) {
+  for (var i = 0; i < pathComponents.length; i++) {
+    var c = pathComponents[i]
     if (c !== ''){
       currentPath += ("/" + c)
     }
     if (c !== "classes" && c !== "pool" && c !== "member" && c !== "" && c !== "test") {
-      result.push([getSubjectName(c, subjects), currentPath])
+      if (i > 0 && pathComponents[i - 1] == "classes"){
+        result.push([getSubjectName(c, subjects), currentPath])
+      }
+      else {
+        result.push([c, currentPath])
+      }
     }
   }
   return result
