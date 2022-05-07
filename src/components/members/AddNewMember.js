@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
@@ -11,8 +11,12 @@ import { useState, useEffect } from 'react';
 import { CompressOutlined } from '@mui/icons-material';
 import { Link, useParams } from 'react-router-dom';
 import commons from '../../commons'
-
-
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Checkbox from '@mui/material/Checkbox';
 
 
 const AddNewMember = ({props}) => {
@@ -27,7 +31,21 @@ const AddNewMember = ({props}) => {
       'WRITE',
       'DELETE'
   ]
+  const [state, setState] = React.useState({
+    in1: false,
+    in2: false,
+    in3: false,
+  });
 
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const { in1, in2, in3 } = state;
+
+ 
   useEffect(() => {
     axios
         .get('api/auth/')
@@ -61,22 +79,35 @@ const AddNewMember = ({props}) => {
       alert('Please add a Person')
       return
     }
-    else if(!role) {
-      alert('Please add a role')
-      return
-    }
     var body = { 
       subjectId: class_id,
       userId: person.id,
-      subjectRoles: []
-    }
+      subjectRoles: [] // brak endpointu do pobierania subiects roles dict
+    }      
     axios.post(commons.baseURL + "/api/subjectuser/add", body)
           .then(response => {
             const data = response.data
             console.log("ADD PERSON TO SUBJECT", data)
           })
           .catch(e => { return });
-    
+
+    // if(in1){
+    //   var body = { 
+    //     subjectId: class_id,
+    //     userId: person.id,
+    //     role: roles[0]
+    //   }
+    //   console.log('body ', body)
+    //   console.log('url ', commons.baseURL + `/api/subjectuser/${body.subjectId}/${body.userId}/roles/${body.role}`)
+    //   axios.post(commons.baseURL + `/api/subjectuser/${body.subjectId}/${body.userId}/roles/${body.role}`, {})
+    //       .then(response => {
+    //         const data = response.data
+    //         console.log("ADD ROLE", data)
+    //       })
+    //       .catch(e => { return });
+
+    // }
+
   };
 
   return (
@@ -97,21 +128,29 @@ const AddNewMember = ({props}) => {
         )}
         onChange={(event, value) => setPerson(value)}
       />
-      <Autocomplete
-        single
-        id="tags-outlined"
-        options={roles}
-        getOptionLabel={(option) => option}
-        filterSelectedOptions
-        renderInput={(params) => (
-          <TextField
-            {...params}
-            label="Position"
-            placeholder="Choose a Position"
+      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={in1} onChange={handleChange} name="in1" />
+            }
+            label={roles[0]}
           />
-        )}
-        onChange={(event, value) => setRole(value)}
-      />
+          <FormControlLabel
+            control={
+              <Checkbox checked={in2} onChange={handleChange} name="in2" />
+            }
+            label={roles[1]}
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={in3} onChange={handleChange} name="in3" />
+            }
+            label={roles[2]}
+          />
+        </FormGroup>
+      </FormControl>
     </Stack>
     <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
     <Link to={`/classes/${class_id}`} className="rounded-0">
