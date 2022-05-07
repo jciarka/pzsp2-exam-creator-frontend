@@ -24,12 +24,12 @@ const AddNewMember = ({props}) => {
   const [users, setUsers] = useState([])
   const [participants, setParticipants] = useState(props.location.state.participants)
   const [person, setPerson] = useState('')
+  const [available, setAvailable] = useState([])
   const [role, setRole] = useState('')
-  const [avUsers, setAvUsers] = useState([])
   const roles = [
-      'ADMIN',
-      'WRITE',
-      'DELETE'
+      'ADMIN', //3
+      'WRITE', //1
+      'DELETE' //2
   ]
   const [state, setState] = React.useState({
     in1: false,
@@ -45,7 +45,6 @@ const AddNewMember = ({props}) => {
   };
   const { in1, in2, in3 } = state;
 
- 
   useEffect(() => {
     axios
         .get('api/auth/')
@@ -54,24 +53,24 @@ const AddNewMember = ({props}) => {
             setUsers(data)
             console.log('data', data)
             console.log('users', users)
+            console.log('avaliable', available)
           });        
   }, []); 
-
-  useEffect(() => {
-
-    console.log("Changed users: ", users)
-    console.log("participants: ", participants)
- 
- }, [users])
-
   const availableUsers = (users, participants) => {
     var pId = new Set(participants.map(({ userId }) => userId))
     const available = users.filter((user) => !pId.has(user.id))
     return available
   }
-  useEffect(() => {
-    console.log("role: ", role)
-  }, [role])
+
+  useEffect(() => { 
+    let av =  availableUsers(users, participants)
+    setAvailable(av)
+ }, [participants])
+
+ useEffect(() => {
+  let av =  availableUsers(users, participants)
+  setAvailable(av)
+}, [users])
 
   const onAdd = (e) => {
     e.preventDefault()
@@ -79,11 +78,20 @@ const AddNewMember = ({props}) => {
       alert('Please add a Person')
       return
     }
+    let currentRoles = [] // brak endpointu do pobierania subiects roles dict
+    if(in1) {
+      currentRoles.push(3)
+    } if(in2) {
+      currentRoles.push(1)
+    }if(in3) {
+      currentRoles.push(2)
+    }
     var body = { 
       subjectId: class_id,
       userId: person.id,
-      subjectRoles: [] // brak endpointu do pobierania subiects roles dict
+      subjectRoles: currentRoles 
     }      
+    setParticipants([...participants, person])
     axios.post(commons.baseURL + "/api/subjectuser/add", body)
           .then(response => {
             const data = response.data
@@ -116,7 +124,7 @@ const AddNewMember = ({props}) => {
       <Autocomplete
         single
         id="tags-standard"
-        options={availableUsers(users, participants)}
+        options={available}
         getOptionLabel={(option) => `${option.firstname} ${option.lastname} : ${option.emial}`}
         renderInput={(params) => (
           <TextField
