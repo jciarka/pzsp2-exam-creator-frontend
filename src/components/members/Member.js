@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useParams, Link } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -17,9 +18,20 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Dialog from "@mui/material/Dialog";
 import axios from 'axios';
 import AddSubjectRoleToMember from './AddSubjectRoleToMember'
+import userEvent from '@testing-library/user-event';
 
 const Member = ({props}) => {
-  const [open, setOpen] = React.useState(false);
+  const { class_id, member_id } = useParams()
+  const [open, setOpen] = useState(false);
+  const [member, setMember] = useState(false);
+
+  const getParticipant = async () => {
+    const result = await axios.get(`/api/participants/${class_id}/${member_id}`)
+    
+    if (result && result.status === 200) {
+      setMember(result.data)
+    }
+  } 
 
   const handleOpen = () => {
     setOpen(true)
@@ -34,41 +46,30 @@ const Member = ({props}) => {
       minWidth: 650,
     },
   });
-      
-  // async function getParticipant(subjectId) {
-  //   axios.get(`/api/participant/${props.location.state.member}/${}`)
-  //   .then(response => {
-  //     const data = response.data
-  //     console.log("PARTICIPANTS", data)
-  //     this.setState({
-  //       participants: data,
-  //       participantsFetched: true
-  //     })
-  //   });
-  // }
 
   async function deleteRoleFromUser(userId, subjectId, roleName)
   {
     const response = await axios.delete(`/api/subjectuser/${subjectId}/${userId}/roles/${roleName}`)
     if(response.status === 200 && response.data.ok ) {
-      // TO DO: refresh data
+      getParticipant()
     }
   }
-
-  console.log(props)
-
-  var mem = props.location.state.member
 
   function createData(key, name, info) {
     return { key, name, info};
   }
 
+  useEffect(() => {
+    getParticipant()
+  }, []);
+
+
   const rows = [
-        createData('Id', 'Id', mem.userId),
-        createData('Name','Name', mem.firstname),
-        createData('Surname','Surname', mem.lastname),
-        createData('Email','Email', mem.email),
-        createData('Institute', 'Institute', (mem.institute == null ? 'unspecified' : mem.institute)),
+        createData('Id', 'Id', member.userId),
+        createData('Name','Name', member.firstname),
+        createData('Surname','Surname', member.lastname),
+        createData('Email','Email', member.email),
+        createData('Institute', 'Institute', (member.institute == null ? 'unspecified' : member.institute)),
         createData(
           'Roles',
           <div className="d-flex justify-content-start">
@@ -81,18 +82,28 @@ const Member = ({props}) => {
             </IconButton>
           </div>,  
           
-          (mem.subjectRoles ? 
+          (member.subjectRoles ? 
             <>
               <div style={{"marginRight": "35px", "marginTop": "5px", "marginBottom": "5px"}}>
                 READ
               </div>
               {
-                mem.subjectRoles.map(x =>  
+                member.subjectRoles.map(x =>  
                 <div key={x.roleName} className='d-flex justify-content-end'>
                   <div key={x.roleName} style={{"marginTop": "10px"}}>
                     {x.name}
                   </div>
-                  <IconButton key={x.roleName} className='d-block' size="small" color="error" aria-label="delete" onClick={() => deleteRoleFromUser(mem.userId, mem.subjectId, x.name)}>
+                  <IconButton 
+                      key={x.roleName} 
+                      className='d-block' 
+                      size="small" 
+                      color="error" 
+                      aria-label="delete" 
+                      onClick={
+                        () => { 
+                          deleteRoleFromUser(member.userId, member.subjectId, x.name)
+                        }
+                        }>
                     <DeleteIcon size="small" />
                   </IconButton>
                 </div>
@@ -110,12 +121,12 @@ const Member = ({props}) => {
       <>
       <Dialog open={open} onClose={handleClose}>
         <AddSubjectRoleToMember 
-          userId={mem.userId}
+          userId={member.userId}
             // TO DO: data from prop
-          subjectId={2}
+          subjectId={class_id}
           onCancel={handleClose}
           onSuccess={() => {
-            // TO DO: refresh data
+            getParticipant()
             handleClose();
           }}
         />
@@ -144,9 +155,11 @@ const Member = ({props}) => {
           </Table>
         </TableContainer>
           <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
-          <Button variant="outlined" startIcon={<ArrowBackIosIcon/>}>
-            Back
-          </Button>
+          <Link to={`/classes/${class_id}`} className="rounded-0">
+            <Button variant="outlined" startIcon={<ArrowBackIosIcon/>}>
+              Back
+            </Button>
+          </Link>
         </Stack>
       </Container>
     </> 
