@@ -8,7 +8,7 @@ export default class TestsList extends Component {
     
     render() {
         var tests_list = this.props.tests;
-    
+        const privileges = this.props.privileges;
         return (
             <Box sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                 {
@@ -17,7 +17,7 @@ export default class TestsList extends Component {
                     <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
                         {
                         tests_list.map((test) => 
-                        <TestOnList test={test}/>)
+                        <TestOnList test={test} privileges={privileges}/>)
                         }
                     </List>
                     : 

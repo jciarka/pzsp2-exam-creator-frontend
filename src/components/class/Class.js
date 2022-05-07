@@ -11,6 +11,7 @@ import TestsList from '../tests/TestsList'
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import commons from '../../commons'
 import axios from "axios";
+import { getPrivileges } from '../../commons'
 
 function getSubjectId(url){
   const url_parts = url.split("/")
@@ -36,8 +37,16 @@ export default class Class extends Component {
       participants: [],
       participantsFetched: false,
       taskPools: [],
-      taskPoolsFetched: false
+      taskPoolsFetched: false,
+      privileges: {}
     };
+
+    getPrivileges(getSubjectId(window.location.pathname))
+      .then((privileges) =>
+        this.setState(
+          { privileges }
+        )
+      )
 
     axios.get('/api/pool/pools/' + id)
       .then(response => {
@@ -73,10 +82,6 @@ export default class Class extends Component {
       .catch(e => { return });
     
   }
-
-  
-  
-  
   
   render (){
     const url = window.location.pathname
@@ -190,7 +195,7 @@ export default class Class extends Component {
               <Typography variant="h5" component="h5">
                 Task pools
               </Typography>
-              <TaskPoolList pools={this.state.taskPools}></TaskPoolList>
+              <TaskPoolList pools={this.state.taskPools} privileges={this.state.privileges}></TaskPoolList>
               <Button component={Link} to={url+'/newTaskPool'}>
                 <AddIcon /> Add new task pool
               </Button>
@@ -203,7 +208,7 @@ export default class Class extends Component {
               <Typography variant="h5" component="h5">
                 Tests
               </Typography>
-              <TestsList tests={this.state.tests}></TestsList>
+              <TestsList tests={this.state.tests} privileges={this.state.privileges}></TestsList>
               {/* <AddIcon></AddIcon> */}
               <Button component={Link} to={url+'/newTest'}>
                 <AddIcon /> Add new test
@@ -217,7 +222,7 @@ export default class Class extends Component {
               <Typography variant="h5" component="h5">
                 Participants
               </Typography>
-              <MembersList members={this.state.participants}></MembersList>
+              <MembersList members={this.state.participants} privileges={this.state.privileges}></MembersList>
               {/* <AddIcon></AddIcon> */}
               <Link to={{
                   pathname: url+'/newMember',

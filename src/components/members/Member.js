@@ -19,11 +19,13 @@ import Dialog from "@mui/material/Dialog";
 import axios from 'axios';
 import AddSubjectRoleToMember from './AddSubjectRoleToMember'
 import userEvent from '@testing-library/user-event';
+import { getPrivileges } from '../../commons'
 
 const Member = ({props}) => {
   const { class_id, member_id } = useParams()
   const [open, setOpen] = useState(false);
   const [member, setMember] = useState(false);
+  const [privs, setPrivs] = useState({});
 
   const getParticipant = async () => {
     const result = await axios.get(`/api/participants/${class_id}/${member_id}`)
@@ -59,10 +61,10 @@ const Member = ({props}) => {
     return { key, name, info};
   }
 
-  useEffect(() => {
+  useEffect(async () => {
     getParticipant()
+    setPrivs(await getPrivileges(class_id))
   }, []);
-
 
   const rows = [
         createData('Id', 'Id', member.userId),
@@ -76,15 +78,18 @@ const Member = ({props}) => {
             <div style={{"marginTop": "10px", marginRight: "5px"}} >
               Role
             </div>
-            <IconButton size='small' className='d-block' variant="outlined" style={{"backgroundColor" : "#1976d2", color: 'white' }} 
-              aria-label="delete" onClick={() => { handleOpen() }}>
-              <AddIcon />
-            </IconButton>
+            {
+              privs.canAdmin &&
+              <IconButton size='small' className='d-block' variant="outlined" style={{"backgroundColor" : "#1976d2", color: 'white' }} 
+                aria-label="delete" onClick={() => { handleOpen() }}>
+                <AddIcon />
+              </IconButton>
+            }
           </div>,  
           
           (member.subjectRoles ? 
             <>
-              <div style={{"marginRight": "35px", "marginTop": "5px", "marginBottom": "5px"}}>
+              <div style={{"marginRight": privs.canAdmin ? "35px" : "0px", "marginTop": "5px", "marginBottom": "0px"}}>
                 READ
               </div>
               {
@@ -93,19 +98,23 @@ const Member = ({props}) => {
                   <div key={x.roleName} style={{"marginTop": "10px"}}>
                     {x.name}
                   </div>
-                  <IconButton 
-                      key={x.roleName} 
-                      className='d-block' 
-                      size="small" 
-                      color="error" 
-                      aria-label="delete" 
-                      onClick={
-                        () => { 
-                          deleteRoleFromUser(member.userId, member.subjectId, x.name)
-                        }
-                        }>
-                    <DeleteIcon size="small" />
-                  </IconButton>
+                  {
+                    privs.canAdmin &&
+                    <IconButton 
+                        key={x.roleName} 
+                        className='d-block' 
+                        size="small" 
+                        color="error" 
+                        aria-label="delete" 
+                        onClick={
+                          () => { 
+                            deleteRoleFromUser(member.userId, member.subjectId, x.name)
+                          }
+                          }>
+                      <DeleteIcon size="small" />
+                    </IconButton>                    
+                  }
+
                 </div>
                 )
               }
@@ -122,7 +131,6 @@ const Member = ({props}) => {
       <Dialog open={open} onClose={handleClose}>
         <AddSubjectRoleToMember 
           userId={member.userId}
-            // TO DO: data from prop
           subjectId={class_id}
           onCancel={handleClose}
           onSuccess={() => {

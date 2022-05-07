@@ -47,6 +47,8 @@ export default class TestOnList extends Component {
     render() {
         const url = window.location.pathname
         var test = this.props.test
+        const privileges = this.props.privileges
+
         return (
             
             <Box>
@@ -72,13 +74,16 @@ export default class TestOnList extends Component {
                                 <EditIcon />
                             </IconButton>
                         </Tooltip>
-                        <Tooltip title="Delete" placement="top">
-                            <IconButton onClick={() => {
-                                this.setState({open: true})
-                            }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
+                        {
+                            privileges && privileges.canDelete &&
+                            <Tooltip title="Delete" placement="top">
+                                <IconButton onClick={() => {
+                                    this.setState({open: true})
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
                     </Stack>
                     : null}
                 </ListItemButton>

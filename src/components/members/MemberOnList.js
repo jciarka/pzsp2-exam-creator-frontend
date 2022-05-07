@@ -67,13 +67,17 @@ export default class MemberOnList extends Component {
                             </Link>
                         </Tooltip>
 
-                        <Tooltip title="Delete" placement="top">
-                            <IconButton onClick={() => {
-                                this.setState({open: true})
-                            }}>
-                                <DeleteIcon />
-                            </IconButton>
-                        </Tooltip>
+                        {
+                            this.props.privileges && 
+                            this.props.privileges.canDelete &&
+                            <Tooltip title="Delete" placement="top">
+                                <IconButton onClick={() => {
+                                    this.setState({open: true})
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                        }
                     </Stack>
                     : null}
                 </ListItemButton>

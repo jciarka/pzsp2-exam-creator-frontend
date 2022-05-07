@@ -54,6 +54,7 @@ class TaskPoolOnList extends Component {
         const url = window.location.pathname
         console.log(url)
         var task_pool = this.props.taskPool
+        const privileges = this.props.privileges
 
         return (
             <Box>
@@ -80,13 +81,16 @@ class TaskPoolOnList extends Component {
                                     <EditIcon/>
                                 </IconButton>
                             </Tooltip>
-                            <Tooltip title="Delete" placement="top">
-                                <IconButton onClick={() => {
-                                    this.setState({open: true})
-                                }}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
+                            {
+                                privileges && privileges.canDelete &&
+                                <Tooltip title="Delete" placement="top">
+                                    <IconButton onClick={() => {
+                                        this.setState({open: true})
+                                    }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            }
                         </Stack>
                         : null}
 

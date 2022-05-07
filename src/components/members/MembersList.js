@@ -6,7 +6,6 @@ import { Box } from '@mui/material';
 
 class MembersList extends Component{
   render(){
-
     var members = this.props.members;
     
     return (
@@ -17,7 +16,7 @@ class MembersList extends Component{
             <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
               {
               members.map((member) => 
-              <Member member={member}></Member>)
+              <Member member={member} privileges={this.props.privileges}></Member>)
               }
             </List>
             :

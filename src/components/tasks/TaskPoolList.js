@@ -9,6 +9,7 @@ class TaskPoolList extends Component{
 
   render(){
 
+    const privileges = this.props.privileges;
     var task_pools = this.props.pools;
     console.log(task_pools)
     
@@ -20,7 +21,7 @@ class TaskPoolList extends Component{
           <List sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }}>
             {
               task_pools.map((task_pool) => 
-              <TaskPool taskPool={task_pool}/>)
+              <TaskPool taskPool={task_pool} privileges={privileges}/>)
             }
             
           </List>
