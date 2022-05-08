@@ -3,20 +3,17 @@ import axios from 'axios';
 import React, { Component } from 'react'
 import commons from '../commons'
 
-export default function PopUpDeletePool(props) {
+export default function PopUpDeleteMember(props) {
     var { open, handleClose, id } = props
 
     
     function handleYes(){
         console.log("handle yes", open, handleClose, id)
 
-
-        // poniższy request do uzupełnienia
-
-        // axios.delete(commons.baseURL + "/api/pool/delete/" + id)
-        //     .then(() => {
-        //         console.log("task pool deleted")
-        //     });
+        axios.delete(commons.baseURL + "/api/member/delete/" + id)
+            .then(() => {
+                console.log("member deleted")
+            });
     }
 
     return (
@@ -41,7 +38,9 @@ export default function PopUpDeletePool(props) {
                     minWidth: '80px'
                 }}>Yes</Button>
 
-                <Button variant="contained" onClick={() => {handleClose(false)}}  style={{
+                <Button variant="contained" onClick={() => {
+                    handleClose(false)
+                }}  style={{
                     margin: '20px',
                     minWidth: '80px'
                 }}>No</Button>
