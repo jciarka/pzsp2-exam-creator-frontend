@@ -11,6 +11,7 @@ import { Stack } from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
+import axios from 'axios';
 
 function createShortText(text){
   const letters = 30
@@ -19,6 +20,17 @@ function createShortText(text){
     res += "..."
   }
   return res
+}
+
+
+function getPoolId(url ){
+  const url_parts = url.split("/")
+  for (let i = 0; i < url_parts.length; i++) {
+    if (url_parts[i] == "pool" && (i + 1) != url_parts.length) {
+      return parseInt(url_parts[i + 1])
+    }
+  }
+  return -1
 }
 
 
@@ -50,7 +62,16 @@ export default function TaskPool() {
     },
   ]
 
+
   const [expanded, setExpanded] = React.useState(false);
+  const poolId = getPoolId(window.location.pathname)
+
+  axios.get('api/exercise/pool/' + poolId)
+    .then(response => {
+      console.log("EXERCISES", response.data)
+    })
+    .catch(e => { return });
+
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
