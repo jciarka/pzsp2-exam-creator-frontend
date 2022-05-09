@@ -13,10 +13,10 @@ export default function PopUpDeletePool(props) {
 
         // poniższy request do uzupełnienia
 
-        // axios.delete(commons.baseURL + "/api/pool/delete/" + id)
-        //     .then(() => {
-        //         console.log("task pool deleted")
-        //     });
+        axios.delete(commons.baseURL + "/api/pool/delete/" + id)
+            .then(() => {
+                console.log("task pool deleted")
+            });
     }
 
     return (
