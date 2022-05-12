@@ -19,6 +19,7 @@ import axios from "axios";
 import commons from './commons'
 import { useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import PdfLoader from './components/pdfs/pdfLoader'
 
 function App() {
 
@@ -34,6 +35,7 @@ function App() {
           'alignItems':'center'
           
         }}> 
+          <PdfLoader testId={4052} />
           {
             (
               !account ||
