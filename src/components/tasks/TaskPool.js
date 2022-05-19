@@ -14,6 +14,7 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import axios from 'axios';
 import { Box } from '@mui/system';
 import Exercise from './Exercise.js';
+import AddNewTask from './AddNewTask.js';
 
 function createShortText(text){
   if (!text)
@@ -72,6 +73,9 @@ export default function TaskPool() {
 
   
   const [fetched, setFetched] = React.useState(null);
+  const [addingNewTask, setAddingNewTask] = React.useState(false);
+  
+  
   const poolId = getPoolId(window.location.pathname)
 
   React.useEffect(() => {
@@ -91,17 +95,28 @@ export default function TaskPool() {
     
     <Stack spacing={2}>
       {
-        fetched 
+        !fetched || tasks.length <= 0
         ?
+        <Box
+        sx = {{
+          marginBottom: "30px",
+        }}
+        >No exercises found. Start by adding first exercise using button below!</Box>
+        :
         tasks.map((task) => 
         <Exercise 
         task={task} 
         ></Exercise>
         )
+      }
+      {
+        addingNewTask
+        ?
+        <AddNewTask setAddingNewTask={setAddingNewTask}></AddNewTask>
         :
         null
       }
-      <Button>
+      <Button onClick={() => setAddingNewTask(!addingNewTask)}>
         <AddIcon /> Add new task
       </Button>
       
