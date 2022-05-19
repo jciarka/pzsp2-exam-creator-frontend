@@ -12,6 +12,7 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { Box } from '@mui/system';
+import Version from "./Version.js"
 
 function createShortText(text){
     if (!text)
@@ -78,15 +79,7 @@ export default function Exercise(props) {
                     <Box sx={{ fontWeight: 'bold'}}>Title:</Box> {task.title}
                     {
                         versions.map((v, i) => 
-                            <Box>
-                                <Box sx={{ 
-                                    fontWeight: 'bold',
-                                    marginTop: "10px"
-                                }}>
-                                    Version {i + 1}:
-                                </Box> 
-                                {v.text}
-                            </Box>
+                            <Version v={v} i={i}></Version>
                         )
                     }
                 </Typography>
