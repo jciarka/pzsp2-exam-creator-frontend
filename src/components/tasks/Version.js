@@ -8,7 +8,7 @@ export default function Version(props) {
     if (v && v.answers) {
         answers = v.answers
     }
-    console.log("VVV", answers, v.text)
+    // console.log("VVV", answers, v.text)
 
 
     return (
