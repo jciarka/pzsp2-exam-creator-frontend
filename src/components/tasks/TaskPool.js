@@ -72,9 +72,10 @@ export default function TaskPool() {
   var [tasks, setTasks] = React.useState([]);
 
   
-  const [fetched, setFetched] = React.useState(null);
+  const [fetched, setFetched] = React.useState(0);
   const [addingNewTask, setAddingNewTask] = React.useState(false);
-  
+  const [tasksAdded, setTasksAdded] = React.useState(0);
+  console.log("tA", tasksAdded)
   
   const poolId = getPoolId(window.location.pathname)
 
@@ -83,10 +84,10 @@ export default function TaskPool() {
       .then(response => {
         console.log("EXERCISES", response.data)
         setTasks(response.data)
-        setFetched(true)
+        setFetched(fetched + 1)
       })
       .catch(e => { return });
-  }, [])
+  }, [tasksAdded])
 
 
   
@@ -95,7 +96,7 @@ export default function TaskPool() {
     
     <Stack spacing={2}>
       {
-        !fetched || tasks.length <= 0
+        fetched <= 0 || tasks.length <= 0
         ?
         <Box
         sx = {{
@@ -106,13 +107,19 @@ export default function TaskPool() {
         tasks.map((task) => 
         <Exercise 
         task={task} 
+        tasksAdded={tasksAdded}
+        setTasksAdded={setTasksAdded}
         ></Exercise>
         )
       }
       {
         addingNewTask
         ?
-        <AddNewTask setAddingNewTask={setAddingNewTask}></AddNewTask>
+        <AddNewTask 
+        setAddingNewTask={setAddingNewTask} 
+        tasksAdded={tasksAdded}
+        setTasksAdded={setTasksAdded}
+        ></AddNewTask>
         :
         null
       }

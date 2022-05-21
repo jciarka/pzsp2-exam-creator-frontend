@@ -18,7 +18,7 @@ function getPoolId(url){
 
 export default function AddNewTask(props) {
 
-    var { setAddingNewTask } = props
+    var { setAddingNewTask, tasksAdded, setTasksAdded } = props
 
     var [task, setTask] =  React.useState({
         title: "",
@@ -60,6 +60,7 @@ export default function AddNewTask(props) {
           .then(response => {
             const data = response.data
             console.log("ADDED NEW TASK", data)
+            setTasksAdded(tasksAdded + 1)
           })
           .catch(e => { return });
     }
