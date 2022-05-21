@@ -15,6 +15,7 @@ import AddNewTaskPool from "./components/tasks/AddNewTaskPool";
 import AddNewTest from "./components/tests/AddNewTest";
 import AddNewMember from "./components/members/AddNewMember";
 import AddNewClass from "./components/home/AddNewClass";
+import ImportTasks from "./components/tests/ImportTasks";
 import axios from "axios";
 import commons from './commons'
 import { useSelector } from "react-redux";
@@ -100,6 +101,15 @@ function App() {
               render={(props) => (
                 <>
                   <Test />
+                </>
+              )}
+            />
+
+            <Route
+              exact path="/classes/:class_id/test/:test_id/importTasks"
+              render={(props) => (
+                <>
+                  <ImportTasks />
                 </>
               )}
             />

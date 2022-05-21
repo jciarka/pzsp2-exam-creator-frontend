@@ -12,6 +12,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { render } from '@testing-library/react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+
 
 function createShortText(text){
   const letters = 30
@@ -78,7 +80,8 @@ export default class Test extends React.Component {
   }
 
   render(){
-    
+      const url = window.location.pathname
+
       const handleChangeSelect = (event) => {
         this.setState({type: event.target.value});
       };
@@ -130,11 +133,17 @@ export default class Test extends React.Component {
     return (
       
       <Stack spacing={2}>
-        <Button style={{
-          marginBottom: '10px'
-        }}>
-          <AddIcon />Import existing test
-        </Button>
+        <Link to={{
+                  pathname: url+'/importTasks'
+              }}
+        >
+          <Button style={{
+            marginBottom: '10px'
+          }}>
+          
+            <AddIcon />Import existing tasks
+          </Button>
+        </Link >
         {
         this.state.tasks.map((task) => 
         <Accordion expanded={this.state.expanded === task.id} onChange={handleChange(task.id)} style={{
