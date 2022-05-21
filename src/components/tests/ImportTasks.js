@@ -9,12 +9,12 @@ import Checkbox from '@mui/material/Checkbox';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import { useState, useEffect } from 'react';
 import axios from "axios";
+import PoolOnList from './PoolOnList';
 
 
 
 const ImportTasks = () => {
     const { class_id, test_id } = useParams()
-    const [checked, setChecked] = useState([true, false])
     const [pools, setPools] = useState([])
 
       useEffect(() => {
@@ -32,49 +32,12 @@ const ImportTasks = () => {
         console.log(pools)
     }
 
-    const handleChange1 = (event) => {
-      setChecked([event.target.checked, event.target.checked]);
-    };
-  
-    const handleChange2 = (event) => {
-      setChecked([event.target.checked, checked[1]]);
-    };
-  
-    const handleChange3 = (event) => {
-      setChecked([checked[0], event.target.checked]);
-    };
-  
-    const children = (
-      <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
-        <FormControlLabel
-          label="Task 1"
-          control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
-        />
-        <FormControlLabel
-          label="Task 2"
-          control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
-        />
-      </Box>
-    );
-
   return (
     <Container>
         <Stack spacing={3} sx={{ width: 500 }}>
         {
         pools.map((pool) =>
-            <Container>
-                <FormControlLabel
-                label={pool.name}
-                control={
-                <Checkbox
-                    checked={checked[0] && checked[1]}
-                    indeterminate={checked[0] !== checked[1]}
-                    onChange={handleChange1}
-                />
-                }
-            />
-            {children}
-            </Container>
+          <PoolOnList pool={pool} />
             
         )
         }
