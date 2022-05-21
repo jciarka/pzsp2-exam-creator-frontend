@@ -48,6 +48,9 @@ export default function AddNewTask(props) {
     var handleChangeSelect = (e) => {
         console.log("HCS")
         setType(e.target.value)
+        if (e.target.value != "CHOOSE_PLAINTEXT" && e.target.value != "CHOOSE_MARKDOWN"){
+            setAnsAdded(0)
+        }
         var new_task = task
         task.type = e.target.value
         setTask(new_task)
@@ -55,6 +58,7 @@ export default function AddNewTask(props) {
 
     function submitTask(){
         console.log("TASK", task)
+        console.log("ANSWERS", answers)
         postTask()
     }
 
@@ -73,6 +77,7 @@ export default function AddNewTask(props) {
 
         var new_version = version
         new_version.text = text
+        new_version.answers = answers
         setVersion(new_version)
 
         task.versions.push(Object.assign({}, new_version))
@@ -183,10 +188,10 @@ export default function AddNewTask(props) {
                     ansAdded > 0
                     ?
                     <Box>
-                        <Box sx={{ fontWeight: 'bold'}}>Answers:</Box> {task.title}
+                        <Box sx={{ fontWeight: 'bold'}}>Answers:</Box>
                         {
                             answers.map((a, i) => 
-                            <Answer a={a} i={i}></Answer>
+                            <Answer a={a} i={i} answers={answers} setAnswers={setAnswers}></Answer>
                             )
                         }
                     </Box>

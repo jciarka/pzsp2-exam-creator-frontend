@@ -3,10 +3,24 @@ import { Box, minWidth } from '@mui/system'
 import React from 'react'
 
 export default function Answer(props) {
-    var {a, i} = props
+    var {a, i, answers, setAnswers} = props
 
-    function textChanged(){
-        console.log("answer changed")
+    var [text, setText] = React.useState("")
+    var [positive, setPositive] = React.useState(false)
+
+    function textChanged(e){
+        setText(e.target.value)
+        console.log("answer changed", text)
+        var new_answers = answers
+        new_answers[i].text = e.target.value
+        setAnswers(new_answers)
+    }
+
+    function positiveChanged(){
+        setPositive(!positive)
+        var new_answers = answers
+        new_answers[i].positive = !positive
+        setAnswers(new_answers)
     }
 
     return (
@@ -31,7 +45,7 @@ export default function Answer(props) {
                     textChanged(e)
                 }}
             />
-            <Switch />
+            <Switch onChange={() => positiveChanged()}/>
         </Stack>
     )
 }
