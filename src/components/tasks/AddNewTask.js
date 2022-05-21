@@ -5,6 +5,7 @@ import { Divider } from '@mui/material';
 import Version from './Version'
 import commons from '../../commons'
 import axios from 'axios';
+import Answer from "./Answer"
 
 function getPoolId(url){
     const url_parts = url.split("/")
@@ -41,6 +42,8 @@ export default function AddNewTask(props) {
     var [text, setText] = React.useState("")
     var [title, setTitle] = React.useState("")
     var [verAdded, setVerAdded] = React.useState(0)
+    var [answers, setAnswers] = React.useState([])
+    var [ansAdded, setAnsAdded] = React.useState(0)
 
     var handleChangeSelect = (e) => {
         console.log("HCS")
@@ -88,6 +91,21 @@ export default function AddNewTask(props) {
         setTask(new_task)
         // task.assign(title, ...title)
         console.log(title, task)
+    }
+
+    function addAnswer() {
+        console.log("ADD ANSWER", answers)
+        var answers2 = answers
+        answers2.push(
+            {
+                text: "",
+                positive: false
+            }
+        )
+        setAnswers(answers2)
+        console.log("ADD ANSWER 2", answers)
+
+        setAnsAdded(ansAdded + 1)
     }
 
 
@@ -160,6 +178,22 @@ export default function AddNewTask(props) {
                     }}
                 />
 
+                {/* answers */}
+                {
+                    ansAdded > 0
+                    ?
+                    <Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Answers:</Box> {task.title}
+                        {
+                            answers.map((a, i) => 
+                            <Answer a={a} i={i}></Answer>
+                            )
+                        }
+                    </Box>
+                    :
+                    null
+                }
+
                 {/* buttons submit and cancel */}
                 <Stack direction="row" spacing={5} style={{
                     'width': '800px',
@@ -178,6 +212,24 @@ export default function AddNewTask(props) {
                     }}>
                     CANCEL TASK
                     </Button>
+
+                    {
+                        type === "CHOOSE_PLAINTEXT" || type === "CHOOSE_MARKDOWN"
+                        ?
+                        <Button style={{
+                        width: '800px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                        }}
+                        onClick={() => {
+                            addAnswer()
+                        }}>
+                        ADD ANSWER
+                        </Button>
+                        :
+                        null
+                    }
 
                     <Button style={{
                     width: '800px',
