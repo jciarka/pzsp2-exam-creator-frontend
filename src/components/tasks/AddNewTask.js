@@ -115,7 +115,7 @@ export default function AddNewTask(props) {
                         <MenuItem value={"HTML"}>Html</MenuItem>
                         <MenuItem value={"MARKDOWN"}>Markdown</MenuItem>
                         <MenuItem value={"CHOOSE_PLAINTEXT"}>Plain text with multiple answers</MenuItem>
-                        <MenuItem value={"CHOOSE_MARKDOWN"}>Markdown with multiple asnwers</MenuItem>
+                        <MenuItem value={"CHOOSE_MARKDOWN"}>Markdown with multiple answers</MenuItem>
                     </Select>
                     </FormControl>
                 </Box>

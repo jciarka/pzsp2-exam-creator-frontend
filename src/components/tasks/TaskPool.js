@@ -121,12 +121,11 @@ export default function TaskPool() {
         setTasksAdded={setTasksAdded}
         ></AddNewTask>
         :
-        null
+        <Button onClick={() => setAddingNewTask(!addingNewTask)}>
+          <AddIcon /> Add new task
+        </Button>
       }
-      <Button onClick={() => setAddingNewTask(!addingNewTask)}>
-        <AddIcon /> Add new task
-      </Button>
-      
+  
     </Stack>
   );
 }
