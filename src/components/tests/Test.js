@@ -14,6 +14,9 @@ import AssignmentIcon from '@mui/icons-material/Assignment';
 import { render } from '@testing-library/react';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Autocomplete } from '@mui/material';
+import PdfLoader from '../../components/pdfs/pdfLoader'
+import axios from "axios";
+
 
 function createShortText(text){
   const letters = 30
@@ -76,6 +79,16 @@ export default class Test extends React.Component {
           ]
         }]
     };
+
+    axios.get('api/exercise/test/1002')
+    .then(response => {
+      const data = response.data
+      console.log("TEST", data)
+      this.setState({
+        tasks: data
+      })  
+    })
+    .catch(e => { return });
     
   }
 
@@ -294,7 +307,7 @@ export default class Test extends React.Component {
         }}>
           <AddIcon /> Submit test
         </Button>
-        
+        <PdfLoader testId={1002} />
       </Stack>
     );
   }
