@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
+import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, Snackbar, TextareaAutosize, TextField } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Divider } from '@mui/material';
 import Version from './Version'
@@ -44,6 +44,11 @@ export default function AddNewTask(props) {
     var [verAdded, setVerAdded] = React.useState(0)
     var [answers, setAnswers] = React.useState([])
     var [ansAdded, setAnsAdded] = React.useState(0)
+    var [alertOpen, setAlertOpen] = React.useState(false)
+
+    function handleAlertClose(){
+        setAlertOpen(false)
+    }
 
     var handleChangeSelect = (e) => {
         console.log("HCS")
@@ -59,7 +64,12 @@ export default function AddNewTask(props) {
     function submitTask(){
         console.log("TASK", task)
         console.log("ANSWERS", answers)
-        postTask()
+        if (task.versions.length > 0){
+            setAddingNewTask(false);
+            postTask()
+        } else {
+            setAlertOpen(true)
+        }
     }
 
     function postTask() {
@@ -256,7 +266,7 @@ export default function AddNewTask(props) {
                     }} 
                     onClick={() => {
                         console.log("CLICK");
-                        setAddingNewTask(false);
+                        
                         submitTask();
                     }
                     }>
@@ -266,6 +276,15 @@ export default function AddNewTask(props) {
                 </Stack>
                 </Stack>
             </Box>
+
+            {/* alert */}
+            <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+           
+                <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+                Adding task unsuccessful 
+                </Alert>
+            
+            </Snackbar>
         </Box>
     )
 }
