@@ -53,17 +53,7 @@ export default class Test extends React.Component {
         answers:null,
         exercises_id: null,
         exercises_count: 50,
-        tasks: [{
-          exercises_id: 1,
-          title:"Zadanie z geometrii",
-          type:"PLAIN_TEXT",
-          versions:[
-            {
-              text:"Oto jest pytanie",
-              answers:null
-            }
-          ]
-        }]
+        tasks: []
     };
 
     axios.get(`api/exercise/test/${test_id}`)

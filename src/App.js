@@ -36,7 +36,7 @@ function App() {
           'alignItems':'center'
           
         }}> 
-          <PdfLoader testId={4052} />
+          {/* <PdfLoader testId={4052} /> */}
           {
             (
               !account ||

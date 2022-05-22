@@ -26,11 +26,6 @@ const PoolOnList = ({pool, refreshTasksId}) => {
        refreshTasksId(tasks)
     }, [tasks]); 
 
-    const onClick = () => {
-        console.log(pool)
-        console.log('tasks', tasks)
-        
-    }
     const toggleCheckbox = (id) => {
       setTasks(tasks.map(task => task.id === id ? {...task, checked : !task.checked} : task))
     }
@@ -57,8 +52,6 @@ const PoolOnList = ({pool, refreshTasksId}) => {
           </ Box>
         )
       }
-          
-  <Button onClick={onClick}>ok</Button>
 
   </Container>
   );
