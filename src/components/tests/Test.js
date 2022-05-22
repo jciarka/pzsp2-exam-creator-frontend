@@ -18,6 +18,8 @@ import PdfLoader from '../../components/pdfs/pdfLoader'
 import axios from "axios";
 
 
+
+
 function createShortText(text){
   const letters = 30
   var res = text.substring(0, letters);
@@ -27,37 +29,21 @@ function createShortText(text){
   return res
 }
 
+function getSubjectId(url){
+  const url_parts = url.split("/")
+  console.log("URL PARTS", url_parts)
+  for (let i = 0; i < url_parts.length; i++) {
+    if (url_parts[i] == "test" && (i + 1) != url_parts.length) {
+      return parseInt(url_parts[i + 1])
+    }
+  }
+  return -1
+}
 
 export default class Test extends React.Component {
-  // var tasks= [
-  //   {
-  //     id: 1,
-  //     text: "Rozwiaz rownanie x^2 = 4",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "Rozwiaz rownanie x^2 = 9",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "Rozwiaz rownanie x^2 = 1",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 4,
-  //     text: "Rozwiaz rownanie x^2 = 12",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  // ]
-
   constructor(props){
     super(props)
+    const test_id = getSubjectId(window.location.pathname)
     this.state = {
         addingNewTask:false,
         expanded:false,
@@ -80,7 +66,7 @@ export default class Test extends React.Component {
         }]
     };
 
-    axios.get('api/exercise/test/1002')
+    axios.get(`api/exercise/test/${test_id}`)
     .then(response => {
       const data = response.data
       console.log("TEST", data)
@@ -94,7 +80,7 @@ export default class Test extends React.Component {
 
   render(){
       const url = window.location.pathname
-
+      const test_id = getSubjectId(window.location.pathname)
       const handleChangeSelect = (event) => {
         this.setState({type: event.target.value});
       };
@@ -307,7 +293,7 @@ export default class Test extends React.Component {
         }}>
           <AddIcon /> Submit test
         </Button>
-        <PdfLoader testId={1002} />
+        <PdfLoader testId={test_id} />
       </Stack>
     );
   }
