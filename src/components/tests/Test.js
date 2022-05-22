@@ -225,21 +225,6 @@ export default class Test extends React.Component {
                   </Select>
                 </FormControl>
               </Box>
-              <Autocomplete
-                single
-                id="tags-standard"
-                // options={available}
-                // getOptionLabel={(option) => `${option.firstname} ${option.lastname} : ${option.emial}`}
-                renderInput={(params) => (
-                  <TextField
-                    {...params}
-                    variant="standard"
-                    label="Person"
-                    placeholder="Choose a Person"
-                  />
-                )}
-                // onChange={(event, value) => setPerson(value)}
-              />
               <TextField
                 variant="standard"
                 label="Exercise Title"
