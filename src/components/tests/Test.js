@@ -93,11 +93,7 @@ export default class Test extends React.Component {
           alert('Please add a text')
           return
         }
-        // if(!this.state.exercises_count) {
-        //   this.setState({exercises_count: this.state.exercises_count + 1})
-          // this.setState({exercises_count: this.state.tasks.lengt})
-          //component did update 
-        // }
+
         var task = {
           exercises_id: this.state.exercises_count + 1,
           title:this.state.title,
@@ -115,8 +111,8 @@ export default class Test extends React.Component {
       };
 
       const deleteTask = (id) => {
-        const newTasks = this.state.tasks.filter((item) => item.exercises_id !== id)
-        this.setState({tasks: [...newTasks]})      
+        const newTasks = this.state.tasks.filter((item) => item.id !== id)
+        this.setState({tasks: [...newTasks]})          
       } 
 
     return (
@@ -170,7 +166,8 @@ export default class Test extends React.Component {
                       <EditIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.exercises_id)}>
+                {/* <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.exercises_id)}> */}
+                <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.id)}>
                   <IconButton>
                       <DeleteIcon />
                   </IconButton>
