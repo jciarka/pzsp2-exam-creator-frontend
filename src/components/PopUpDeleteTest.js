@@ -8,12 +8,11 @@ export default function PopUpDeleteTest(props) {
 
     
     const handleYes = () => {
-        console.log("handle yes2", open, id)
+        console.log("handle yes", open, id)
         axios.delete(commons.baseURL + "/api/tests/delete/" + id)
         .then(() => {
             console.log("test deleted")
         });
-        console.log('ok')
     }
 
     return (

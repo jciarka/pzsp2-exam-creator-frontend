@@ -16,8 +16,7 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min'
 import { Autocomplete } from '@mui/material';
 import PdfLoader from '../../components/pdfs/pdfLoader'
 import axios from "axios";
-
-
+import commons from '../../commons'
 
 
 function createShortText(text){
@@ -112,7 +111,12 @@ export default class Test extends React.Component {
 
       const deleteTask = (id) => {
         const newTasks = this.state.tasks.filter((item) => item.id !== id)
-        this.setState({tasks: [...newTasks]})          
+        this.setState({tasks: [...newTasks]})
+
+        axios.delete(commons.baseURL + `/api/testexercise/delete/${id}/${test_id}` )
+        .then(() => {
+            console.log("task deleted from test")
+        });          
       } 
 
     return (
@@ -166,7 +170,6 @@ export default class Test extends React.Component {
                       <EditIcon />
                   </IconButton>
                 </Tooltip>
-                {/* <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.exercises_id)}> */}
                 <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.id)}>
                   <IconButton>
                       <DeleteIcon />
