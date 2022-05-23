@@ -9,23 +9,9 @@ import { Container } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { withRouter } from "react-router";
 
-
-
-
-
-function getSubjectId(url){
-const url_parts = url.split("/")
-console.log("URL PARTS", url_parts)
-for (let i = 0; i < url_parts.length; i++) {
-  if (url_parts[i] == "classes" && (i + 1) != url_parts.length) {
-    return parseInt(url_parts[i + 1])
-  }
-}
-return -1
-}
-
-export default class addNewTest extends Component {
+class addNewTest extends Component {
 
   constructor(props) {
     super(props)
@@ -36,43 +22,25 @@ export default class addNewTest extends Component {
     };
   }
 
-  render(){
-    function handleSubmit(state) {
-      console.log("SUBMIT")
-      console.log(state.testName)
-      console.log(state.description)
-      
-      const id = getSubjectId(window.location.pathname)
-      
-      var body = { 
-        title: state.testName ,
-        description: state.description ,
-        subjectId: id
-      }
-      axios.post(commons.baseURL + "/api/tests/add", body)
-        .then(response => {
-          const data = response.data
-          console.log("ADD NEW TEST", data)
-        })
-        .catch(e => { return });
+  handleSubmit(state) {
+    const { match, history } = this.props;
+    
+    var body = { 
+      title: state.testName ,
+      description: state.description ,
+      subjectId: match.params.class_id
     }
 
-    // const account = useSelector(
-    //   (state) => state.account
-    // );
-    // const mapStateToProps = state => ({
-    //   account: state.account    
-    // });
+    axios.post(commons.baseURL + "/api/tests/add", body)
+      .then(response => {
+        history.push(`/classes/${match.params.class_id}`)
+      })
+      .catch(e => { return });
+  }
+
+  render(){
 
     function handleAddTest() {
-      // const requestOptions = {
-      //   method: 'GET',
-      //   headers: { 
-      //     'Authorization': `bearer ${account.token}`
-      //   }
-      // };
-      // fetch(commons.baseURL + '/api/tests/search/e', requestOptions)
-      //   .then(data => console.log("RESPONSE ADD TEST", data));
       axios.get(commons.baseURL + '/api/tests/search/e')
         .then(response => {
           const data = response.data
@@ -114,7 +82,7 @@ export default class addNewTest extends Component {
           <Button variant="outlined" startIcon={<DeleteIcon />}>
             Cancel
           </Button>
-          <Button variant="contained" endIcon={<SendIcon />} onClick={() => handleSubmit(this.state)}>
+          <Button variant="contained" endIcon={<SendIcon />} onClick={() => this.handleSubmit(this.state)}>
             Submit
           </Button>
         </Stack>
@@ -154,4 +122,4 @@ export default class addNewTest extends Component {
   
 // }
 
-// export default AddNewTest
+export default withRouter(addNewTest)

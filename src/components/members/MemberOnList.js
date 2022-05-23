@@ -95,12 +95,15 @@ export default class MemberOnList extends Component {
                         : null}
                     </ListItemButton>
                     
-                    <PopUpDeleteMember open={this.state.open} 
-                    handleClose={this.handleClose} 
-                    id={this.id} 
-                    sx= {{
-                        minWidth:'1500px'
-                    }}>
+                    <PopUpDeleteMember 
+                        open={this.state.open} 
+                        handleClose={this.handleClose}
+                        userId={member.userId}
+                        subjectId={member.subjectId}
+                        id={this.id} 
+                        sx= {{
+                            minWidth:'1500px'
+                        }}>
                     </PopUpDeleteMember>
                 </Box>
                 }

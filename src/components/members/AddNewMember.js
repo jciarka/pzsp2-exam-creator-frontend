@@ -17,15 +17,19 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormHelperText from '@mui/material/FormHelperText';
 import Checkbox from '@mui/material/Checkbox';
-
+import { useHistory } from "react-router-dom";
+import { Alert, Snackbar } from '@mui/material';
 
 const AddNewMember = ({props}) => {
+  let history = useHistory();
+
   const { class_id } = useParams()
   const [users, setUsers] = useState([])
   const [participants, setParticipants] = useState(props.location.state.participants)
   const [person, setPerson] = useState('')
   const [available, setAvailable] = useState([])
   const [role, setRole] = useState('')
+  const [alertOpen, setAlertOpen] = useState(false)
   const roles = [
       'ADMIN', //3
       'WRITE', //1
@@ -92,31 +96,17 @@ const AddNewMember = ({props}) => {
       subjectRoles: currentRoles 
     }      
     setParticipants([...participants, person])
+
     axios.post(commons.baseURL + "/api/subjectuser/add", body)
           .then(response => {
-            const data = response.data
-            console.log("ADD PERSON TO SUBJECT", data)
+            history.push(`/classes/${class_id}`)
           })
           .catch(e => { return });
-
-    // if(in1){
-    //   var body = { 
-    //     subjectId: class_id,
-    //     userId: person.id,
-    //     role: roles[0]
-    //   }
-    //   console.log('body ', body)
-    //   console.log('url ', commons.baseURL + `/api/subjectuser/${body.subjectId}/${body.userId}/roles/${body.role}`)
-    //   axios.post(commons.baseURL + `/api/subjectuser/${body.subjectId}/${body.userId}/roles/${body.role}`, {})
-    //       .then(response => {
-    //         const data = response.data
-    //         console.log("ADD ROLE", data)
-    //       })
-    //       .catch(e => { return });
-
-    // }
-
   };
+
+  const handleAlertClose = () => {
+    setAlertOpen(false)
+  }
 
   return (
     <Container>
@@ -170,6 +160,11 @@ const AddNewMember = ({props}) => {
       Submit
     </Button>
   </Stack>
+  <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+      <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+      Adding task unsuccessful 
+      </Alert>
+  </Snackbar>
   </Container>
   );
 }

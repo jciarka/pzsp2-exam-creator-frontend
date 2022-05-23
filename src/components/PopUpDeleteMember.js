@@ -2,18 +2,20 @@ import { Button, Dialog, DialogTitle, Stack } from '@mui/material';
 import axios from 'axios';
 import React, { Component } from 'react'
 import commons from '../commons'
+import { Alert, Snackbar } from '@mui/material';
 
 export default function PopUpDeleteMember(props) {
-    var { open, handleClose, id } = props
+    var { open, handleClose, id, userId, subjectId } = props
 
     
-    function handleYes(){
-        console.log("handle yes", open, handleClose, id)
+    const handleYes = async () => {
+        console.log("test")
+        var result = await axios.delete(`/api/subjectuser/${subjectId}/${userId}`)
 
-        axios.delete(commons.baseURL + "/api/member/delete/" + id)
-            .then(() => {
-                console.log("member deleted")
-            });
+        if (!result && result.status !== 200) 
+         return
+        
+        window.location.reload(false)
     }
 
     return (
@@ -32,7 +34,6 @@ export default function PopUpDeleteMember(props) {
             }}>
                 <Button variant="contained" onClick={() => {
                     handleYes()
-                    handleClose(true)
                 }}  style={{
                     margin: '20px',
                     minWidth: '80px'

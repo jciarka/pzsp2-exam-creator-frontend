@@ -6,90 +6,13 @@ import axios from 'axios'
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from 'react'
 import { Box } from '@mui/system'
+import { useHistory } from "react-router-dom";
 
-
-var AddNewClass = () =>  {
   
-  // var classes = [
-  //   {
-  //     id: 1,
-  //     name: "PZSP1",
-  //     pools:[
-  //       {
-  //         id: 1,
-  //         name: "kolokwium 1",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "kolokwium 2",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "egzamin",
-  //         isSelected: false
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 2,
-  //     name: "PZSP2",
-  //     pools:[
-  //       {
-  //         id: 1,
-  //         name: "kolokwium 3",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "kolokwium 4",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "egzamin poprawkowy",
-  //         isSelected: false
-  //       }
-  //     ]
-  //   },
-  //   {
-  //     id: 3,
-  //     name: "BSS",
-  //     pools:[
-  //       {
-  //         id: 1,
-  //         name: "kolokwium 1",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 2,
-  //         name: "egzamin 1",
-  //         isSelected: false
-  //       },
-  //       {
-  //         id: 3,
-  //         name: "egzamin 2",
-  //         isSelected: false
-  //       }
-  //     ]
-  //   }
-  // ]
+var AddNewClass = () =>  {
+  const history = useHistory();
 
   const account = useSelector((state) => state.account);
-
-  // useEffect(() => {
-  //   axios.get('/api/subjects/' + account.id)
-  //   .then(response => {
-  //     console.log(response.data)
-  //     // console.log("REPOSNES", response.data)
-  //     // setSubjects(response.data)
-  //     console.log("FETCHED", response.data)
-  //     classes = response.data
-  //     setFetched(true)
-  //   })
-  //   .catch(e => { return })
-  // }, [])
 
   var classes = JSON.parse(localStorage.getItem("subjects"))
   var addedSubjectId = null
@@ -113,6 +36,7 @@ var AddNewClass = () =>  {
         console.log("ADD NEW CLASS", data)
         addedSubjectId = response.data.model.id
         importTaskPools()
+        history.push("/")
       })
       .catch(e => { return });
   }
