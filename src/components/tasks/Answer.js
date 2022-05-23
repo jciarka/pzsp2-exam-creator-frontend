@@ -11,14 +11,14 @@ export default function Answer(props) {
     function textChanged(e){
         setText(e.target.value)
         console.log("answer changed", text)
-        var new_answers = answers
+        var new_answers = window.structuredClone(answers)
         new_answers[i].text = e.target.value
         setAnswers(new_answers)
     }
 
     function positiveChanged(){
         setPositive(!positive)
-        var new_answers = answers
+        var new_answers = window.structuredClone(answers)
         new_answers[i].positive = !positive
         setAnswers(new_answers)
     }
