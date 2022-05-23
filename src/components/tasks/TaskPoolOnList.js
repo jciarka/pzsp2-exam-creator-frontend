@@ -76,11 +76,14 @@ class TaskPoolOnList extends Component {
                         <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
                         {this.state.hover ?
                         <Stack direction="row">
-                            <Tooltip title="Edit" placement="top">
-                                <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
-                                    <EditIcon/>
-                                </IconButton>
-                            </Tooltip>
+                            {
+                                privileges && privileges.canWrite &&                            
+                                <Tooltip title="Edit" placement="top">
+                                    <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
+                                        <EditIcon/>
+                                    </IconButton>
+                                </Tooltip>
+                            }
                             {
                                 privileges && privileges.canDelete &&
                                 <Tooltip title="Delete" placement="top">
@@ -95,6 +98,7 @@ class TaskPoolOnList extends Component {
                         : null}
 
                     </ListItemButton>
+
 
                     <PopUpDeletePool open={this.state.open} 
                     handleClose={this.handleClose} 

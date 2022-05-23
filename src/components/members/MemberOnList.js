@@ -82,7 +82,7 @@ export default class MemberOnList extends Component {
 
                             {
                                 this.props.privileges && 
-                                this.props.privileges.canDelete &&
+                                this.props.privileges.canAdmin &&
                                 <Tooltip title="Delete" placement="top">
                                     <IconButton onClick={() => {
                                         this.setState({open: true})
