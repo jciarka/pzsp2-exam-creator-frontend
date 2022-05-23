@@ -26,6 +26,7 @@ export default class TestOnList extends Component {
         this.state = {
             hover: false,
             open: false,
+            deleted: false
         };
         this.onMouseOverHandler = this.onMouseOverHandler.bind(this)
         this.onMouseLeaveHandler = this.onMouseLeaveHandler.bind(this)
@@ -40,8 +41,11 @@ export default class TestOnList extends Component {
         this.setState({hover: false})
     }
 
-    handleClose() {
+    handleClose(isDeleted) {
         this.setState({open: false})
+        if (isDeleted){
+            this.setState({deleted: true})
+        }
     }
     
     render() {
@@ -50,51 +54,57 @@ export default class TestOnList extends Component {
         const privileges = this.props.privileges
 
         return (
-            
             <Box>
-                <ListItemButton style = {{
-                    'width':'350px'
-                }}
-                onMouseOver={this.onMouseOverHandler}
-                onMouseLeave={this.onMouseLeaveHandler}>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <FeedIcon />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary={test.description} 
-                    secondary={"Number of exercises:" 
-                    + getNoExercises(test.exercises)
-                    
-                    }/>
-                    {this.state.hover ?
-                    <Stack direction="row">
-                        {
-                        privileges && privileges.canWrite &&                        
-                        <Tooltip title="Edit" placement="top">
-                            <IconButton component={Link} to={url+'/test/'+test.id}>
-                                <EditIcon />
-                            </IconButton>
-                        </Tooltip>
-                        }
-                        {
-                            privileges && privileges.canDelete &&
-                            <Tooltip title="Delete" placement="top">
-                                <IconButton onClick={() => {
-                                    this.setState({open: true})
-                                }}>
-                                    <DeleteIcon />
+                {this.state.deleted
+                ?
+                null
+                :
+                <Box>
+                    <ListItemButton style = {{
+                        'width':'350px'
+                    }}
+                    onMouseOver={this.onMouseOverHandler}
+                    onMouseLeave={this.onMouseLeaveHandler}>
+                        <ListItemAvatar>
+                        <Avatar>
+                            <FeedIcon />
+                        </Avatar>
+                        </ListItemAvatar>
+                        <ListItemText primary={test.description} 
+                        secondary={"Number of exercises:" 
+                        + getNoExercises(test.exercises)
+                        
+                        }/>
+                        {this.state.hover ?
+                        <Stack direction="row">
+                            {
+                            privileges && privileges.canWrite &&                        
+                            <Tooltip title="Edit" placement="top">
+                                <IconButton component={Link} to={url+'/test/'+test.id}>
+                                    <EditIcon />
                                 </IconButton>
                             </Tooltip>
-                        }
-                    </Stack>
-                    : null}
-                </ListItemButton>
+                            }
+                            {
+                                privileges && privileges.canDelete &&
+                                <Tooltip title="Delete" placement="top">
+                                    <IconButton onClick={() => {
+                                        this.setState({open: true})
+                                    }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                        </Stack>
+                        : null}
+                    </ListItemButton>
 
-                <PopUpDeleteTest open={this.state.open} id={test.id} handleClose={this.handleClose} sx= {{
-                    minWidth:'1500px'
-                }}>
-                </PopUpDeleteTest>
+                    <PopUpDeleteTest open={this.state.open} id={test.id} handleClose={this.handleClose} sx= {{
+                        minWidth:'1500px'
+                    }}>
+                    </PopUpDeleteTest>
+                </Box>
+                }
             </Box>
         )
     }

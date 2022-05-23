@@ -12,6 +12,19 @@ import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import PopUpDeletePool from '../PopUpDeletePool';
 import { Box } from '@mui/system';
 
+function createShortText(text){
+    if (!text)
+    {
+      return "";
+    }
+    const letters = 20
+    var res = text.substring(0, letters);
+    if (text.length > letters) {
+      res += "..."
+    }
+    return res
+}
+
 class TaskPoolOnList extends Component {
     constructor(props){
         super(props)
@@ -73,7 +86,7 @@ class TaskPoolOnList extends Component {
                                 <FolderIcon />
                             </Avatar>
                         </ListItemAvatar>
-                        <ListItemText primary={task_pool.name} secondary="Created Jan 9, 2014" />
+                        <ListItemText primary={task_pool.name} secondary={createShortText(task_pool.description)} />
                         {this.state.hover ?
                         <Stack direction="row">
                             {
