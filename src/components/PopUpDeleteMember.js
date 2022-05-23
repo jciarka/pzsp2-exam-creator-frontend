@@ -9,7 +9,6 @@ export default function PopUpDeleteMember(props) {
 
     
     const handleYes = async () => {
-        console.log("test")
         var result = await axios.delete(`/api/subjectuser/${subjectId}/${userId}`)
 
         if (!result && result.status !== 200) 

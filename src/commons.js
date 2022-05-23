@@ -5,7 +5,7 @@ export default {
 }
 
 const getPrivileges = async (subjectId) => {
-    const result = await axios.get(`/api/participants/${subjectId}/myself`)
+    const result = await axios.get(`/api/participants/${subjectId}/myself`, {validateStatus: () => true})
     
     if (!result && result.status !== 200) {
         return {
@@ -14,8 +14,6 @@ const getPrivileges = async (subjectId) => {
             canAdmin: false,
         }
     }
-
-    console.log(result.data)
 
     const canWrite = ( 
         (result.data.subjectRoles && result.data.subjectRoles.map(x => x.name).includes('WRITE')) || 
@@ -31,8 +29,6 @@ const getPrivileges = async (subjectId) => {
         (result.data.subjectRoles && result.data.subjectRoles.map(x => x.name).includes('ADMIN')) || 
         (result.data.roles && result.data.roles.map(x => x.name).includes('ADMIN')) 
     )
-
-    console.log({ canWrite, canDelete, canAdmin })
 
     return { canWrite, canDelete, canAdmin }
 }

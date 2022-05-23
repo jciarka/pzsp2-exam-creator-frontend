@@ -1,7 +1,7 @@
 import * as React from 'react';
 import Stack from '@mui/material/Stack';
 import { Container } from '@mui/material';
-import { Link, useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { Link, useParams, useHistory  } from "react-router-dom"
 import DeleteIcon from '@mui/icons-material/Delete';
 import SendIcon from '@mui/icons-material/Send';
 import { Box, Button } from '@mui/material'
@@ -11,9 +11,9 @@ import PoolOnList from './PoolOnList';
 import commons from '../../commons';
 
 
-
 const ImportTasks = () => {
     const { class_id, test_id } = useParams()
+    const history = useHistory();
     const [pools, setPools] = useState([])
     const [tasksId, setTasksId] = useState([])
 
@@ -23,8 +23,6 @@ const ImportTasks = () => {
           .then((response) => {
               const data = response.data;
               setPools([...data])
-              console.log('data', data)
-              console.log('pools', pools)
             });        
     }, []); 
 
@@ -33,8 +31,7 @@ const ImportTasks = () => {
         console.log('tasksId01', tasksId)
         axios.post(commons.baseURL + `/api/testexercise/add/${test_id}`, tasksId)
         .then(response => {
-          const data = response.data
-          console.log("ADD EXERCISES FROM POOLS TO TEST", data)
+          history.push(`/classes/${class_id}/test/${test_id}`)
         })
         .catch(e => { return });
     }

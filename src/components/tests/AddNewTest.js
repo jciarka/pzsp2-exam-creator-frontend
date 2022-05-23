@@ -38,6 +38,11 @@ class addNewTest extends Component {
       .catch(e => { return });
   }
 
+  handleCancel() { 
+    const { match, history } = this.props;
+    history.push(`/classes/${match.params.class_id}`)
+  }
+
   render(){
 
     function handleAddTest() {
@@ -79,7 +84,7 @@ class addNewTest extends Component {
           />
         </Stack>
         <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
-          <Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => this.handleCancel()}>
             Cancel
           </Button>
           <Button variant="contained" endIcon={<SendIcon />} onClick={() => this.handleSubmit(this.state)}>
@@ -90,36 +95,6 @@ class addNewTest extends Component {
     )
   }
 }
-  
 
-// var AddNewTest = () =>  {
-  
-
-  // const account = useSelector((state) => state.account);
-
-  // function handleAddTest() {
-  //   // const requestOptions = {
-  //   //   method: 'GET',
-  //   //   headers: { 
-  //   //     'Authorization': `bearer ${account.token}`
-  //   //   }
-  //   // };
-  //   // fetch(commons.baseURL + '/api/tests/search/e', requestOptions)
-  //   //   .then(data => console.log("RESPONSE ADD TEST", data));
-  //   axios.get(commons.baseURL + '/api/tests/search/e')
-  //     .then(response => {
-  //       const data = response.data
-  //       console.log("TESTS", data)
-  //     })
-  //     .catch(e => { return });
-  // }
-
-//   return (
-//     <Box>
-//       <Button onClick={handleAddTest}>Add sample test</Button>
-//     </Box>
-//   )
-  
-// }
 
 export default withRouter(addNewTest)

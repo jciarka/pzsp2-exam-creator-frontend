@@ -8,7 +8,6 @@ import { Box, Button, Chip, FormControl, IconButton, InputLabel, MenuItem, Selec
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { render } from '@testing-library/react';
@@ -165,11 +164,6 @@ export default class Test extends React.Component {
   
               {/* ikony */}
               <Stack direction="row">
-                <Tooltip title="Edit" placement="bottom">
-                  <IconButton>
-                      <EditIcon />
-                  </IconButton>
-                </Tooltip>
                 <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.id)}>
                   <IconButton>
                       <DeleteIcon />
@@ -270,20 +264,25 @@ export default class Test extends React.Component {
           null
         }
   
-        <Button style={{
-          marginTop: '30px'
-        }} onClick={() => {
-          this.setState({addingNewTask: true});
-        }}>
-          <AddIcon /> Add new task
-        </Button>
+        {/* 
+          <Button style={{
+            marginTop: '30px'
+          }} onClick={() => {
+            this.setState({addingNewTask: true});
+          }}>
+            <AddIcon /> Add new task
+          </Button>
 
-        <Button style={{
-          marginTop: '30px'
-        }}>
-          <AddIcon /> Submit test
-        </Button>
-        <PdfLoader testId={test_id} />
+          <Button style={{
+            marginTop: '30px'
+          }}>
+            <AddIcon /> Submit test
+          </Button> 
+        */}
+        
+
+        <PdfLoader disabled={!(this.state.tasks && this.state.tasks.length > 0)} testId={test_id} />
+        
       </Stack>
     );
   }

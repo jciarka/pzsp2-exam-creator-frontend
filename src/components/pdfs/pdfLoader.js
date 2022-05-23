@@ -8,13 +8,18 @@ import CircularProgress from '@mui/material/CircularProgress';
 import fileDownload from 'js-file-download';
 import axios from "axios";
 import PdfLoaderDialog from './pdfLoaderDialog'
+import { Alert, Snackbar } from '@mui/material';
 
-export default ({testId}) => {
+
+export default ({disabled=false, testId}) => {
 
     const [loading, setLoading] = useState(false);
     const [open, setOpen] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    var [alertOpen, setAlertOpen] = React.useState(false)
 
     const downloadTest = async ({version, mixExercises, mixChooseAnswers, appendWithSolved}) => {
+        setAlertOpen(false)
         setLoading(true)
         const response = await axios.get (
           `/api/pdfGenerator/${testId}`, {
@@ -24,11 +29,17 @@ export default ({testId}) => {
                 mixExercises, 
                 mixChooseAnswers, 
                 appendWithSolved
-            }
+            },
+            validateStatus: () => true,
           })
         setLoading(false)
 
-        fileDownload(response.data, 'test.pdf')
+        if(response.status === 200 && response.data.ok ) {
+            fileDownload(response.data, 'test.pdf')
+        } else {
+            setErrorMessage("Error on geenreting test. Check exercises format")
+            setAlertOpen(true)
+        }
     }
 
     const handleOpen = () => {
@@ -37,6 +48,10 @@ export default ({testId}) => {
     
     const handleClose = () => {
         setOpen(false)
+    }
+
+    function handleAlertClose(){
+        setAlertOpen(false)
     }
 
     return(
@@ -55,6 +70,7 @@ export default ({testId}) => {
             </Dialog> 
             <Button variant="outlined" 
                     load 
+                    disabled={disabled}
                     startIcon={ loading ? <CircularProgress size={"20px"}/> : <DownloadIcon /> } 
                     onClick={(e) => {
                             e.preventDefault()
@@ -65,6 +81,11 @@ export default ({testId}) => {
                     > 
                         Download test
             </Button>
+            <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+                <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+                    {errorMessage} 
+                </Alert>
+            </Snackbar>
         </> 
     )
 }

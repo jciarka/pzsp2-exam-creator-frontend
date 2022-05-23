@@ -1,18 +1,18 @@
 import { Button, Dialog, DialogTitle, Stack } from '@mui/material';
 import axios from 'axios';
 import React, { Component } from 'react'
-import commons from '../commons'
 
 export default function PopUpDeleteTest(props) {
     var { open, id, handleClose } = props
 
     
-    const handleYes = () => {
-        console.log("handle yes", open, id)
-        axios.delete(commons.baseURL + "/api/tests/delete/" + id)
-        .then(() => {
-            console.log("test deleted")
-        });
+    const handleYes = async () => {
+        var result = await axios.delete(`/api/tests/${id}`)
+
+        if (!result && result.status !== 200) 
+         return
+        
+        window.location.reload(false)
     }
 
     return (

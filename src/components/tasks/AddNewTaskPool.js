@@ -37,6 +37,10 @@ class addNewTaskPool extends Component {
       .catch(e => { return });
   }
 
+  handleCancel() { 
+    const { match, history } = this.props;
+    history.push(`/classes/${match.params.class_id}`)
+  }
 
   render(){
     return (
@@ -63,7 +67,7 @@ class addNewTaskPool extends Component {
           />
         </Stack>
         <Stack  direction="row" spacing={2} margin={5} justify-content="center" alignItems="center" sx={{ width: 500 }}>
-          <Button variant="outlined" startIcon={<DeleteIcon />}>
+          <Button variant="outlined" startIcon={<DeleteIcon />} onClick={() => this.handleCancel()}>
             Cancel
           </Button>
           <Button variant="contained" endIcon={<SendIcon />} onClick={() => this.handleSubmit(this.state)}>
