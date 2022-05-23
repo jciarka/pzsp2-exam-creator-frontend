@@ -69,11 +69,14 @@ export default class TestOnList extends Component {
                     }/>
                     {this.state.hover ?
                     <Stack direction="row">
+                        {
+                        privileges && privileges.canWrite &&                        
                         <Tooltip title="Edit" placement="top">
                             <IconButton component={Link} to={url+'/test/'+test.id}>
                                 <EditIcon />
                             </IconButton>
                         </Tooltip>
+                        }
                         {
                             privileges && privileges.canDelete &&
                             <Tooltip title="Delete" placement="top">

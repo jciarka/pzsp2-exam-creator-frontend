@@ -196,9 +196,12 @@ export default class Class extends Component {
                 Task pools
               </Typography>
               <TaskPoolList pools={this.state.taskPools} privileges={this.state.privileges}></TaskPoolList>
-              <Button component={Link} to={url+'/newTaskPool'}>
-                <AddIcon /> Add new task pool
-              </Button>
+              {    
+                this.state.privileges && this.state.privileges.canWrite &&   
+                <Button component={Link} to={url+'/newTaskPool'}>
+                  <AddIcon /> Add new task pool
+                </Button>
+              }
             </Stack>
 
             {/* tests */}
@@ -210,9 +213,12 @@ export default class Class extends Component {
               </Typography>
               <TestsList tests={this.state.tests} privileges={this.state.privileges}></TestsList>
               {/* <AddIcon></AddIcon> */}
-              <Button component={Link} to={url+'/newTest'}>
-                <AddIcon /> Add new test
-              </Button>
+              {    
+                this.state.privileges && this.state.privileges.canWrite &&  
+                <Button component={Link} to={url+'/newTest'}>
+                  <AddIcon /> Add new test
+                </Button>
+              }
             </Stack>
 
              {/* members */}
@@ -231,9 +237,12 @@ export default class Class extends Component {
                   }
               }}
               >
-                <Button>
-                  <AddIcon /> Add new participant
-                </Button>
+                {    
+                  this.state.privileges && this.state.privileges.canAdmin &&  
+                  <Button>
+                    <AddIcon /> Add new participant
+                  </Button>
+                }
               </Link>
               
             </Stack>
