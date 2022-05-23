@@ -30,6 +30,15 @@ function parsePath(url, subjects){
       if (i > 0 && pathComponents[i - 1] == "classes"){
         result.push([getSubjectName(c, subjects), currentPath])
       }
+      else if (i > 0 && pathComponents[i - 1] == "pool"){
+        result.push(["Pool nr " + c, currentPath])
+      }
+      else if (i > 0 && pathComponents[i - 1] == "member"){
+        result.push(["Member nr " + c, currentPath])
+      }
+      else if (i > 0 && pathComponents[i - 1] == "test"){
+        result.push(["Test nr " + c, currentPath])
+      }
       else {
         result.push([c, currentPath])
       }
