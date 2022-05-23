@@ -8,7 +8,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min';
 import FeedIcon from '@mui/icons-material/Feed';
-import PopUpDelete from '../PopUpDelete';
+import PopUpDeleteTest from '../PopUpDeleteTest';
 import { Box } from '@mui/system';
 import EditIcon from '@mui/icons-material/Edit';
 import TestsList from './TestsList';
@@ -43,7 +43,7 @@ export default class TestOnList extends Component {
     handleClose() {
         this.setState({open: false})
     }
-
+    
     render() {
         const url = window.location.pathname
         var test = this.props.test
@@ -88,10 +88,10 @@ export default class TestOnList extends Component {
                     : null}
                 </ListItemButton>
 
-                <PopUpDelete open={this.state.open} handleClose={this.handleClose}  sx= {{
+                <PopUpDeleteTest open={this.state.open} id={test.id} handleClose={this.handleClose} sx= {{
                     minWidth:'1500px'
                 }}>
-                </PopUpDelete>
+                </PopUpDeleteTest>
             </Box>
         )
     }

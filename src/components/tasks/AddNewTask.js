@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextareaAutosize, TextField } from '@mui/material';
+import { Alert, Box, Button, FormControl, InputLabel, MenuItem, Select, Snackbar, TextareaAutosize, TextField } from '@mui/material';
 import { Stack } from '@mui/material';
 import { Divider } from '@mui/material';
 import Version from './Version'
 import commons from '../../commons'
 import axios from 'axios';
+import Answer from "./Answer"
 
 function getPoolId(url){
     const url_parts = url.split("/")
@@ -18,7 +19,7 @@ function getPoolId(url){
 
 export default function AddNewTask(props) {
 
-    var { setAddingNewTask } = props
+    var { setAddingNewTask, tasksAdded, setTasksAdded } = props
 
     var [task, setTask] =  React.useState({
         title: "",
@@ -41,10 +42,20 @@ export default function AddNewTask(props) {
     var [text, setText] = React.useState("")
     var [title, setTitle] = React.useState("")
     var [verAdded, setVerAdded] = React.useState(0)
+    var [answers, setAnswers] = React.useState([])
+    var [ansAdded, setAnsAdded] = React.useState(0)
+    var [alertOpen, setAlertOpen] = React.useState(false)
+
+    function handleAlertClose(){
+        setAlertOpen(false)
+    }
 
     var handleChangeSelect = (e) => {
         console.log("HCS")
         setType(e.target.value)
+        if (e.target.value != "CHOOSE_PLAINTEXT" && e.target.value != "CHOOSE_MARKDOWN"){
+            setAnsAdded(0)
+        }
         var new_task = task
         task.type = e.target.value
         setTask(new_task)
@@ -52,7 +63,13 @@ export default function AddNewTask(props) {
 
     function submitTask(){
         console.log("TASK", task)
-        postTask()
+        console.log("ANSWERS", answers)
+        if (task.versions.length > 0){
+            setAddingNewTask(false);
+            postTask()
+        } else {
+            setAlertOpen(true)
+        }
     }
 
     function postTask() {
@@ -60,6 +77,7 @@ export default function AddNewTask(props) {
           .then(response => {
             const data = response.data
             console.log("ADDED NEW TASK", data)
+            setTasksAdded(tasksAdded + 1)
           })
           .catch(e => { return });
     }
@@ -69,6 +87,7 @@ export default function AddNewTask(props) {
 
         var new_version = version
         new_version.text = text
+        new_version.answers = answers
         setVersion(new_version)
 
         task.versions.push(Object.assign({}, new_version))
@@ -87,6 +106,21 @@ export default function AddNewTask(props) {
         setTask(new_task)
         // task.assign(title, ...title)
         console.log(title, task)
+    }
+
+    function addAnswer() {
+        console.log("ADD ANSWER", answers)
+        var answers2 = answers
+        answers2.push(
+            {
+                text: "",
+                positive: false
+            }
+        )
+        setAnswers(answers2)
+        console.log("ADD ANSWER 2", answers)
+
+        setAnsAdded(ansAdded + 1)
     }
 
 
@@ -114,7 +148,7 @@ export default function AddNewTask(props) {
                         <MenuItem value={"HTML"}>Html</MenuItem>
                         <MenuItem value={"MARKDOWN"}>Markdown</MenuItem>
                         <MenuItem value={"CHOOSE_PLAINTEXT"}>Plain text with multiple answers</MenuItem>
-                        <MenuItem value={"CHOOSE_MARKDOWN"}>Markdown with multiple asnwers</MenuItem>
+                        <MenuItem value={"CHOOSE_MARKDOWN"}>Markdown with multiple answers</MenuItem>
                     </Select>
                     </FormControl>
                 </Box>
@@ -159,6 +193,22 @@ export default function AddNewTask(props) {
                     }}
                 />
 
+                {/* answers */}
+                {
+                    ansAdded > 0
+                    ?
+                    <Box>
+                        <Box sx={{ fontWeight: 'bold'}}>Answers:</Box>
+                        {
+                            answers.map((a, i) => 
+                            <Answer a={a} i={i} answers={answers} setAnswers={setAnswers}></Answer>
+                            )
+                        }
+                    </Box>
+                    :
+                    null
+                }
+
                 {/* buttons submit and cancel */}
                 <Stack direction="row" spacing={5} style={{
                     'width': '800px',
@@ -177,6 +227,24 @@ export default function AddNewTask(props) {
                     }}>
                     CANCEL TASK
                     </Button>
+
+                    {
+                        type === "CHOOSE_PLAINTEXT" || type === "CHOOSE_MARKDOWN"
+                        ?
+                        <Button style={{
+                        width: '800px',
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                        }}
+                        onClick={() => {
+                            addAnswer()
+                        }}>
+                        ADD ANSWER
+                        </Button>
+                        :
+                        null
+                    }
 
                     <Button style={{
                     width: '800px',
@@ -198,7 +266,7 @@ export default function AddNewTask(props) {
                     }} 
                     onClick={() => {
                         console.log("CLICK");
-                        setAddingNewTask(false);
+                        
                         submitTask();
                     }
                     }>
@@ -208,6 +276,15 @@ export default function AddNewTask(props) {
                 </Stack>
                 </Stack>
             </Box>
+
+            {/* alert */}
+            <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
+           
+                <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
+                Adding task unsuccessful 
+                </Alert>
+            
+            </Snackbar>
         </Box>
     )
 }

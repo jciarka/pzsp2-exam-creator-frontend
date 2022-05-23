@@ -12,6 +12,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import { Divider } from '@mui/material';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import { render } from '@testing-library/react';
+import { Link } from 'react-router-dom/cjs/react-router-dom.min'
+import { Autocomplete } from '@mui/material';
+import PdfLoader from '../../components/pdfs/pdfLoader'
+import axios from "axios";
+import commons from '../../commons'
+
 
 function createShortText(text){
   const letters = 30
@@ -22,37 +28,21 @@ function createShortText(text){
   return res
 }
 
+function getSubjectId(url){
+  const url_parts = url.split("/")
+  console.log("URL PARTS", url_parts)
+  for (let i = 0; i < url_parts.length; i++) {
+    if (url_parts[i] == "test" && (i + 1) != url_parts.length) {
+      return parseInt(url_parts[i + 1])
+    }
+  }
+  return -1
+}
 
 export default class Test extends React.Component {
-  // var tasks= [
-  //   {
-  //     id: 1,
-  //     text: "Rozwiaz rownanie x^2 = 4",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "Rozwiaz rownanie x^2 = 9",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "Rozwiaz rownanie x^2 = 1",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 4,
-  //     text: "Rozwiaz rownanie x^2 = 12",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  // ]
-
   constructor(props){
     super(props)
+    const test_id = getSubjectId(window.location.pathname)
     this.state = {
         addingNewTask:false,
         expanded:false,
@@ -62,23 +52,24 @@ export default class Test extends React.Component {
         answers:null,
         exercises_id: null,
         exercises_count: 50,
-        tasks: [{
-          exercises_id: 1,
-          title:"Zadanie z geometrii",
-          type:"PLAIN_TEXT",
-          versions:[
-            {
-              text:"Oto jest pytanie",
-              answers:null
-            }
-          ]
-        }]
+        tasks: []
     };
+
+    axios.get(`api/exercise/test/${test_id}`)
+    .then(response => {
+      const data = response.data
+      console.log("TEST", data)
+      this.setState({
+        tasks: data
+      })  
+    })
+    .catch(e => { return });
     
   }
 
   render(){
-    
+      const url = window.location.pathname
+      const test_id = getSubjectId(window.location.pathname)
       const handleChangeSelect = (event) => {
         this.setState({type: event.target.value});
       };
@@ -101,11 +92,7 @@ export default class Test extends React.Component {
           alert('Please add a text')
           return
         }
-        // if(!this.state.exercises_count) {
-        //   this.setState({exercises_count: this.state.exercises_count + 1})
-          // this.setState({exercises_count: this.state.tasks.lengt})
-          //component did update 
-        // }
+
         var task = {
           exercises_id: this.state.exercises_count + 1,
           title:this.state.title,
@@ -123,18 +110,29 @@ export default class Test extends React.Component {
       };
 
       const deleteTask = (id) => {
-        const newTasks = this.state.tasks.filter((item) => item.exercises_id !== id)
-        this.setState({tasks: [...newTasks]})      
+        const newTasks = this.state.tasks.filter((item) => item.id !== id)
+        this.setState({tasks: [...newTasks]})
+
+        axios.delete(commons.baseURL + `/api/testexercise/delete/${id}/${test_id}` )
+        .then(() => {
+            console.log("task deleted from test")
+        });          
       } 
 
     return (
       
       <Stack spacing={2}>
-        <Button style={{
-          marginBottom: '10px'
-        }}>
-          <AddIcon />Import existing test
-        </Button>
+        <Link to={{
+                  pathname: url+'/importTasks'
+              }}
+        >
+          <Button style={{
+            marginBottom: '10px'
+          }}>
+          
+            <AddIcon />Import existing tasks
+          </Button>
+        </Link >
         {
         this.state.tasks.map((task) => 
         <Accordion expanded={this.state.expanded === task.id} onChange={handleChange(task.id)} style={{
@@ -172,7 +170,7 @@ export default class Test extends React.Component {
                       <EditIcon />
                   </IconButton>
                 </Tooltip>
-                <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.exercises_id)}>
+                <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.id)}>
                   <IconButton>
                       <DeleteIcon />
                   </IconButton>
@@ -285,7 +283,7 @@ export default class Test extends React.Component {
         }}>
           <AddIcon /> Submit test
         </Button>
-        
+        <PdfLoader testId={test_id} />
       </Stack>
     );
   }

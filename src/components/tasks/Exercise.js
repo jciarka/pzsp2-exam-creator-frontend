@@ -30,7 +30,7 @@ function createShortText(text){
 
 
 export default function Exercise(props) {
-    var {task} = props
+    var {task, tasksAdded, setTasksAdded} = props
 
     var [expanded, setExpanded] = React.useState(false)
     var [open, setOpen] = React.useState(false)
@@ -45,6 +45,7 @@ export default function Exercise(props) {
         if (isDeleted){
             setDeleted(true)
         }
+        setTasksAdded(tasksAdded - 1)
     }
 
     // var [versions, setVersions] = React.useState(["a","b"])
@@ -62,63 +63,71 @@ export default function Exercise(props) {
 
     return (
         <Box>
-            <Accordion expanded={expanded === task.id} onChange={handleChange(task.id)} style={{
-                'width': '800px'
-            }}>
-                <AccordionSummary
-                expandIcon={<ExpandMoreIcon />}
-                aria-controls="panel1bh-content"
-                id="panel1bh-header"
-                
-                >
-                <AssignmentIcon style={{
-                    'marginRight':'10px'
-                }}/>
-                
-                <Typography sx={{ width: '33%', flexShrink: 0 }}>
-                    Task nr {task.id}
-                </Typography>
-                
-                <Typography sx={{ color: 'text.secondary' }}>{createShortText(task.title)}</Typography>
-                </AccordionSummary>
-                <AccordionDetails>
-                <Stack divider={<Divider orientation="horizontal" flexItem />}>
-                    
-                    <Typography style ={{
-                    'marginBottom':'10px'
+            {
+                !deleted
+                ?
+                <Box>
+                    <Accordion expanded={expanded === task.id} onChange={handleChange(task.id)} style={{
+                        'width': '800px'
                     }}>
-                        <Box sx={{ fontWeight: 'bold'}}>Title:</Box> {task.title}
-                        {
-                            versions.map((v, i) => 
-                                <Version v={v} i={i}></Version>
-                            )
-                        }
-                    </Typography>
-                    <Stack direction="row">
-                    <Tooltip title="Edit" placement="bottom">
-                        <IconButton>
-                            <EditIcon />
-                        </IconButton>
-                    </Tooltip>
-                    <Tooltip title="Delete" placement="bottom">
-                        <IconButton onClick={() => {
-                            setOpen(true)
-                        }}>
-                            <DeleteIcon />
-                        </IconButton>
-                    </Tooltip>
-                    </Stack>
-                </Stack>
-                </AccordionDetails>
-            </Accordion>
+                        <AccordionSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1bh-content"
+                        id="panel1bh-header"
+                        
+                        >
+                        <AssignmentIcon style={{
+                            'marginRight':'10px'
+                        }}/>
+                        
+                        <Typography sx={{ width: '33%', flexShrink: 0 }}>
+                            Task nr {task.id}
+                        </Typography>
+                        
+                        <Typography sx={{ color: 'text.secondary' }}>{createShortText(task.title)}</Typography>
+                        </AccordionSummary>
+                        <AccordionDetails>
+                        <Stack divider={<Divider orientation="horizontal" flexItem />}>
+                            
+                            <Typography style ={{
+                            'marginBottom':'10px'
+                            }}>
+                                <Box sx={{ fontWeight: 'bold'}}>Title:</Box> {task.title}
+                                {
+                                    versions.map((v, i) => 
+                                        <Version v={v} i={i}></Version>
+                                    )
+                                }
+                            </Typography>
+                            <Stack direction="row">
+                            <Tooltip title="Edit" placement="bottom">
+                                <IconButton>
+                                    <EditIcon />
+                                </IconButton>
+                            </Tooltip>
+                            <Tooltip title="Delete" placement="bottom">
+                                <IconButton onClick={() => {
+                                    setOpen(true)
+                                }}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </Tooltip>
+                            </Stack>
+                        </Stack>
+                        </AccordionDetails>
+                    </Accordion>
 
-            <PopUpDeleteTask open={open} 
-            id={task.id} 
-            handleClose = {deleteTask}
-            sx= {{
-                minWidth:'1500px'
-            }}>
-            </PopUpDeleteTask>
+                    <PopUpDeleteTask open={open} 
+                    id={task.id} 
+                    handleClose = {deleteTask}
+                    sx= {{
+                        minWidth:'1500px'
+                    }}>
+                    </PopUpDeleteTask>
+                </Box>
+                :
+                null
+            }
         </Box>
     )
 }

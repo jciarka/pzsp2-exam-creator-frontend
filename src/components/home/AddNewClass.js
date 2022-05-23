@@ -92,7 +92,7 @@ var AddNewClass = () =>  {
   // }, [])
 
   var classes = JSON.parse(localStorage.getItem("subjects"))
-  
+  var addedSubjectId = null
 
   console.log("ACCOUNT", account)
   
@@ -105,13 +105,26 @@ var AddNewClass = () =>  {
 
     var body = { 
       name: subjectAbbreviation,
-      description: subjectFullName,
-      pools: getSelectedPools()
+      description: subjectFullName
     }
     axios.post(commons.baseURL + '/api/subjects', body)
       .then(response => {
         const data = response.data
         console.log("ADD NEW CLASS", data)
+        addedSubjectId = response.data.model.id
+        importTaskPools()
+      })
+      .catch(e => { return });
+  }
+
+  function importTaskPools(){
+    console.log("importTaskPools")
+    var body = getSelectedPools()
+    
+    axios.post(commons.baseURL + '/api/pool/import/' + addedSubjectId, body)
+      .then(response => {
+        const data = response.data
+        console.log("TASKS IMPORTED", data)
       })
       .catch(e => { return });
   }
@@ -127,13 +140,13 @@ var AddNewClass = () =>  {
       let j = 0;
       for (var p of c.pools){
         if (taskPoolsSelected[i][j]){
-          sel_pools.push(p)
+          sel_pools.push(p.id)
         }
         j++;
       }
       i++;
     }
-    console.log("SELECTED", sel_pools)
+    console.log("SELECTED POOLS", sel_pools)
     return sel_pools
   }
   
