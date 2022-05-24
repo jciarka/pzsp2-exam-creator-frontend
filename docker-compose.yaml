@@ -7,7 +7,9 @@ services:
     environment:
       - REACT_APP_BACKEND_URL=localhost 
       - REACT_APP_BACKEND_PORT=8091
+    pull_policy: always
   pzsp03-back:
     image: jciarka/pzsp03:latest
     ports:
       - "8090:8090"
+    pull_policy: always
