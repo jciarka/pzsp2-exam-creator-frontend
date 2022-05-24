@@ -15,7 +15,7 @@ function getPoolId(url){
       }
     }
     return -1
-  }
+}
 
 export default function AddNewTask(props) {
 
@@ -38,7 +38,7 @@ export default function AddNewTask(props) {
 
     // console.log("REFRESH", task)
     // var [active, setActive] = React.useState(false)
-    var [type, setType] = React.useState("PLAIN_TEXT")
+    var [type, setType] = React.useState("PLAINTEXT")
     var [text, setText] = React.useState("")
     var [title, setTitle] = React.useState("")
     var [verAdded, setVerAdded] = React.useState(0)
@@ -64,7 +64,7 @@ export default function AddNewTask(props) {
     function submitTask(){
         console.log("TASK", task)
         console.log("ANSWERS", answers)
-        if (task.versions.length > 0){
+        if (task.versions.length > 0 && task.title.length > 0){
             setAddingNewTask(false);
             postTask()
         } else {
@@ -82,17 +82,34 @@ export default function AddNewTask(props) {
           .catch(e => { return });
     }
 
+    function answersNotEmpty(){
+        for (var a of answers){
+            console.log("A", a, answers)
+            if (a.text.length <= 0){
+                return false
+            }
+        }
+        return true
+    }
+
     function addVersion(e) {
         console.log("ADD VERSION")
+        console.log(version)
 
-        var new_version = version
-        new_version.text = text
-        new_version.answers = answers
-        setVersion(new_version)
+        if (text.length > 0 && answersNotEmpty()){
+            var new_version = version
+            new_version.text = text
+            new_version.answers = answers
+            setVersion(new_version)
+    
+            task.versions.push(Object.assign({}, new_version))
+            console.log(title, task)
+            setVerAdded(verAdded + 1)
 
-        task.versions.push(Object.assign({}, new_version))
-        console.log(title, task)
-        setVerAdded(verAdded + 1)
+        } else {
+            console.log("VERSION NOT ADDED")
+            setAlertOpen(true)
+        }
     }
 
     function textChanged(e) {
@@ -280,8 +297,8 @@ export default function AddNewTask(props) {
             {/* alert */}
             <Snackbar open={alertOpen} autoHideDuration={4000} onClose={handleAlertClose}>
            
-                <Alert onClose={handleAlertClose} severity="info" sx={{ width: '100%' }}>
-                Adding task unsuccessful 
+                <Alert onClose={handleAlertClose} severity="error" sx={{ width: '100%' }}>
+                Adding task or version unsuccessful 
                 </Alert>
             
             </Snackbar>
