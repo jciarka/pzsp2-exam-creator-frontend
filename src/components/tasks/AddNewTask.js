@@ -23,7 +23,7 @@ export default function AddNewTask(props) {
 
     var [task, setTask] =  React.useState({
         title: "",
-        type: "",
+        type: "PLAINTEXT",
         points: 1,
         poolId: getPoolId(window.location.pathname),
         versions: []
