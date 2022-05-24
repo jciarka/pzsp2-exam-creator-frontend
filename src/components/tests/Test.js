@@ -16,7 +16,8 @@ import { Autocomplete } from '@mui/material';
 import PdfLoader from '../../components/pdfs/pdfLoader'
 import axios from "axios";
 import commons from '../../commons'
-
+import { withRouter } from "react-router";
+import { getPrivileges } from '../../commons'
 
 function createShortText(text){
   const letters = 30
@@ -27,21 +28,12 @@ function createShortText(text){
   return res
 }
 
-function getSubjectId(url){
-  const url_parts = url.split("/")
-  console.log("URL PARTS", url_parts)
-  for (let i = 0; i < url_parts.length; i++) {
-    if (url_parts[i] == "test" && (i + 1) != url_parts.length) {
-      return parseInt(url_parts[i + 1])
-    }
-  }
-  return -1
-}
-
-export default class Test extends React.Component {
+class Test extends React.Component {
   constructor(props){
     super(props)
-    const test_id = getSubjectId(window.location.pathname)
+    const { match } = this.props;
+
+    const test_id = match.params.test_id
     this.state = {
         addingNewTask:false,
         expanded:false,
@@ -51,7 +43,8 @@ export default class Test extends React.Component {
         answers:null,
         exercises_id: null,
         exercises_count: 50,
-        tasks: []
+        tasks: [],
+        privileges: {}
     };
 
     axios.get(`api/exercise/test/${test_id}`)
@@ -63,12 +56,21 @@ export default class Test extends React.Component {
       })  
     })
     .catch(e => { return });
-    
+
+
+    getPrivileges(match.params.class_id)
+    .then((privileges) =>
+      this.setState(
+        { privileges }
+      )
+    )
   }
 
   render(){
+      const { match } = this.props;
+      const test_id = match.params.test_id
+
       const url = window.location.pathname
-      const test_id = getSubjectId(window.location.pathname)
       const handleChangeSelect = (event) => {
         this.setState({type: event.target.value});
       };
@@ -121,17 +123,20 @@ export default class Test extends React.Component {
     return (
       
       <Stack spacing={2}>
-        <Link to={{
-                  pathname: url+'/importTasks'
-              }}
-        >
-          <Button style={{
-            marginBottom: '10px'
-          }}>
-          
-            <AddIcon />Import existing tasks
-          </Button>
-        </Link >
+        {
+          this.state.privileges && this.state.privileges.canWrite && 
+          <Link to={{
+                    pathname: url+'/importTasks'
+                }}
+          >
+            <Button style={{
+              marginBottom: '10px'
+            }}>
+            
+              <AddIcon />Import existing tasks
+            </Button>
+          </Link >
+        }
         {
         this.state.tasks.map((task) => 
         <Accordion expanded={this.state.expanded === task.id} onChange={handleChange(task.id)} style={{
@@ -163,6 +168,8 @@ export default class Test extends React.Component {
               </Typography>
   
               {/* ikony */}
+              {
+              this.state.privileges && this.state.privileges.canDelete && 
               <Stack direction="row">
                 <Tooltip title="Delete" placement="bottom" onClick={() => deleteTask(task.id)}>
                   <IconButton>
@@ -170,6 +177,7 @@ export default class Test extends React.Component {
                   </IconButton>
                 </Tooltip>
               </Stack>
+              }
   
             </Stack>
           </AccordionDetails>
@@ -287,3 +295,5 @@ export default class Test extends React.Component {
     );
   }
 }
+
+export default withRouter(Test)

@@ -15,6 +15,9 @@ import axios from 'axios';
 import { Box } from '@mui/system';
 import Exercise from './Exercise.js';
 import AddNewTask from './AddNewTask.js';
+import { useState } from 'react'
+import { getPrivileges } from '../../commons'
+import { useParams } from "react-router-dom";
 
 function createShortText(text){
   if (!text)
@@ -42,40 +45,13 @@ function getPoolId(url ){
 
 
 export default function TaskPool() {
-  // var tasks= [
-  //   {
-  //     id: 1,
-  //     text: "Rozwiaz rownanie x^2 = 4",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 2,
-  //     text: "Rozwiaz rownanie x^2 = 9",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 3,
-  //     text: "Rozwiaz rownanie x^2 = 1",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  //   {
-  //     id: 4,
-  //     text: "Rozwiaz rownanie x^2 = 12",
-  //     isOpen: false,
-  //     numberOfAnswers: 0
-  //   },
-  // ]
+  const { class_id } = useParams()
 
   var [tasks, setTasks] = React.useState([]);
-
-  
   const [fetched, setFetched] = React.useState(0);
   const [addingNewTask, setAddingNewTask] = React.useState(false);
   const [tasksAdded, setTasksAdded] = React.useState(0);
-  console.log("tA", tasksAdded)
+  const [privs, setPrivs] = useState({});
   
   const poolId = getPoolId(window.location.pathname)
 
@@ -87,10 +63,12 @@ export default function TaskPool() {
         setFetched(fetched + 1)
       })
       .catch(e => { return });
-  }, [tasksAdded])
 
-
-  
+     getPrivileges(class_id)
+      .then(privileges => {
+        setPrivs(privileges)
+      })
+  }, [tasksAdded]) 
 
   return (
     
@@ -105,25 +83,30 @@ export default function TaskPool() {
         >No exercises found. Start by adding first exercise using button below!</Box>
         :
         tasks.map((task) => 
-        <Exercise 
-        task={task} 
-        tasksAdded={tasksAdded}
-        setTasksAdded={setTasksAdded}
+        <Exercise
+          task={task} 
+          tasksAdded={tasksAdded}
+          setTasksAdded={setTasksAdded}
+          canDelete={privs && privs.canDelete}
+          canEdit={privs && privs.canWrite}
         ></Exercise>
         )
       }
       {
-        addingNewTask
-        ?
-        <AddNewTask 
-        setAddingNewTask={setAddingNewTask} 
-        tasksAdded={tasksAdded}
-        setTasksAdded={setTasksAdded}
-        ></AddNewTask>
-        :
-        <Button onClick={() => setAddingNewTask(!addingNewTask)}>
-          <AddIcon /> Add new task
-        </Button>
+        privs && privs.canWrite &&
+        (
+          addingNewTask
+          ?
+          <AddNewTask 
+          setAddingNewTask={setAddingNewTask} 
+          tasksAdded={tasksAdded}
+          setTasksAdded={setTasksAdded}
+          ></AddNewTask>
+          :
+          <Button onClick={() => setAddingNewTask(!addingNewTask)}>
+            <AddIcon /> Add new task
+          </Button>
+        )
       }
   
     </Stack>

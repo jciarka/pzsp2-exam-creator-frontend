@@ -5,10 +5,10 @@ import Avatar from '@mui/material/Avatar';
 import FolderIcon from '@mui/icons-material/Folder';
 import { Component } from 'react';
 import { IconButton, ListItemButton, Tooltip } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
+import InfoIcon from '@mui/icons-material/Info';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import PopUpDeletePool from '../PopUpDeletePool';
 import { Box } from '@mui/system';
 
@@ -88,15 +88,13 @@ class TaskPoolOnList extends Component {
                         </ListItemAvatar>
                         <ListItemText primary={task_pool.name} secondary={createShortText(task_pool.description)} />
                         {this.state.hover ?
-                        <Stack direction="row">
-                            {
-                                privileges && privileges.canWrite &&                            
-                                <Tooltip title="Edit" placement="top">
-                                    <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
-                                        <EditIcon/>
-                                    </IconButton>
-                                </Tooltip>
-                            }
+                        <Stack direction="row">                         
+                            <Tooltip title="Open" placement="top">
+                                <IconButton component={Link} to={url+'/pool/'+task_pool.id}>
+                                    <InfoIcon/>
+                                </IconButton>
+                            </Tooltip>
+                      
                             {
                                 privileges && privileges.canDelete &&
                                 <Tooltip title="Delete" placement="top">

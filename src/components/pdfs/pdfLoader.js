@@ -34,7 +34,7 @@ export default ({disabled=false, testId}) => {
           })
         setLoading(false)
 
-        if(response.status === 200 && response.data.ok ) {
+        if(response.status === 200 ) {
             fileDownload(response.data, 'test.pdf')
         } else {
             setErrorMessage("Error on geenreting test. Check exercises format")

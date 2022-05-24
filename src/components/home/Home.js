@@ -5,7 +5,6 @@ import { Link } from "react-router-dom/cjs/react-router-dom.min";
 import { Stack } from "@mui/material";
 import { Box } from "@mui/material";
 import { AddBox } from "@material-ui/icons";
-import commons from '../../commons'
 import axios from "axios";
 
 function getUserId(){
@@ -23,7 +22,6 @@ export default class Home extends Component  {
       classes: [],
       fetched: false
     };
-
     
     setTimeout(() => {
       
@@ -42,35 +40,6 @@ export default class Home extends Component  {
         .catch(e => { return });
     }, 1)
   }
-
-  // example data
-  // [{
-  //   id: 1,
-  //   name: "PZSP1"
-  // },
-  // {
-  //   id: 2,
-  //   name: "PZSP2"
-  // },
-  // {
-  //   id: 3,
-  //   name: "BSS"
-  // },
-  // {
-  //   id: 4,
-  //   name: "POP"
-  // },
-  // {
-  //   id: 5,
-  //   name: "WSI"
-  // },
-  // {
-  //   id: 6,
-  //   name: "MNUM"
-  // }]
-
-  
-
 
   render(){
 

@@ -30,7 +30,7 @@ function createShortText(text){
 
 
 export default function Exercise(props) {
-    var {task, tasksAdded, setTasksAdded} = props
+    var {task, tasksAdded, setTasksAdded, canEdit, canDelete} = props
 
     var [expanded, setExpanded] = React.useState(false)
     var [open, setOpen] = React.useState(false)
@@ -100,18 +100,25 @@ export default function Exercise(props) {
                                 }
                             </Typography>
                             <Stack direction="row">
-                            <Tooltip title="Edit" placement="bottom">
-                                <IconButton>
-                                    <EditIcon />
-                                </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Delete" placement="bottom">
-                                <IconButton onClick={() => {
-                                    setOpen(true)
-                                }}>
-                                    <DeleteIcon />
-                                </IconButton>
-                            </Tooltip>
+                            {
+                                canEdit &&
+                                <Tooltip title="Edit" placement="bottom">
+                    
+                                    <IconButton>
+                                        <EditIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            }
+                            {
+                                canDelete &&
+                                <Tooltip title="Delete" placement="bottom">
+                                    <IconButton onClick={() => {
+                                        setOpen(true)
+                                    }}>
+                                        <DeleteIcon />
+                                    </IconButton>
+                                </Tooltip>
+                            }
                             </Stack>
                         </Stack>
                         </AccordionDetails>

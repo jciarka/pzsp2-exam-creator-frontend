@@ -86,104 +86,7 @@ export default class Class extends Component {
   render (){
     const url = window.location.pathname
     var participants = this.state.participants
-      var task_pools = [
-        {
-          id: 1,
-          name: "kolokwium 1"
-        },
-        {
-          id: 2,
-          name: "kolokwium 2"
-        },
-        {
-          id: 3,
-          name: "egzamin"
-        },
-        {
-          id: 4,
-          name: "egzamin poprawkowy"
-        } 
-      ]
-    
-      var members = [
-        {
-          id: 1,
-          name: "John Smith",
-          role: "Owner"
-        },
-        {
-          id: 2,
-          name: "Aaron Gordon",
-          role: "Assistant"
-        },
-        {
-          id: 3,
-          name: "Nate Williams",
-          role: "Assistant"
-        }
-      ]
-    
-      var tests = [
-        {
-          id: 1,
-          text: "Kolokwium nr 1, sem 22L"
-        },
-        {
-          id: 2,
-          text: "Kolokwium nr 2, sem 22L"
-        },
-        {
-          id: 3,
-          text: "Egzamin, sem 22L"
-        },
-      ]
-
-      // example tests
-      // [
-      //   {
-      //     "id": 52,
-      //     "title": "Test 1",
-      //     "description": "Kol. 1",
-      //     "subject": {
-      //       "id": 1,
-      //       "name": "PZSP",
-      //       "description": "12345",
-      //       "subjectUsers": [],
-      //       "tests": [
-      //         {
-      //           "id": 52,
-      //           "title": "Test 1",
-      //           "description": "Kol. 1",
-      //           "exercises": [
-      //             {
-      //               "title": "Zadanie z geometrii",
-      //               "type": "PLAIN_TEXT",
-      //               "versions": [
-      //                 {
-      //                   "text": "Oto jest pytanie",
-      //                   "answers": null
-      //                 }
-      //               ]
-      //             }
-      //           ]
-      //         }
-      //       ]
-      //     },
-      //     "exercises": [
-      //       {
-      //         "title": "Zadanie z geometrii",
-      //         "type": "PLAIN_TEXT",
-      //         "versions": [
-      //           {
-      //             "text": "Oto jest pytanie",
-      //             "answers": null
-      //           }
-      //         ]
-      //       }
-      //     ]
-      //   }
-      // ]
-      
+          
       return (
         <div className="class-div">
           <Stack direction="row" spacing={5} divider={<Divider orientation="vertical" flexItem />} >
@@ -244,12 +147,8 @@ export default class Class extends Component {
                   </Button>
                 }
               </Link>
-              
             </Stack>
-            
-          </Stack>
-            
-                
+          </Stack>   
         </div>
       )
   }

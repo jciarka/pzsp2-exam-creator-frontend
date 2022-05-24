@@ -6,12 +6,12 @@ import { ListItemButton, Tooltip } from '@mui/material';
 import { IconButton } from '@mui/material';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Stack } from '@mui/material';
-import { Link } from 'react-router-dom/cjs/react-router-dom.min';
+import { Link } from 'react-router-dom';
 import FeedIcon from '@mui/icons-material/Feed';
 import PopUpDeleteTest from '../PopUpDeleteTest';
 import { Box } from '@mui/system';
-import EditIcon from '@mui/icons-material/Edit';
-import TestsList from './TestsList';
+import InfoIcon from '@mui/icons-material/Info';
+
 
 function getNoExercises(exercises){
     if (!exercises){
@@ -76,15 +76,12 @@ export default class TestOnList extends Component {
                         
                         }/>
                         {this.state.hover ?
-                        <Stack direction="row">
-                            {
-                            privileges && privileges.canWrite &&                        
-                            <Tooltip title="Edit" placement="top">
+                        <Stack direction="row">              
+                            <Tooltip title="Open" placement="top">
                                 <IconButton component={Link} to={url+'/test/'+test.id}>
-                                    <EditIcon />
+                                    <InfoIcon />
                                 </IconButton>
                             </Tooltip>
-                            }
                             {
                                 privileges && privileges.canDelete &&
                                 <Tooltip title="Delete" placement="top">
